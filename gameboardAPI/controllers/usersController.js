@@ -1,0 +1,1 @@
+var Users = require('../db/models/User');
