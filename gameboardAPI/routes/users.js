@@ -2,7 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-
+/**
+ * @api {get} /users/:id Request a user's information
+ * @apiName GetUser
+ * @apiGroup User
+ *
+ * @apiParam {Number} id Unique identifier of the user
+ *
+ * @apiSuccess {String} firstName First name of the user
+ * @apiSuccess {String} lastName  Last name of the user 
+ */
 
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
@@ -21,27 +30,33 @@ router.get('/users/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
- * @api {get} /users/:id Request a user's information
- * @apiName GetUser
- * @apiGroup User
+ * @api {get} /games Request an array of game's
+ * @apiName GetGames
+ * @apiGroup Game
  *
- * @apiParam {Number} id Unique identifier of the user
- *
- * @apiSuccess {String} firstName First name of the user
- * @apiSuccess {String} lastName  Last name of the user
+ * @apiSuccess {Object[]} games List of games
+ * @apiSuccess {String} gameName
  */
 router.get('/games', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
- * @api {get} /users/:id Request a user's information
- * @apiName GetUser
- * @apiGroup User
+ * @api {get} /games/:id Request a game's information
+ * @apiName GetGame
+ * @apiGroup Game
  *
- * @apiParam {Number} id Unique identifier of the user
+ * @apiParam {Number} id Unique identifier of the game
  *
- * @apiSuccess {String} firstName First name of the user
- * @apiSuccess {String} lastName  Last name of the user
+ * @apiSuccess {String} name name of the game
+ * @apiSuccess {Object} nb_players number player of the game
+ * @apiSuccess {Number} nb_players.min number min player of the game
+ * @apiSuccess {Number} nb_players.max number max player of the game
+ * @apiSuccess {Number} play_time Duration party of the game
+ * @apiSuccess {Number} setup_time Duration to setup the game
+ * @apiSuccess {Object} age range age to play the game
+ * @apiSuccess {Number} age.min age min to play the game
+ * @apiSuccess {Number} age.max age max to play the game
+ * @apiSuccess {Array} picture range age to play the game
  */
 router.get('/games/:id', function(req, res, next) {
     res.send('respond with a resource');
