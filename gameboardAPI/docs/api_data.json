@@ -86,10 +86,45 @@
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "String[]",
             "optional": false,
             "field": "picture",
-            "description": "<p>range age to play the game</p>"
+            "description": "<p>array of pictures</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "difficulty",
+            "description": "<p>level of difficulty of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "category",
+            "description": "<p>category of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "editor",
+            "description": "<p>of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "editor.id",
+            "description": "<p>id of the editor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "editor.name",
+            "description": "<p>name of the editor</p>"
           }
         ]
       }
