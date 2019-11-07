@@ -2,7 +2,7 @@ var Games = require('../db/models/Game');
 
 // Display games index form on GET.
 exports.games_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Games index');
+    res.json({ test: 'List of games' });
 };
 // Display the game with selected index on GET.
 exports.game_get_info = function(req, res) {

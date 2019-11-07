@@ -22,7 +22,9 @@ router.get('/users', users_controller.users_list);
  * @apiSuccess {String} personal_info.password  hash password of the user
  * @apiSuccess {Object[]} collection  Array collection of the user   
  */
-router.get('/users/:idUser', users_controller.user_get_info);
+router.get('/users/:idUser', users_controller.user_get_info, function(req, res, next) {
+    res.send(req.user);
+});
 /**
  * @api {get} /games Request an array of game's
  * @apiName GetGames

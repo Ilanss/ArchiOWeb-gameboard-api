@@ -1,12 +1,19 @@
-var Users = require('../db/models/User');
+var User = require('../db/models/User');
 
 // Display users index form on GET.
 exports.users_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Users index');
 };
 // Display the user with selected index on GET.
-exports.user_get_info = function(req, res) {
-    res.send('NOT IMPLEMENTED: User info');
+exports.user_get_info = function(req, res, next) {
+    const id = req.params.idUser;
+    let query = User.findById(id);
+    query.exec(function(err, user) {
+        req.user = user;
+        next();
+    });
+    //res.json({ test: id });
+    //res.send('NOT IMPLEMENTED: User info');
 };
 // Display all collections form User with selected index on GET.
 exports.user_get_collectionsList = function(req, res) {
