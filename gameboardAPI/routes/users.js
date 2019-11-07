@@ -1,15 +1,12 @@
 var express = require('express');
-
 var router = express.Router();
-
+//controllers
 var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
 
 /* GET users listing. */
 
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/users', users_controller.users_list);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -25,9 +22,7 @@ router.get('/', function(req, res, next) {
  * @apiSuccess {String} personal_info.password  hash password of the user
  * @apiSuccess {Object[]} collection  Array collection of the user   
  */
-router.get('/users/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/users/:idUser', users_controller.user_get_info);
 /**
  * @api {get} /games Request an array of game's
  * @apiName GetGames
@@ -60,9 +55,7 @@ router.get('/games', games_controller.games_list);
  * @apiSuccess {Number} editor.id id of the editor
  * @apiSuccess {String} editor.name name of the editor
  */
-router.get('/games/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/games/:idGame', games_controller.game_get_info);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -73,9 +66,7 @@ router.get('/games/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:id/collections', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/users/:idUser/collections', users_controller.user_get_collectionsList);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -86,9 +77,7 @@ router.get('/users/:id/collections', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:id/collections/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/users/:idUser/collections/:idCollection', users_controller.user_get_collection);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -99,9 +88,7 @@ router.get('/users/:id/collections/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:id/collections/:id/games', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames);
 
 /* POST users listing. */
 /**
@@ -114,9 +101,7 @@ router.get('/users/:id/collections/:id/games', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.post('/users', users_controller.user_post_add);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -127,9 +112,7 @@ router.post('/users', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/games', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.post('/games', games_controller.game_post_add);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -140,9 +123,7 @@ router.post('/games', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:id/collections', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.post('/users/:idUser/collections', users_controller.user_post_addCollection);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -153,9 +134,7 @@ router.post('/users/:id/collections', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:id/collections/:id/games', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.post('/users/:idUser/collections/:idCollection/games', users_controller.user_post_addCollectionGame);
 
 /* PATCH users listing. */
 
@@ -169,9 +148,7 @@ router.post('/users/:id/collections/:id/games', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.patch('/users/:idUser', users_controller.user_patch_edit);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -182,9 +159,7 @@ router.patch('/users/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/games/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.patch('/games/:idGame', games_controller.game_patch_edit);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -195,9 +170,7 @@ router.patch('/games/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:id/collections/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.patch('/users/:idUser/collections/:idCollection', users_controller.user_patch_Collectionedit);
 
 /* DELATE users listing. */
 /**
@@ -210,9 +183,7 @@ router.patch('/users/:id/collections/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.delete('/users/:idUser', users_controller.user_delate);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -223,9 +194,7 @@ router.delete('/users/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/games/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.delete('/games/:idGame', games_controller.game_delate);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -236,7 +205,6 @@ router.delete('/games/:id', function(req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:id/collections/:id', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.delete('/users/:idUser/collections/:idCollection', users_controller.user_delateCollection);
+
 module.exports = router;
