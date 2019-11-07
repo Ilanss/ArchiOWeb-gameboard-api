@@ -2,6 +2,9 @@ var express = require('express');
 
 var router = express.Router();
 
+var users_controller = require('../controllers/usersController');
+var games_controller = require('../controllers/gamesController');
+
 /* GET users listing. */
 /**
  * @api {get} /users/:id Request a user's information
@@ -14,7 +17,7 @@ var router = express.Router();
  * @apiSuccess {String} lastName  Last name of the user 
  */
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -27,7 +30,7 @@ router.get('/', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user 
  */
-router.get('/users/:id', function (req, res, next) {
+router.get('/users/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -38,9 +41,7 @@ router.get('/users/:id', function (req, res, next) {
  * @apiSuccess {Object[]} games List of games
  * @apiSuccess {String} gameName
  */
-router.get('/games', function (req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/games', games_controller.games_list);
 /**
  * @api {get} /games/:id Request a game's information
  * @apiName GetGame
@@ -64,7 +65,7 @@ router.get('/games', function (req, res, next) {
  * @apiSuccess {Number} editor.id id of the editor
  * @apiSuccess {String} editor.name name of the editor
  */
-router.get('/games/:id', function (req, res, next) {
+router.get('/games/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -77,7 +78,7 @@ router.get('/games/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:id/collections', function (req, res, next) {
+router.get('/users/:id/collections', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -90,7 +91,7 @@ router.get('/users/:id/collections', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:id/collections/:id', function (req, res, next) {
+router.get('/users/:id/collections/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -103,7 +104,7 @@ router.get('/users/:id/collections/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:id/collections/:id/games', function (req, res, next) {
+router.get('/users/:id/collections/:id/games', function(req, res, next) {
     res.send('respond with a resource');
 });
 
@@ -118,7 +119,7 @@ router.get('/users/:id/collections/:id/games', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users', function (req, res, next) {
+router.post('/users', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -131,7 +132,7 @@ router.post('/users', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/games', function (req, res, next) {
+router.post('/games', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -144,7 +145,7 @@ router.post('/games', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:id/collections', function (req, res, next) {
+router.post('/users/:id/collections', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -157,7 +158,7 @@ router.post('/users/:id/collections', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:id/collections/:id/games', function (req, res, next) {
+router.post('/users/:id/collections/:id/games', function(req, res, next) {
     res.send('respond with a resource');
 });
 
@@ -173,7 +174,7 @@ router.post('/users/:id/collections/:id/games', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:id', function (req, res, next) {
+router.patch('/users/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -186,7 +187,7 @@ router.patch('/users/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/games/:id', function (req, res, next) {
+router.patch('/games/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -199,7 +200,7 @@ router.patch('/games/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:id/collections/:id', function (req, res, next) {
+router.patch('/users/:id/collections/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 
@@ -214,7 +215,7 @@ router.patch('/users/:id/collections/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:id', function (req, res, next) {
+router.delete('/users/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -227,7 +228,7 @@ router.delete('/users/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/games/:id', function (req, res, next) {
+router.delete('/games/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 /**
@@ -240,7 +241,7 @@ router.delete('/games/:id', function (req, res, next) {
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:id/collections/:id', function (req, res, next) {
+router.delete('/users/:id/collections/:id', function(req, res, next) {
     res.send('respond with a resource');
 });
 module.exports = router;

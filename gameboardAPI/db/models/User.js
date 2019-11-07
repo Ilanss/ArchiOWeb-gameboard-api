@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 if (mongoose.connection.readyState === 0)
     mongoose.connect(require('../connection-config.js'))
-        .catch(err => {
-            console.error('mongoose Error', err)
-        });
+    .catch(err => {
+        console.error('mongoose Error', err)
+    });
 
 
 
@@ -14,17 +14,17 @@ let UserSchema = new Schema({
     updatedAt: { type: Date, default: Date.now }
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
     next();
 });
 
-UserSchema.pre('update', function () {
-    this.constructor.update({_id: this._id}, { $set: { updatedAt: Date.now() } });
+UserSchema.pre('update', function() {
+    this.constructor.update({ _id: this._id }, { $set: { updatedAt: Date.now() } });
 });
 
-UserSchema.pre('findOneAndUpdate', function () {
-    this.constructor.update({_id: this._id}, { $set: { updatedAt: Date.now() } });
+UserSchema.pre('findOneAndUpdate', function() {
+    this.constructor.update({ _id: this._id }, { $set: { updatedAt: Date.now() } });
 });
 
 
