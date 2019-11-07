@@ -6,16 +6,6 @@ var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
 
 /* GET users listing. */
-/**
- * @api {get} /users/:id Request a user's information
- * @apiName GetUser
- * @apiGroup User
- *
- * @apiParam {Number} id Unique identifier of the user
- *
- * @apiSuccess {String} firstName First name of the user
- * @apiSuccess {String} lastName  Last name of the user 
- */
 
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
@@ -27,8 +17,13 @@ router.get('/', function(req, res, next) {
  *
  * @apiParam {Number} id Unique identifier of the user
  *
- * @apiSuccess {String} firstName First name of the user
- * @apiSuccess {String} lastName  Last name of the user 
+ * @apiSuccess {String} username  username of the user
+ * @apiSuccess {Object} personal_info  personal info of the user 
+ * @apiSuccess {String} personal_info.firstname  firstname of the user
+ * @apiSuccess {String} personal_info.lastname  lastname of the user
+ * @apiSuccess {String} personal_info.mail  mail of the user
+ * @apiSuccess {String} personal_info.password  hash password of the user
+ * @apiSuccess {Object[]} collection  Array collection of the user   
  */
 router.get('/users/:id', function(req, res, next) {
     res.send('respond with a resource');

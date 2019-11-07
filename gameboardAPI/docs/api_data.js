@@ -189,58 +189,50 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "firstName",
-            "description": "<p>First name of the user</p>"
+            "field": "username",
+            "description": "<p>username of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "personal_info",
+            "description": "<p>personal info of the user</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "lastName",
-            "description": "<p>Last name of the user</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "get",
-    "url": "/users/:id",
-    "title": "Request a user's information",
-    "name": "GetUser",
-    "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Unique identifier of the user</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "firstName",
-            "description": "<p>First name of the user</p>"
+            "field": "personal_info.firstname",
+            "description": "<p>firstname of the user</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "lastName",
-            "description": "<p>Last name of the user</p>"
+            "field": "personal_info.lastname",
+            "description": "<p>lastname of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "personal_info.mail",
+            "description": "<p>mail of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "personal_info.password",
+            "description": "<p>hash password of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "collection",
+            "description": "<p>Array collection of the user</p>"
           }
         ]
       }
