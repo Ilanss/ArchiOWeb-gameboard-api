@@ -24,7 +24,7 @@ let UserSchema = new Schema({
         idCollection: Number,
         name: String,
         link: String,
-        idGame: ObjectId
+        idGame: Number
     }
 
 });

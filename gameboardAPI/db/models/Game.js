@@ -15,10 +15,10 @@ let GameSchema = new Schema({
         minlength: 3,
         maxlength: 50,
         unique: true,
-        validate: {
+        /*validate: {
             validator: validateGameTitleUniqueness,
             message : 'Game {VALUE} already exists'
-        }
+        }*/
     },
     nb_players: {
         min: Number,
@@ -38,7 +38,7 @@ let GameSchema = new Schema({
     difficulty: String,
     category: String,
     editor: {
-        id: ObjectId,
+        id: Number,
         name: String
     },
     skill: String,
