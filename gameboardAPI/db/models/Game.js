@@ -7,7 +7,43 @@ if (mongoose.connection.readyState === 0)
 
 let GameSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+    updatedAt: { type: Date, default: Date.now },
+
+    name: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 50,
+        unique: true,
+        validate: {
+            validator: validateGameTitleUniqueness,
+            message : 'Game {VALUE} already exists'
+        }
+    },
+    nb_players: {
+        min: Number,
+        max: Number
+    },
+    play_time: Number,
+    setup_time: Number,
+    age: {
+        min: Number,
+        max: Number
+    },
+    pictures: [{
+            link: String,
+            name: String,
+            date: Date
+        }],
+    difficulty: String,
+    category: String,
+    editor: {
+        id: ObjectId,
+        name: String
+    },
+    skill: String,
+    description: String
+
 });
 
 GameSchema.pre('save', function(next) {

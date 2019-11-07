@@ -11,7 +11,22 @@ if (mongoose.connection.readyState === 0)
 let UserSchema = new Schema({
 
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+    updatedAt: { type: Date, default: Date.now },
+    username: String,
+    personal_info: {
+        firstname: String,
+        lastname: String,
+        mail: String,
+        password: String
+    },
+    collections: {
+        timestamp: Date,
+        idCollection: Number,
+        name: String,
+        link: String,
+        idGame: ObjectId
+    }
+
 });
 
 UserSchema.pre('save', function(next) {
