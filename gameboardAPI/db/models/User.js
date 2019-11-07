@@ -15,13 +15,13 @@ let UserSchema = new Schema({
         mail: String,
         password: String
     },
-    collections: {
+    collections: [{
         timestamp: Date,
         idCollection: Number,
         name: String,
         link: String,
         idGame: Number
-    }
+    }]
 });
 
 UserSchema.pre('save', function(next) {

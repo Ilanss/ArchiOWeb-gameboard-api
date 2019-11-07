@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const utils = require('./utils');
 //controllers
 var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
@@ -15,12 +16,12 @@ router.get('/users', users_controller.users_list);
  * @apiParam {Number} id Unique identifier of the user
  *
  * @apiSuccess {String} username  username of the user
- * @apiSuccess {Object} personal_info  personal info of the user 
+ * @apiSuccess {Object} personal_info  personal info of the user
  * @apiSuccess {String} personal_info.firstname  firstname of the user
  * @apiSuccess {String} personal_info.lastname  lastname of the user
  * @apiSuccess {String} personal_info.mail  mail of the user
  * @apiSuccess {String} personal_info.password  hash password of the user
- * @apiSuccess {Object[]} collection  Array collection of the user   
+ * @apiSuccess {Object[]} collection  Array collection of the user
  */
 router.get('/users/:idUser', users_controller.user_get_info, function(req, res, next) {
     res.send(req.user);
@@ -68,7 +69,9 @@ router.get('/games/:idGame', games_controller.game_get_info);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:idUser/collections', users_controller.user_get_collectionsList);
+router.get('/users/:idUser/collections', users_controller.user_get_collectionsList, function(req, res, next) {
+    res.send(req.user);
+});
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -103,7 +106,7 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users', users_controller.user_post_add);
+router.post('/users', utils.requireJson, users_controller.user_post_add);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -174,7 +177,7 @@ router.patch('/games/:idGame', games_controller.game_patch_edit);
  */
 router.patch('/users/:idUser/collections/:idCollection', users_controller.user_patch_Collectionedit);
 
-/* DELATE users listing. */
+/* DELETE users listing. */
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -185,7 +188,7 @@ router.patch('/users/:idUser/collections/:idCollection', users_controller.user_p
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:idUser', users_controller.user_delate);
+router.delete('/users/:idUser', users_controller.user_delete);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -196,7 +199,7 @@ router.delete('/users/:idUser', users_controller.user_delate);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/games/:idGame', games_controller.game_delate);
+router.delete('/games/:idGame', games_controller.game_delete);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -207,6 +210,6 @@ router.delete('/games/:idGame', games_controller.game_delate);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:idUser/collections/:idCollection', users_controller.user_delateCollection);
+router.delete('/users/:idUser/collections/:idCollection', users_controller.user_deleteCollection);
 
 module.exports = router;

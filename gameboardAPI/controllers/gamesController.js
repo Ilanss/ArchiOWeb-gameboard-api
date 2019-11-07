@@ -17,6 +17,6 @@ exports.game_patch_edit = function(req, res) {
     res.send('NOT IMPLEMENTED: Edit a game');
 };
 // Delate selected game on DELATE
-exports.game_delate = function(req, res) {
+exports.game_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: Delate selected game');
 };
