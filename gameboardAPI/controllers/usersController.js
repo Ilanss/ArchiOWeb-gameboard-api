@@ -1,14 +1,24 @@
 var User = require('../db/models/User');
-
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 // Display users index form on GET.
 exports.users_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Users index');
 };
 // Display the user with selected index on GET.
 exports.user_get_info = function(req, res, next) {
-    const id = req.params.idUser;
-    let query = User.findById(id);
+    const userId = req.params.idUser;
+    //check id cast function
+    if (!ObjectId.isValid(userId)) {
+        return userNotFound(res, userId);
+    }
+    let query = User.findById(userId);
     query.exec(function(err, user) {
+        if (err) {
+            return next(err);
+        } else if (!user) {
+            return userNotFound(res, userId);
+        }
         req.user = user;
         next();
     });
@@ -55,3 +65,8 @@ exports.user_delate = function(req, res) {
 exports.user_delateCollection = function(req, res) {
     res.send("NOT IMPLEMENTED: Delate selected user's collection");
 };
+
+//check if user exist
+function userNotFound(res, userId) {
+    return res.status(404).type('text').send(`No user found with ID ${userId}`);
+}
