@@ -1,7 +1,6 @@
 var express = require('express');
-
 var router = express.Router();
-
+//controllers
 var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
 
@@ -102,7 +101,7 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users');
+router.post('/users', users_controller.user_post_add);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -124,7 +123,7 @@ router.post('/games', games_controller.game_post_add);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:idUser/collections');
+router.post('/users/:idUser/collections', users_controller.user_post_addCollection);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -135,9 +134,7 @@ router.post('/users/:idUser/collections');
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:idUser/collections/:idCollection/games', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.post('/users/:idUser/collections/:idCollection/games', users_controller.user_post_addCollectionGame);
 
 /* PATCH users listing. */
 
@@ -151,7 +148,7 @@ router.post('/users/:idUser/collections/:idCollection/games', function(req, res,
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:idUser');
+router.patch('/users/:idUser', users_controller.user_patch_edit);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -173,9 +170,7 @@ router.patch('/games/:idGame', games_controller.game_patch_edit);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:idUser/collections/:idCollection', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.patch('/users/:idUser/collections/:idCollection', users_controller.user_patch_Collectionedit);
 
 /* DELATE users listing. */
 /**
@@ -188,9 +183,7 @@ router.patch('/users/:idUser/collections/:idCollection', function(req, res, next
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:idUser', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.delete('/users/:idUser', users_controller.user_delate);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -212,7 +205,6 @@ router.delete('/games/:idGame', games_controller.game_delate);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.delete('/users/:idUser/collections/:idCollection', function(req, res, next) {
-    res.send('respond with a resource');
-});
+router.delete('/users/:idUser/collections/:idCollection', users_controller.user_delateCollection);
+
 module.exports = router;

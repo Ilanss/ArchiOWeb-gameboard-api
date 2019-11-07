@@ -20,3 +20,31 @@ exports.user_get_collection = function(req, res) {
 exports.user_get_collectionGames = function(req, res) {
     res.send('NOT IMPLEMENTED: Games in selected collection');
 };
+// Add a new User on POST
+exports.user_post_add = function(req, res) {
+    res.send('NOT IMPLEMENTED: Add new User');
+};
+// Add a new User's collection on POST
+exports.user_post_addCollection = function(req, res) {
+    res.send("NOT IMPLEMENTED: Add new User's collection");
+};
+// Add a new  Game in User's collection on POST
+exports.user_post_addCollectionGame = function(req, res) {
+    res.send("NOT IMPLEMENTED: Add new Game in User's collection");
+};
+// Edit exsisting user on PATCH
+exports.user_patch_edit = function(req, res) {
+    res.send('NOT IMPLEMENTED: Edit a exsisting user');
+};
+// Edit exsisting user on PATCH
+exports.user_patch_Collectionedit = function(req, res) {
+    res.send("NOT IMPLEMENTED: Edit a exsisting  user's collection");
+};
+// Delate selected user on DELATE
+exports.user_delate = function(req, res) {
+    res.send('NOT IMPLEMENTED: Delate selected user');
+};
+// Delate selected user'collection on DELATE
+exports.user_delateCollection = function(req, res) {
+    res.send("NOT IMPLEMENTED: Delate selected user's collection");
+};
