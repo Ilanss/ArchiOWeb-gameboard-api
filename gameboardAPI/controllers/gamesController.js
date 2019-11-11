@@ -35,8 +35,19 @@ exports.game_get_info = function(req, res, next) {
     //res.send('NOT IMPLEMENTED: User info');
 };
 // Add a new game on POST
-exports.game_post_add = function(req, res) {
-    res.send('NOT IMPLEMENTED: Add new game');
+exports.game_post_add = function(req, res, next) {
+    new Game(req.body).save(function (err, savedGame) {
+        if (err){
+            return next(err);
+        }
+
+        //debug(`Created game "${savedGame.title}"`);
+
+        res
+            .status(201)
+            //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
+            .send(savedGame)
+    });
 };
 // Edit exsisting game on PATCH
 exports.game_patch_edit = function(req, res) {

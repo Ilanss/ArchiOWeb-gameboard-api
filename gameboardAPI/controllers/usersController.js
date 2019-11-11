@@ -35,7 +35,7 @@ exports.user_get_info = function(req, res, next) {
     });
     //res.send('NOT IMPLEMENTED: User info');
 };
-/** 
+/**
  * Display all collections form User with selected index on GET.
  */
 exports.user_get_collectionsList = function(req, res, next) {
@@ -60,7 +60,7 @@ exports.user_get_collectionsList = function(req, res, next) {
     });
     //res.send('NOT IMPLEMENTED: Collections form a user');
 };
-/** 
+/**
  * Display a collection form User with selected index on GET.
  */
 exports.user_get_collection = function(req, res, next) {
@@ -137,9 +137,16 @@ exports.user_post_add = function(req, res) {
         if (err) {
             return next(err);
         }
+
+        res
+            .status(201)
+            //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
+            .send(savedUser)
+
     });
 
-    res.send('NOT IMPLEMENTED: Add new User');
+
+    //res.send('NOT IMPLEMENTED: Add new User');
 };
 // Add a new User's collection on POST
 exports.user_post_addCollection = function(req, res) {

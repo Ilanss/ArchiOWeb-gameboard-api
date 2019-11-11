@@ -5,6 +5,10 @@ if (mongoose.connection.readyState === 0)
         console.error('mongoose Error', err);
     });
 
+let EditorSchema = new Schema({
+    name: String
+});
+
 let GameSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -37,10 +41,7 @@ let GameSchema = new Schema({
         }],
     difficulty: String,
     category: String,
-    editor: {
-        id: Number,
-        name: String
-    },
+    editor: {EditorSchema},
     skill: String,
     description: String
 
