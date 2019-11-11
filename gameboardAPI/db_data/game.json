@@ -1,2 +1,37 @@
-[{"_id":{"$oid":"5da472a59a7d80e025cea671"},"name":"Uno","nb_players":{"min":{"$numberInt":"2"},"max":{"$numberInt":"8"}},"play_time":{"$numberInt":"30"},"setup_time":{"$numberInt":"5"},"age":{"min":{"$numberInt":"8"},"max":{"$numberInt":"99"}},"pictures":[{"link":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG","name":"masuperphoto","date":{"$date":{"$numberLong":"1530914400000"}}}],"difficulty":"easy","category":"hasard","editor":{"id":{"$oid":"5da47887fe0c041bc418df12"},"name":"Mattel"},"skill":"Hand management","description":"Le Uno est un jeu de cartes américain créé en 19711 par Merle Robbins et édité par Mattel. Basé sur les règles du 8 américain (qui se joue avec un jeu de cartes standard), le Uno lui applique un jeu de cartes spécifiquement dédié, ainsi que quelques règles supplémentaires."},
-{"_id":{"$oid":"5da47e2d7b85b01bc48236c0"},"name":"Monopoly","nb_players":{"min":{"$numberInt":"2"},"max":{"$numberInt":"6"}},"play_time":{"$numberInt":"180"},"setup_time":{"$numberInt":"10"},"age":{"min":{"$numberInt":"8"},"max":{"$numberInt":"99"}},"pictures":[{"link":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Monopoly_board_on_white_bg.jpg/520px-Monopoly_board_on_white_bg.jpg","name":"photo monopoly","date":{"$date":{"$numberLong":"1504303200000"}}}],"difficulty":"easy","category":"Board game","editor":{"id":{"$oid":"5da47887fe0c041bc418df12"},"name":"Hasbro"},"skill":"Negotiation","description":"Monopoly (litt. « monopole » en anglais) est un jeu de société américain édité par Hasbro. Le but du jeu consiste à ruiner ses concurrents par des opérations immobilières. Il symbolise les aspects apparents et spectaculaires du capitalisme, les fortunes se faisant et se défaisant au fil des coups de dés. Ce jeu de société est mondialement connu, et il en existe de multiples versions."}]
+[{
+        "_id": { "$oid": "5da472a59a7d80e025cea671" },
+        "name": "Uno",
+        "nb_players": { "min": { "$numberInt": "2" }, "max": { "$numberInt": "8" } },
+        "play_time": { "$numberInt": "30" },
+        "setup_time": { "$numberInt": "5" },
+        "age": { "min": { "$numberInt": "8" }, "max": { "$numberInt": "99" } },
+        "pictures": [{
+            "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG",
+            "name": "masuperphoto",
+            "date": { "$date": { "$numberLong": "1530914400000" } }
+        }],
+        "difficulty": "easy",
+        "category": "hasard",
+        "editor": { "id": { "$oid": "5da47887fe0c041bc418df12" }, "name": "Mattel" },
+        "skill": "Hand management",
+        "description": "Le Uno est un jeu de cartes américain créé en 19711 par Merle Robbins et édité par Mattel. Basé sur les règles du 8 américain (qui se joue avec un jeu de cartes standard), le Uno lui applique un jeu de cartes spécifiquement dédié, ainsi que quelques règles supplémentaires."
+    },
+    {
+        "_id": { "$oid": "5da47e2d7b85b01bc48236c0" },
+        "name": "Monopoly",
+        "nb_players": { "min": { "$numberInt": "2" }, "max": { "$numberInt": "6" } },
+        "play_time": { "$numberInt": "180" },
+        "setup_time": { "$numberInt": "10" },
+        "age": { "min": { "$numberInt": "8" }, "max": { "$numberInt": "99" } },
+        "pictures": [{
+            "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Monopoly_board_on_white_bg.jpg/520px-Monopoly_board_on_white_bg.jpg",
+            "name": "photo monopoly",
+            "date": { "$date": { "$numberLong": "1504303200000" } }
+        }],
+        "difficulty": "easy",
+        "category": "Board game",
+        "editor": { "id": { "$oid": "5da47887fe0c041bc418df12" }, "name": "Hasbro" },
+        "skill": "Negotiation",
+        "description": "Monopoly (litt. « monopole » en anglais) est un jeu de société américain édité par Hasbro. Le but du jeu consiste à ruiner ses concurrents par des opérations immobilières. Il symbolise les aspects apparents et spectaculaires du capitalisme, les fortunes se faisant et se défaisant au fil des coups de dés. Ce jeu de société est mondialement connu, et il en existe de multiples versions."
+    }
+]

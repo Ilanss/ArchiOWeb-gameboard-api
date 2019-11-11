@@ -113,10 +113,10 @@ exports.user_get_collectionGames = function(req, res, next) {
             return collectionsNotFound(res, userId);
         }
         //export al collections but not only the selected
-        //req.games = user.collections.find((collection) => collection.id.$oid == collectionId);
+        req.games = user.collections.find((collection) => collection._id.toString() == collectionId).games;
         next();
     });
-    res.send('NOT IMPLEMENTED: Games in selected collection');
+    //res.send('NOT IMPLEMENTED: Games in selected collection');
 };
 // Add a new User on POST
 exports.user_post_add = function(req, res) {

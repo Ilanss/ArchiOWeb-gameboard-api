@@ -5,6 +5,9 @@ const utils = require('./utils');
 var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
 
+const Game = require('../db/models/Game');
+const mongoose = require('mongoose');
+
 /* GET users listing. */
 
 router.get('/users', users_controller.users_list, function(req, res, next) {
@@ -106,7 +109,12 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
     res,
     next
 ) {
-    res.send(req.games);
+    let tabGamesId = req.games.map((objectId) => mongoose.Types.ObjectId(objectId.id));
+    console.log(tabGamesId);
+    // for each games_id --> find info
+    Game.find().where('_id').in(tabGamesId).exec((err, gamesWithInfo) => {
+        res.send(gamesWithInfo);
+    });
 });
 
 /* POST users listing. */
@@ -142,7 +150,7 @@ router.post('/games', games_controller.game_post_add);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:idUser/collections', users_controller.user_post_addCollection);
+router.patch('/users/:idUser/collections', users_controller.user_post_addCollection);
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -153,7 +161,7 @@ router.post('/users/:idUser/collections', users_controller.user_post_addCollecti
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users/:idUser/collections/:idCollection/games', users_controller.user_post_addCollectionGame);
+router.patch('/users/:idUser/collections/:idCollection/games', users_controller.user_post_addCollectionGame);
 
 /* PATCH users listing. */
 

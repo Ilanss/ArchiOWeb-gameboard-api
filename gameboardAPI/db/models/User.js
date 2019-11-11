@@ -9,7 +9,7 @@ let CollectionSchema = new Schema({
     timestamp: Date,
     name: String,
     link: String,
-    idGame: Number
+    games: [Object]
 });
 
 let UserSchema = new Schema({
