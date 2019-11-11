@@ -72,7 +72,7 @@ router.get('/games/:idGame', games_controller.game_get_info);
  * @apiSuccess {String} lastName  Last name of the user
  */
 router.get('/users/:idUser/collections', users_controller.user_get_collectionsList, function(req, res, next) {
-    res.send(req.user);
+    res.send(req.collections);
 });
 /**
  * @api {get} /users/:id Request a user's information

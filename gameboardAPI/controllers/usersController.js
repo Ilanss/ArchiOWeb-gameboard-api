@@ -40,17 +40,17 @@ exports.user_get_collectionsList = function(req, res, next) {
     }
     let query = User.findById(userId).select('collections').sort('name');
 
-    query.exec(function(err, user, collections) {
+    query.exec(function(err, user) {
         if (err) {
             return next(err);
         } else if (!user) {
             return userNotFound(res, userId);
             //function declared but doesn't work 4 now!!
-        } else if (collections) {
+        } else if (user.collections == 0) {
             return collectionsNotFound(res, userId);
         }
         //BUG return collections but is delcard as "user"
-        req.user = user;
+        req.collections = user.collections;
         next();
     });
     //res.send('NOT IMPLEMENTED: Collections form a user');
@@ -140,7 +140,7 @@ function userNotFound(res, userId) {
 
 //check if collections[] = void
 function collectionsNotFound(res, userId) {
-    return res.status(404).type('text').send(`No collections found for Usr with ID ${userId}`);
+    return res.status(404).type('text').send(`No collections found for User with ID ${userId}`);
 }
 
 //check if colllection exist
