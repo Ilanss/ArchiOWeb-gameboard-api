@@ -1,7 +1,9 @@
 var User = require('../db/models/User');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-// Display users index form on GET.
+/**
+ * Display users index form on GET.
+ */
 exports.users_list = function(req, res, next) {
     User.find().sort('personal_info.firstname').exec(function(err, users) {
         if (err) {
@@ -12,7 +14,9 @@ exports.users_list = function(req, res, next) {
     });
     //res.send('NOT IMPLEMENTED: Users index');
 };
-// Display the user with selected index on GET.
+/**
+ * Display the user with selected index on GET.
+ */
 exports.user_get_info = function(req, res, next) {
     const userId = req.params.idUser;
     //check id cast function
@@ -31,7 +35,9 @@ exports.user_get_info = function(req, res, next) {
     });
     //res.send('NOT IMPLEMENTED: User info');
 };
-// Display all collections form User with selected index on GET.
+/** 
+ * Display all collections form User with selected index on GET.
+ */
 exports.user_get_collectionsList = function(req, res, next) {
     const userId = req.params.idUser;
     //check id cast function
@@ -45,17 +51,18 @@ exports.user_get_collectionsList = function(req, res, next) {
             return next(err);
         } else if (!user) {
             return userNotFound(res, userId);
-            //function declared but doesn't work 4 now!!
+            //check if user has a collection
         } else if (user.collections == 0) {
             return collectionsNotFound(res, userId);
         }
-        //BUG return collections but is delcard as "user"
         req.collections = user.collections;
         next();
     });
     //res.send('NOT IMPLEMENTED: Collections form a user');
 };
-// Display a collection form User with selected index on GET.
+/** 
+ * Display a collection form User with selected index on GET.
+ */
 exports.user_get_collection = function(req, res, next) {
     const userId = req.params.idUser;
     const collectionId = req.params.idCollection;
