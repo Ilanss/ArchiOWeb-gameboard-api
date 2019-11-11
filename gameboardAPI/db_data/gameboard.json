@@ -1,5 +1,4 @@
 [{
-        "_id": { "$oid": "5da47304fe0c041bc418df11" },
         "username": "Skyggen",
         "personal_info": {
             "firstname": "Adrien",
@@ -8,21 +7,20 @@
             "password": "bob12345"
         },
         "collections": [{
-                "id": { "$oid": "5da480b5fe0c041bc418df16" },
+                "_id": "5da480b5fe0c041bc418df16",
                 "name": "Ma collection",
                 "link": "macollection",
-                "id_games": [{ "$oid": "5da472a59a7d80e025cea671" }, { "$oid": "5da47e2d7b85b01bc48236c0" }]
+                "games": [{ "id": "5da472a59a7d80e025cea671" }, { "id": "5da47e2d7b85b01bc48236c0" }]
             },
             {
                 "id": { "$oid": "5da48141fe0c041bc418df18" },
                 "name": "Mes jeux",
                 "link": "mesjeux",
-                "id_games": [{ "$oid": "5da47e2d7b85b01bc48236c0" }]
+                "id_games": [{ "id": "5da47e2d7b85b01bc48236c0" }]
             }
         ]
     },
     {
-        "_id": { "$oid": "5da47a4f7b85b01bc48236be" },
         "username": "Ilans",
         "personal_info": {
             "firstname": "Jeremie",
@@ -31,10 +29,10 @@
             "password": "bob12345"
         },
         "collections": [{
-            "id": { "$oid": "5da481b8fe0c041bc418df1a" },
+            "id": "5da481b8fe0c041bc418df1a",
             "name": "Ma super collection",
             "link": "masupercollection",
-            "id_games": [{ "$oid": "5da472a59a7d80e025cea671" }]
+            "games": [{ "id": "5da472a59a7d80e025cea671" }]
         }]
     },
     {

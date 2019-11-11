@@ -70,11 +70,11 @@ exports.user_get_collection = function(req, res, next) {
     if (!ObjectId.isValid(userId)) {
         return userNotFound(res, userId);
     }
-    //check collectionId cast function
+    /*check collectionId cast function
     if (!ObjectId.isValid(collectionId)) {
         return collectionNotFound(res, collectionId);
-    }
-    let query = User.findById(userId).select(['$oid', collectionId]);
+    } */
+    let query = User.findById(userId).select('collections');
     query.exec(function(err, user) {
         if (err) {
             return next(err);
@@ -85,13 +85,37 @@ exports.user_get_collection = function(req, res, next) {
             return collectionsNotFound(res, userId);
         }
         //export al collections but not only the selected
-        req.collections = user;
+        req.collection = user.collections.find((collection) => collection._id.toString() == collectionId);
         next();
     });
     //res.send('NOT IMPLEMENTED: Collection with selected id form a user');
 };
 // Display all games from selected user'collection on GET.
-exports.user_get_collectionGames = function(req, res) {
+exports.user_get_collectionGames = function(req, res, next) {
+    const userId = req.params.idUser;
+    const collectionId = req.params.idCollection;
+    //check id cast function
+    if (!ObjectId.isValid(userId)) {
+        return userNotFound(res, userId);
+    }
+    /*check collectionId cast function
+    if (!ObjectId.isValid(collectionId)) {
+        return collectionNotFound(res, collectionId);
+    } */
+    let query = User.findById(userId).select('collections');
+    query.exec(function(err, user) {
+        if (err) {
+            return next(err);
+        } else if (!user) {
+            return userNotFound(res, userId);
+            //check if user has a collection
+        } else if (user.collections == 0) {
+            return collectionsNotFound(res, userId);
+        }
+        //export al collections but not only the selected
+        //req.games = user.collections.find((collection) => collection.id.$oid == collectionId);
+        next();
+    });
     res.send('NOT IMPLEMENTED: Games in selected collection');
 };
 // Add a new User on POST

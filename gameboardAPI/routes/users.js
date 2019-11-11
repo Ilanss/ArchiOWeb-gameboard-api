@@ -101,7 +101,13 @@ router.get('/users/:idUser/collections/:idCollection', users_controller.user_get
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames);
+router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames, function(
+    req,
+    res,
+    next
+) {
+    res.send(req.games);
+});
 
 /* POST users listing. */
 /**
