@@ -36,7 +36,9 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
  * @apiSuccess {Object[]} games List of games
  * @apiSuccess {String} gameName
  */
-router.get('/games', games_controller.games_list);
+router.get('/games', games_controller.games_list, function(req, res, next) {
+    res.send(req.games);
+});
 /**
  * @api {get} /games/:id Request a game's information
  * @apiName GetGame
@@ -60,7 +62,9 @@ router.get('/games', games_controller.games_list);
  * @apiSuccess {Number} editor.id id of the editor
  * @apiSuccess {String} editor.name name of the editor
  */
-router.get('/games/:idGame', games_controller.game_get_info);
+router.get('/games/:idGame', games_controller.game_get_info, function(req, res, next) {
+    res.send(req.game);
+});
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser

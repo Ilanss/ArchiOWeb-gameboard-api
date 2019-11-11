@@ -1,12 +1,38 @@
-var Games = require('../db/models/Game');
-
-// Display games index form on GET.
-exports.games_list = function(req, res) {
-    res.json({ test: 'List of games' });
+var Game = require('../db/models/Game');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+/**
+ * Display games index form on GET.
+ */
+exports.games_list = function(req, res, next) {
+    Game.find().sort('name').exec(function(err, games) {
+        if (err) {
+            return next(err);
+        }
+        req.games = games;
+        next();
+    });
 };
-// Display the game with selected index on GET.
-exports.game_get_info = function(req, res) {
-    res.send('NOT IMPLEMENTED: Game info');
+/**
+ * Display the game with selected index on GET.
+ */
+exports.game_get_info = function(req, res, next) {
+    const gameId = req.params.idGame;
+    //check idGame cast function
+    if (!ObjectId.isValid(gameId)) {
+        return gameNotFound(res, gameId);
+    }
+    let query = Game.findById(gameId);
+    query.exec(function(err, game) {
+        if (err) {
+            return next(err);
+        } else if (!game) {
+            return gameNotFound(res, gameId);
+        }
+        req.game = game;
+        next();
+    });
+    //res.send('NOT IMPLEMENTED: User info');
 };
 // Add a new game on POST
 exports.game_post_add = function(req, res) {
@@ -20,3 +46,8 @@ exports.game_patch_edit = function(req, res) {
 exports.game_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: Delate selected game');
 };
+
+//check if game exist
+function gameNotFound(res, gameId) {
+    return res.status(404).type('text').send(`No game found with ID ${gameId}`);
+}

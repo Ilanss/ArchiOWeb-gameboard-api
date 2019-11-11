@@ -74,18 +74,20 @@ exports.user_get_collection = function(req, res, next) {
     if (!ObjectId.isValid(collectionId)) {
         return collectionNotFound(res, collectionId);
     }
-    let query = User.findById(userId).select('collections');
+    let query = User.findById(userId).select(['$oid', collectionId]);
     query.exec(function(err, user) {
         if (err) {
             return next(err);
         } else if (!user) {
-            //return userNotFound(res, userId);
+            return userNotFound(res, userId);
+            //check if user has a collection
+        } else if (user.collections == 0) {
+            return collectionsNotFound(res, userId);
         }
-        //user info send test - ERROR
-        req.collection = user.collections;
+        //export al collections but not only the selected
+        req.collections = user;
         next();
     });
-    //res.json({ test: id });
     //res.send('NOT IMPLEMENTED: Collection with selected id form a user');
 };
 // Display all games from selected user'collection on GET.
