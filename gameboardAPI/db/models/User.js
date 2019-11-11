@@ -5,6 +5,13 @@ if (mongoose.connection.readyState === 0)
         console.error('mongoose Error', err);
     });
 
+let CollectionSchema = new Schema({
+    timestamp: Date,
+    name: String,
+    link: String,
+    idGame: Number
+});
+
 let UserSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -15,13 +22,7 @@ let UserSchema = new Schema({
         mail: String,
         password: String
     },
-    collections: [{
-        timestamp: Date,
-        idCollection: Number,
-        name: String,
-        link: String,
-        idGame: Number
-    }]
+    collections: [CollectionSchema]
 });
 
 UserSchema.pre('save', function(next) {
