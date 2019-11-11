@@ -2,8 +2,15 @@ var User = require('../db/models/User');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 // Display users index form on GET.
-exports.users_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Users index');
+exports.users_list = function(req, res, next) {
+    User.find().sort('personal_info.firstname').exec(function(err, users) {
+        if (err) {
+            return next(err);
+        }
+        req.users = users;
+        next();
+    });
+    //res.send('NOT IMPLEMENTED: Users index');
 };
 // Display the user with selected index on GET.
 exports.user_get_info = function(req, res, next) {
@@ -22,7 +29,6 @@ exports.user_get_info = function(req, res, next) {
         req.user = user;
         next();
     });
-    //res.json({ test: id });
     //res.send('NOT IMPLEMENTED: User info');
 };
 // Display all collections form User with selected index on GET.
@@ -32,17 +38,21 @@ exports.user_get_collectionsList = function(req, res, next) {
     if (!ObjectId.isValid(userId)) {
         return userNotFound(res, userId);
     }
-    let query = User.findById(userId).select('collections');
-    query.exec(function(err, user) {
+    let query = User.findById(userId).select('collections').sort('name');
+
+    query.exec(function(err, user, collections) {
         if (err) {
             return next(err);
         } else if (!user) {
             return userNotFound(res, userId);
+            //function declared but doesn't work 4 now!!
+        } else if (collections) {
+            return collectionsNotFound(res, userId);
         }
+        //BUG return collections but is delcard as "user"
         req.user = user;
         next();
     });
-    //res.json({ test: id });
     //res.send('NOT IMPLEMENTED: Collections form a user');
 };
 // Display a collection form User with selected index on GET.
@@ -53,14 +63,19 @@ exports.user_get_collection = function(req, res, next) {
     if (!ObjectId.isValid(userId)) {
         return userNotFound(res, userId);
     }
-    let query = User.findById(userId).select();
+    //check collectionId cast function
+    if (!ObjectId.isValid(collectionId)) {
+        return collectionNotFound(res, collectionId);
+    }
+    let query = User.findById(userId).select('collections');
     query.exec(function(err, user) {
         if (err) {
             return next(err);
         } else if (!user) {
-            return userNotFound(res, userId);
+            //return userNotFound(res, userId);
         }
-        req.user = user;
+        //user info send test - ERROR
+        req.collection = user.collections;
         next();
     });
     //res.json({ test: id });
@@ -85,15 +100,11 @@ exports.user_post_add = function(req, res) {
         });
     }
 
-
-    new User(req.body).save(function (err, savedUser) {
+    new User(req.body).save(function(err, savedUser) {
         if (err) {
             return next(err);
         }
-
-
-
-    })
+    });
 
     res.send('NOT IMPLEMENTED: Add new User');
 };
@@ -125,4 +136,14 @@ exports.user_deleteCollection = function(req, res) {
 //check if user exist
 function userNotFound(res, userId) {
     return res.status(404).type('text').send(`No user found with ID ${userId}`);
+}
+
+//check if collections[] = void
+function collectionsNotFound(res, userId) {
+    return res.status(404).type('text').send(`No collections found for Usr with ID ${userId}`);
+}
+
+//check if colllection exist
+function collectionNotFound(res, collectionId) {
+    return res.status(404).type('text').send(`No collection found with ID ${collectionId}`);
 }

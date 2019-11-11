@@ -7,7 +7,9 @@ var games_controller = require('../controllers/gamesController');
 
 /* GET users listing. */
 
-router.get('/users', users_controller.users_list);
+router.get('/users', users_controller.users_list, function(req, res, next) {
+    res.send(req.users);
+});
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -82,7 +84,9 @@ router.get('/users/:idUser/collections', users_controller.user_get_collectionsLi
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.get('/users/:idUser/collections/:idCollection', users_controller.user_get_collection);
+router.get('/users/:idUser/collections/:idCollection', users_controller.user_get_collection, function(req, res, next) {
+    res.send(req.collection);
+});
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
