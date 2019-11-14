@@ -3,7 +3,8 @@ const supertest = require('supertest');
 const app = require('../app');
 const mongoose = require('mongoose');
 const { cleanUpDatabase } = require('./utils');
-const User = require('../db/models/User');
+const File = require('../db/models/User');
+const User = File.User;
 
 //clean the database before testing
 beforeEach(cleanUpDatabase);

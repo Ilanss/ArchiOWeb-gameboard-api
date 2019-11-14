@@ -1,13 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const utils = require('./utils');
 const config = require('../config');
 //controllers
-var users_controller = require('../controllers/usersController');
-var games_controller = require('../controllers/gamesController');
-var User = require('../db/models/User');
-var Collection = require('../db/models/User');
-
+const users_controller = require('../controllers/usersController');
+const games_controller = require('../controllers/gamesController');
+const File = require('../db/models/User');
+const User = File.User;
+const Collection = File.Collection;
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 
@@ -177,6 +177,7 @@ router.post('/games', games_controller.game_post_add);
  * @apiSuccess {String} lastName  Last name of the user
  */
 router.post('/users/:idUser/collections', utils.requireJson, function(req, res, next) {
+
 
     new Collection(req.body).save(function(err, savedCollection) {
         if (err) {
