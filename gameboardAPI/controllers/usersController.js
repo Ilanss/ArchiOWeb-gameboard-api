@@ -118,36 +118,6 @@ exports.user_get_collectionGames = function(req, res, next) {
     });
     //res.send('NOT IMPLEMENTED: Games in selected collection');
 };
-// Add a new User on POST
-exports.user_post_add = function(req, res) {
-    if (req.body.directorId && !ObjectId.isValid(req.body.directorId)) {
-        return res.status(422).send({
-            message: `Movie validation failed: directorId: must be a valid person reference`,
-            errors: {
-                directorId: {
-                    message: 'must be a valid person reference',
-                    path: 'directorId',
-                    value: req.body.directorId
-                }
-            }
-        });
-    }
-
-    new User(req.body).save(function(err, savedUser) {
-        if (err) {
-            return next(err);
-        }
-
-        res
-            .status(201)
-            //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
-            .send(savedUser)
-
-    });
-
-
-    //res.send('NOT IMPLEMENTED: Add new User');
-};
 // Add a new User's collection on POST
 exports.user_post_addCollection = function(req, res) {
     res.send("NOT IMPLEMENTED: Add new User's collection");

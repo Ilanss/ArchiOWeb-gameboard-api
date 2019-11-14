@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const utils = require('./utils');
+const config = require('../config');
 //controllers
 var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
+var User = require('../db/models/User');
+
 
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
@@ -128,7 +131,23 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.post('/users', utils.requireJson, users_controller.user_post_add);
+router.post('/users', utils.requireJson, function(req, res, next) {
+
+    new User(req.body).save(function(err, savedUser) {
+        if (err) {
+            return next(err);
+        }
+
+        res
+            .status(201)
+            .set('Location', `${config.baseUrl}/api/gameboard/${savedUser._id}`)
+            .send(savedUser)
+
+    });
+
+});
+
+
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
