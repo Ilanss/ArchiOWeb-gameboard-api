@@ -52,3 +52,11 @@ Using the camera to add images to the game or go looking for the picture in the 
 
 ### bonus
 ...
+
+### Delivery
+
+Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
+
+-   Team : Ciampone Adrien, Colomberotto Teo, Provenzano Jérémie
+-   The [link](https://github.com/Ilanss/ArchiOWeb-gameboard-api/tree/master/gameboardAPI) to source code repository on GitHub. 
+-   The [link](https://dashboard.heroku.com/apps/archioweb-gameboardapi) to deployed REST API on Heroku
