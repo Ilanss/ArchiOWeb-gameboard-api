@@ -6,6 +6,7 @@ const config = require('../config');
 var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
 var User = require('../db/models/User');
+var Collection = require('../db/models/User');
 
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
@@ -177,7 +178,22 @@ router.post('/games', games_controller.game_post_add);
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:idUser/collections', users_controller.user_post_addCollection);
+router.post('/users/:idUser/collections', utils.requireJson, function(req, res, next) {
+
+    new Collection(req.body).save(function(err, savedCollection) {
+        if (err) {
+            return next(err);
+        }
+
+        res
+            .status(201)
+            .set('Location', `${config.baseUrl}/api/gameboard/${savedCollection._id}`)
+            .send(savedCollection)
+
+    });
+
+});
+
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
