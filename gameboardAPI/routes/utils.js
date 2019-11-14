@@ -29,3 +29,29 @@ exports.responseShouldInclude = function(req, property) {
     // Check whether the property is inside the array
     return propertiesToInclude.indexOf(property) >= 0;
 };
+
+/**
+ * Middleware that responds with 401 Unauthorized if the client did not sent a bearer authentication token
+ * equal to the $AUTH_TOKEN environment variable.
+ */
+exports.authenticate = function(req, res, next) {
+    if (!process.env.AUTH_TOKEN) {
+        return res.sendStatus(401);
+    }
+
+    const authorizationHeader = req.get('Authorization');
+    if (!authorizationHeader) {
+        return res.sendStatus(401);
+    }
+
+    const match = authorizationHeader.match(/^Bearer +(.+)$/);
+    if (!match) {
+        return res.sendStatus(401);
+    }
+
+    if (match[1] != process.env.AUTH_TOKEN) {
+        return res.sendStatus(401);
+    }
+
+    next();
+};
