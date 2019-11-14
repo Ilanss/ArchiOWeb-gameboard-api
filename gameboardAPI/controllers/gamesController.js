@@ -5,7 +5,8 @@ const ObjectId = mongoose.Types.ObjectId;
  * Display games index form on GET.
  */
 exports.games_list = function(req, res, next) {
-    Game.find().sort('name').exec(function(err, games) {
+    let query = Game.find().sort('name');
+    query.exec(function(err, games) {
         if (err) {
             return next(err);
         }
@@ -36,8 +37,8 @@ exports.game_get_info = function(req, res, next) {
 };
 // Add a new game on POST
 exports.game_post_add = function(req, res, next) {
-    new Game(req.body).save(function (err, savedGame) {
-        if (err){
+    new Game(req.body).save(function(err, savedGame) {
+        if (err) {
             return next(err);
         }
 
@@ -46,7 +47,7 @@ exports.game_post_add = function(req, res, next) {
         res
             .status(201)
             //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
-            .send(savedGame)
+            .send(savedGame);
     });
 };
 // Edit exsisting game on PATCH

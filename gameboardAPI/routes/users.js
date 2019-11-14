@@ -7,7 +7,6 @@ var users_controller = require('../controllers/usersController');
 var games_controller = require('../controllers/gamesController');
 var User = require('../db/models/User');
 
-
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 
@@ -68,6 +67,22 @@ router.get('/games', games_controller.games_list, function(req, res, next) {
  * @apiSuccess {Number} editor.id id of the editor
  * @apiSuccess {String} editor.name name of the editor
  */
+router.get('/games/difficulty/:level', utils.requireJson, function(req, res, next) {
+    let query = Game.find().sort('name');
+
+    //if (req.query.level) {
+    query = query.where('difficulty').equals(req.params.level);
+    query.exec((err, games) => {
+        console.log(games);
+        if (err) {
+            return next(err);
+        } else if (games.length == 0) {
+            res.send('No games founds with difficulty: ' + req.params.level);
+        }
+        res.send(games);
+    });
+});
+
 router.get('/games/:idGame', games_controller.game_get_info, function(req, res, next) {
     res.send(req.game);
 });
@@ -132,21 +147,14 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * @apiSuccess {String} lastName  Last name of the user
  */
 router.post('/users', utils.requireJson, function(req, res, next) {
-
     new User(req.body).save(function(err, savedUser) {
         if (err) {
             return next(err);
         }
 
-        res
-            .status(201)
-            .set('Location', `${config.baseUrl}/api/gameboard/${savedUser._id}`)
-            .send(savedUser)
-
+        res.status(201).set('Location', `${config.baseUrl}/api/gameboard/${savedUser._id}`).send(savedUser);
     });
-
 });
-
 
 /**
  * @api {get} /users/:id Request a user's information
