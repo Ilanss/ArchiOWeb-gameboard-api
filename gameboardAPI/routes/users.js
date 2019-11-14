@@ -10,6 +10,7 @@ const User = File.User;
 const Collection = File.Collection;
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 /* GET users listing. */
 
@@ -217,7 +218,29 @@ router.patch('/users/:idUser/collections/:idCollection/games', users_controller.
  * @apiSuccess {String} firstName First name of the user
  * @apiSuccess {String} lastName  Last name of the user
  */
-router.patch('/users/:idUser', users_controller.user_patch_edit);
+router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, function(req, res, next) {
+
+    // Update properties present in the request body
+    if (req.body.username !== undefined) {
+        req.user.personal_info.name = req.body.username;
+    }
+    if (req.body.personal_info.firstname !== undefined) {
+        req.user.personal_info.firstname = req.body.personal_info.firstname;
+    }
+    if (req.body.personal_info.lastname !== undefined) {
+        req.user.personal_info.lastname = req.body.personal_info.lastname;
+    }
+
+    req.user.save(function(err, savedUser) {
+        if (err) {
+            return next(err);
+        }
+
+        debug(`Updated person "${savedUser.username}"`);
+        res.send(savedUser);
+    });
+});
+
 /**
  * @api {get} /users/:id Request a user's information
  * @apiName GetUser
@@ -275,5 +298,30 @@ router.delete('/games/:idGame', games_controller.game_delete);
  * @apiSuccess {String} lastName  Last name of the user
  */
 router.delete('/users/:idUser/collections/:idCollection', users_controller.user_deleteCollection);
+
+function loadUserFromParamsMiddleware(req, res, next) {
+
+    const userId = req.params._id;
+    if (!ObjectId.isValid(userId)) {
+        return userNotFound(res, userId);
+    }
+
+    User.findById(req.params._id, function(err, user) {
+        if (err) {
+            return next(err);
+        } else if (!user) {
+            return userNotFound(res, userId);
+        }
+
+        req.user = user;
+        next();
+    });
+}
+
+function userNotFound(res, userId) {
+    return res.status(404).type('text').send(`No user found with ID ${userId}`);
+}
+
+
 
 module.exports = router;
