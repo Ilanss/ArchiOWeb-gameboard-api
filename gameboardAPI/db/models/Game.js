@@ -19,17 +19,33 @@ let GameSchema = new Schema({
         minlength: 3,
         maxlength: 50,
         unique: true,
-        /*validate: {
+        validate: {
             validator: validateGameTitleUniqueness,
             message : 'Game {VALUE} already exists'
-        }*/
+        }
     },
     nb_players: {
-        min: Number,
-        max: Number
+        min: {
+            type: Number,
+            min: 1
+        },
+        max: {
+            type: Number,
+            max: 100
+        },
+        /*validate: {
+            validator: validateMaxGreaterThanMin,
+            message: 'Max players must be higher than min players'
+        },*/
     },
-    play_time: Number,
-    setup_time: Number,
+    play_time: {
+        type:Number,
+        min: 1
+    },
+    setup_time: {
+        type:Number,
+        min: 1
+    },
     age: {
         min: Number,
         max: Number
@@ -59,6 +75,28 @@ GameSchema.pre('update', function() {
 GameSchema.pre('findOneAndUpdate', function() {
     this.constructor.update({ _id: this._id }, { $set: { updatedAt: Date.now() } });
 });
+
+GameSchema.pre('validate', function (next) {
+    if (this.nb_players.min > this.nb_players.max) {
+        next(new Error('Max players must be higher than min players'));
+    } else if(this.age.min > this.age.max) {
+        next(new Error('Max age must be higher than min age'));
+    }
+    else {
+        next();
+    }
+});
+
+function validateGameTitleUniqueness(value) {
+    const GameModel = mongoose.model('Game', GameSchema);
+    return GameModel.findOne().where('name').equals(value).exec().then( (existingGame) => {
+        return !existingGame || existingGame._id.equals(this._id)
+    });
+}
+
+/*function validateMaxGreaterThanMin(value) {
+    return value.min < value.max;
+}*/
 
 /** @name db.Game */
 module.exports = mongoose.model('Game', GameSchema);
