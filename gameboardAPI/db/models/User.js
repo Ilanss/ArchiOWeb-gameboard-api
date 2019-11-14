@@ -62,4 +62,3 @@ function validateEmail(email) {
 
 /** @name db.User */
 module.exports = mongoose.model('User', UserSchema);
-module.exports = mongoose.model('Collection', CollectionSchema);
