@@ -77,7 +77,7 @@ router.get('/games/difficulty/:level', utils.requireJson, function(req, res, nex
         if (err) {
             return next(err);
         } else if (games.length == 0) {
-            res.send('No games founds with difficulty: ' + req.params.level);
+            return res.send('No games founds with difficulty: ' + req.params.level);
         }
         res.send(games);
     });
