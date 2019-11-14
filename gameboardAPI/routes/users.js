@@ -69,8 +69,6 @@ router.get('/games', games_controller.games_list, function(req, res, next) {
  */
 router.get('/games/difficulty/:level', utils.requireJson, function(req, res, next) {
     let query = Game.find().sort('name');
-
-    //if (req.query.level) {
     query = query.where('difficulty').equals(req.params.level);
     query.exec((err, games) => {
         console.log(games);

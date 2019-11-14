@@ -6,6 +6,18 @@ const ObjectId = mongoose.Types.ObjectId;
  */
 exports.games_list = function(req, res, next) {
     let query = Game.find().sort('name');
+    // Parse the "page" param (default to 1 if invalid)
+    let page = parseInt(req.query.page, 10);
+    if (isNaN(page) || page < 1) {
+        page = 1;
+    }
+    // Parse the "pageSize" param (default to 100 if invalid)
+    let pageSize = parseInt(req.query.pageSize, 10);
+    if (isNaN(pageSize) || pageSize < 0 || pageSize > 100) {
+        pageSize = 100;
+    }
+    // Apply skip and limit to select the correct page of elements
+    query = query.skip((page - 1) * pageSize).limit(pageSize);
     query.exec(function(err, games) {
         if (err) {
             return next(err);
