@@ -1,7 +1,7 @@
 {
-    "name": "My project",
+    "name": "API GAME BOARD",
     "version": "1.0.0",
-    "description": "It is awesome",
-    "title": "My project",
-    "url" : "https://example.com"
+    "description": "API of personal gameboard collection School project created by Adrien.C, Teo.C, Jérémie.P  ",
+    "title": "School project created by Adrien.C, Teo.C, Jérémie.P ",
+    "url" : "https://archioweb-gameboardapi.herokuapp.com"
   }
