@@ -154,7 +154,14 @@ router.get('/users/:idUser/collections/:idCollection', users_controller.user_get
     res.send(req.collection);
 });
 
-router.get('/users/:idUser/nbrGames', function(req, res) {});
+router.get('/users/:idUser/nbrGames', async function(req, res, next) {
+    const userId = req.params.idUser;
+    let gamesByUser = await Game.aggregate([{
+        $match: { createdBy: userId }
+    }]);
+    return res.json('The users has created: ' + gamesByUser.length + ' games');
+    console.log(gamesByUser.length);
+});
 
 router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames, function(
     req,
@@ -170,7 +177,6 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
 });
 
 /* POST users listing. */
-
 
 /**
  * @api {post} /register Register a user
@@ -238,17 +244,17 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  *
  *
  */
-router.post('/register', function (req, res, next) {
+router.post('/register', function(req, res, next) {
     // Create a new document from the JSON in the request body
     let newUser = req.body;
     newUser.registrationDate = Date.now();
-    bcrypt.hash(newUser.personal_info.password, saltRounds, function (err, hash) {
+    bcrypt.hash(newUser.personal_info.password, saltRounds, function(err, hash) {
         newUser.personal_info.password = hash;
         const newUserDocument = new User(newUser);
         // Save that document
-        newUserDocument.save(function (err, savedUser) {
+        newUserDocument.save(function(err, savedUser) {
             if (err) {
-                console.log(err)
+                console.log(err);
                 return next(err);
             }
             // Send the saved document in the response
@@ -256,7 +262,6 @@ router.post('/register', function (req, res, next) {
         });
     });
 });
-
 
 /**
  * @api {post} /login Login a user
@@ -293,22 +298,19 @@ router.post('/register', function (req, res, next) {
  *          "message": "invalid password"
  *     }
  */
-router.post('/login', function (req, res, next) {
-
-    User.verifyCredentials(req.body.email, req.body.personal_info.password, function (err, user) {
+router.post('/login', function(req, res, next) {
+    User.verifyCredentials(req.body.email, req.body.personal_info.password, function(err, user) {
         if (err) {
-            return next(err)
-
+            return next(err);
         }
-        user.generateJwt(function (err, jwt) {
+        user.generateJwt(function(err, jwt) {
             if (err) {
-                return next(err)
+                return next(err);
             }
-            res.send({ token: jwt, user: user })
-        })
-    })
+            res.send({ token: jwt, user: user });
+        });
+    });
 });
-
 
 /**
              * @api {post} /users Create a user
@@ -443,27 +445,33 @@ router.post('/users/:idUser/collections', utils.requireJson, function(req, res, 
 
 // PATCH section :
 
-router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
-    // Update properties present in the request body
-    if (req.body.name !== undefined) {
-        req.user.collection.name = req.body.username;
-    }
-    if (req.body.personal_info.firstname !== undefined) {
-        req.user.personal_info.firstname = req.body.personal_info.firstname;
-    }
-    if (req.body.personal_info.lastname !== undefined) {
-        req.user.personal_info.lastname = req.body.personal_info.lastname;
-    }
-
-    req.user.save(function(err, savedUser) {
-        if (err) {
-            return next(err);
+router.patch(
+    '/users/:idUser/collections/:idCollection/games',
+    utils.requireJson,
+    loadUserFromParamsMiddleware,
+    loadCollectionFromParamsMiddleware,
+    function(req, res, next) {
+        // Update properties present in the request body
+        if (req.body.name !== undefined) {
+            req.user.collection.name = req.body.username;
+        }
+        if (req.body.personal_info.firstname !== undefined) {
+            req.user.personal_info.firstname = req.body.personal_info.firstname;
+        }
+        if (req.body.personal_info.lastname !== undefined) {
+            req.user.personal_info.lastname = req.body.personal_info.lastname;
         }
 
-        debug(`Updated person "${savedUser.username}"`);
-        res.send(savedUser);
-    });
-});
+        req.user.save(function(err, savedUser) {
+            if (err) {
+                return next(err);
+            }
+
+            debug(`Updated person "${savedUser.username}"`);
+            res.send(savedUser);
+        });
+    }
+);
 
 /* PATCH users listing. */
 
@@ -685,7 +693,6 @@ function loadCollectionFromParamsMiddleware(req, res, next) {
 function userNotFound(res, userId) {
     return res.status(404).type('text').send(`No user found with ID ${userId}`);
 }
-
 /**Path for ApiDoc */
 
 /**
