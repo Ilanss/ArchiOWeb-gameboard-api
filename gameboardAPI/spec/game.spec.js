@@ -11,6 +11,7 @@ const { cleanUpDatabase } = require('./utils');
 //clean the database before testing
 beforeEach(cleanUpDatabase);
 
+//ADVANCED TEST -- post games route TEST
 describe('POST /games', function() {
     it('should create a game', async function() {
         const res = await supertest(app)
@@ -29,6 +30,7 @@ describe('POST /games', function() {
     });
 });
 
+//ADVANCED TEST -- get games list TEST
 describe('GET /games', function() {
     beforeEach(async function() {
         // Create 2 games before retrieving the list.
