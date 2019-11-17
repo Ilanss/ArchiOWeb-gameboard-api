@@ -1,4 +1,6 @@
-var User = require('../db/models/User');
+const File = require('../db/models/User');
+const User = File.User;
+const Collection = File.Collection;
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 /**
