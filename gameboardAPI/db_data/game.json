@@ -14,7 +14,8 @@
         "category": "hasard",
         "editor": { "id": { "$oid": "5da47887fe0c041bc418df12" }, "name": "Mattel" },
         "skill": "Hand management",
-        "description": "Le Uno est un jeu de cartes américain créé en 19711 par Merle Robbins et édité par Mattel. Basé sur les règles du 8 américain (qui se joue avec un jeu de cartes standard), le Uno lui applique un jeu de cartes spécifiquement dédié, ainsi que quelques règles supplémentaires."
+        "description": "Le Uno est un jeu de cartes américain créé en 19711 par Merle Robbins et édité par Mattel. Basé sur les règles du 8 américain (qui se joue avec un jeu de cartes standard), le Uno lui applique un jeu de cartes spécifiquement dédié, ainsi que quelques règles supplémentaires.",
+        "createdBy": "5dcd2578e706374f0b46b1fd"
     },
     {
         "_id": { "$oid": "5da47e2d7b85b01bc48236c0" },

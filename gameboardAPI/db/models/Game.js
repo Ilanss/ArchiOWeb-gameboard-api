@@ -21,7 +21,7 @@ let GameSchema = new Schema({
         unique: true,
         validate: {
             validator: validateGameTitleUniqueness,
-            message : 'Game {VALUE} already exists'
+            message: 'Game {VALUE} already exists'
         }
     },
     nb_players: {
@@ -32,18 +32,18 @@ let GameSchema = new Schema({
         max: {
             type: Number,
             max: 100
-        },
+        }
         /*validate: {
             validator: validateMaxGreaterThanMin,
             message: 'Max players must be higher than min players'
         },*/
     },
     play_time: {
-        type:Number,
+        type: Number,
         min: 1
     },
     setup_time: {
-        type:Number,
+        type: Number,
         min: 1
     },
     age: {
@@ -51,16 +51,15 @@ let GameSchema = new Schema({
         max: Number
     },
     pictures: [{
-            link: String,
-            name: String,
-            date: Date
-        }],
+        link: String,
+        name: String,
+        date: Date
+    }],
     difficulty: String,
     category: String,
-    editor: {EditorSchema},
+    editor: { EditorSchema },
     skill: String,
     description: String
-
 });
 
 GameSchema.pre('save', function(next) {
@@ -76,21 +75,20 @@ GameSchema.pre('findOneAndUpdate', function() {
     this.constructor.update({ _id: this._id }, { $set: { updatedAt: Date.now() } });
 });
 
-GameSchema.pre('validate', function (next) {
+GameSchema.pre('validate', function(next) {
     if (this.nb_players.min > this.nb_players.max) {
         next(new Error('Max players must be higher than min players'));
-    } else if(this.age.min > this.age.max) {
+    } else if (this.age.min > this.age.max) {
         next(new Error('Max age must be higher than min age'));
-    }
-    else {
+    } else {
         next();
     }
 });
 
 function validateGameTitleUniqueness(value) {
     const GameModel = mongoose.model('Game', GameSchema);
-    return GameModel.findOne().where('name').equals(value).exec().then( (existingGame) => {
-        return !existingGame || existingGame._id.equals(this._id)
+    return GameModel.findOne().where('name').equals(value).exec().then((existingGame) => {
+        return !existingGame || existingGame._id.equals(this._id);
     });
 }
 

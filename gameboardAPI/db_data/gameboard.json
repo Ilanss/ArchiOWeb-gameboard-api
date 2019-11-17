@@ -10,7 +10,7 @@
                 "_id": "5da480b5fe0c041bc418df16",
                 "name": "Ma collection",
                 "link": "macollection",
-                "games": [{ "id": "5da472a59a7d80e025cea671" }, { "id": "5da47e2d7b85b01bc48236c0" }]
+                "games": [{ "id": "5dd13a414765ae928686fcbc" }, { "id": "5da47e2d7b85b01bc48236c0" }]
             },
             {
                 "id": { "$oid": "5da48141fe0c041bc418df18" },
