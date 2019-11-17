@@ -539,15 +539,18 @@ router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, 
     if (req.body.username !== undefined) {
         req.user.username = req.body.username;
     }
-    if (req.body.personal_info.firstname !== undefined) {
-        req.user.personal_info.firstname = req.body.personal_info.firstname;
-    }
-    if (req.body.personal_info.lastname !== undefined) {
-        req.user.personal_info.lastname = req.body.personal_info.lastname;
-    }
-    if (req.body.email !== undefined) {
-        req.user.personal_info.email = req.body.email;
-    }
+    //if(req.body.personal_info !== undefined) {
+
+        if (req.body.firstname !== undefined) {
+            req.user.personal_info.firstname = req.body.personal_info.firstname;
+        }
+        if (req.body.lastname !== undefined) {
+            req.user.personal_info.lastname = req.body.personal_info.lastname;
+        }
+        if (req.body.email !== undefined) {
+            req.user.personal_info.email = req.body.email;
+        }
+    //}
 
     req.user.save(function(err, savedUser) {
         if (err) {
