@@ -1,8 +1,8 @@
-var Game = require('../db/models/Game');
+const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const ws = require('../app/backend/dispatcher');
-/** 
+/**
  * Display games index form on GET.
  */
 exports.games_list = function(req, res, next) {
@@ -55,20 +55,18 @@ exports.game_post_add = function(req, res, next) {
             return next(err);
         }
 
-        //debug(`Created game "${savedGame.title}"`);
-
         res
             .status(201)
-            //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
+            .set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
             .send(savedGame);
         ws.notifyNewGames(req.body.name);
     });
 };
-// Edit exsisting game on PATCH
+// Edit existing game on PATCH
 exports.game_patch_edit = function(req, res) {
     res.send('NOT IMPLEMENTED: Edit a game');
 };
-// Delate selected game on DELATE
+// Delete selected game on DELATE
 exports.game_delete = function(req, res) {
     res.send('NOT IMPLEMENTED: Delate selected game');
 };
