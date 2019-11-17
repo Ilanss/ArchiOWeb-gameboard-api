@@ -1,7 +1,7 @@
 # COMEM+ Web-Oriented Architecture Course
 ## Gameboard API
 REST API developed with the Express framework and a MongoDB database. The API that allows the creation of personal collections of games
-
+## Gameboard API
 - The API manages users:
 	- New users must be able to register.
 	- Existing users must be able to authenticate.
@@ -50,17 +50,71 @@ Using the camera to add images to the game or go looking for the picture in the 
 - API must have basic validations on user input.
 - API must validate the existence of related resources.
 
-### bonus
-...
-### Checklist API
-- Creat a user [=100% "100%"]
-- log in to the API 90%
-- 
-
 ### Delivery
 
 Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 
 -   Team : Ciampone Adrien, Colomberotto Teo, Provenzano Jérémie
 -   The [link](https://github.com/Ilanss/ArchiOWeb-gameboard-api/tree/master/gameboardAPI) to source code repository on GitHub. 
--   The [link](https://dashboard.heroku.com/apps/archioweb-gameboardapi) to deployed REST API on Heroku
+-   The [link]( https://archioweb-gameboardapi.herokuapp.com/) to deployed REST API on Heroku
+- Read the [full documentation]( https://archioweb-gameboardapi.herokuapp.com/) to know more. The documentation of the API is also available at the index page of the app.
+
+### API Progress
+|Task | Progressbar | Todo/Tofix |
+|--|--|--|
+| Get methodes User(Users, UserId,nbrGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes Game (Games,GamesId, Difficulty, filter, Pagination) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes Collection(idUsers, idCollection,ListGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Post methodes Game(addGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|checkUserId|
+| Post methodes Collection(addCollection) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|generate Slug|
+| Post methodes Log in to the API | 🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️ |checkemail|
+| Post methodes Create a user |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|checkemail uniqueness|
+| Patch methodes User(idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|email obligatory|
+| Patch methodes Game(idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|fields to be completed|
+| Patch methodes Collection(idCollecton) |🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️⚪️|check idCollection...|
+| Delete methodes user (idUser) |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
+| Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
+| Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
+| Websocket Backend |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Tests |🔵🔵⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️||
+
+
+
+## Requirements
+
+Node.js 12.x MongoDB 4.x
+
+## Usage
+
+```
+git clone git@github.com:Ilanss/ArchiOWeb-gameboard-api.git
+cd archioweb-rest-api
+npm ci
+npm start
+
+```
+
+Visit  [http://localhost:3000](http://localhost:3000/).
+
+To automatically reload the code and re-generate the API documentation on changes, use npm run dev instead of npm start.
+
+## Real-time component
+
+Websocket is implemented for the real-time component. An insight message is generated every time a user create a game. The message format is generated , like this :
+
+```
+  A new game called : (Gamename) is avaiable.
+
+```
+
+The websocket service is available at this URL :
+
+ws://{PATH_to_the_application} For example, if you work on your machine, the path should be like this :
+
+ws://localhost:3000/
+
+## Configuration
+
+The app will attempt to connect to the MongoDB database at mongodb://localhost/gameboard by default.
+
+Use the $DATABASE_URL or the $MONGODB_URI environment variables to specify a different connection URL.
