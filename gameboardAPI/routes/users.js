@@ -33,9 +33,9 @@ const saltRounds = 10;
  *     [
  *       {
         "personal_info": {
-            "firstname": "dfsghj1",
-            "lastname": "dfsghj2",
-            "mail": "dfsghj3",
+            "firstname": "Adrien",
+            "lastname": "Chapy",
+            "email": "chapy@mail.com",
             "password": "dfsghj4"
         },
         "_id": "5dc96e2756de3a3feca9be58",
@@ -54,9 +54,9 @@ const saltRounds = 10;
     },
  *       {
         "personal_info": {
-            "firstname": "dfsghj1",
-            "lastname": "dfsghj2",
-            "mail": "dfsghj3",
+            "firstname": "Bob",
+            "lastname": "Robert",
+            "email": "Robert@gmail.com",
             "password": "dfsghj4"
         },
         "_id": "5dc96e39669be23ffb3a4269",
@@ -103,40 +103,144 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
  * @api {get} /games Get list of games
  * @apiName RetrieveGames
  * @apiGroup Game
- * @apiDescription Retrieves a paginated list of games ordered by name (in alphabetical order).
+ * @apiDescription Retrieves a paginated list of games ordered by creation date.
  *
  * @apiUse GameInResponseBody
- * @apiUse GameIncludes
  *
- * @apiParam (URL query parameters) {String} [directorId] Select only movies directed by the person with the specified ID (this parameter can be given multiple times)
- * @apiParam (URL query parameters) {Number} [rating] Select only movies with the specified rating (exact match)
- * @apiParam (URL query parameters) {Number} [ratedAtLeast] Select only movies with a rating greater than or equal to the specified rating
- * @apiParam (URL query parameters) {Number} [ratedAtMost] Select only movies with a rating lesser than or equal to the specified rating
+ * @apiParam (URL query parameters) {Number} [page] The page to retrieve (defaults to 1)Ordre de grandeur : 1..
+ * @apiParam (URL query parameters) {Number} [pageSize] The number of elements to retrieve in one page (defaults to 100)
  *
  * @apiExample Example
- *     GET /games?page=2&pageSize=50 HTTP/1.1
+ *     GET /games?page=1&pageSize=10 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
- *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=50&gt;; rel="first prev"
+ *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10&gt;; rel="first prev"
  *
- *     [
- *       {
- *         "id": "58b2926f5e1def0123e97281",
- *         "title": "Die Hard",
- *         "rating": 7.4,
- *         "directorId": "58b2926f5e1def0123e97bc0",
- *         "createdAt": "1988-07-12T00:00:00.000Z"
- *       },
- *       {
- *         "id": "58b2926f5e1def0123e97282",
- *         "title": "Die Hard With a Vengance",
- *         "rating": 8.3,
- *         "directorId": "58b2926f5e1def0123e97bc0",
- *         "createdAt": "1995-05-19T00:00:00.000Z"
- *       }
- *     ]
+[
+    {
+        "_id": "5dc96a7ba875243c200fca6a",
+        "name": "Alfred Dupont",
+        "createdAt": "2019-11-11T14:04:43.934Z",
+        "updatedAt": "2019-11-11T14:04:43.935Z",
+        "pictures": [],
+        "__v": 0
+    },
+    {
+        "nb_players": {
+            "min": 2,
+            "max": 3
+        },
+        "age": {
+            "min": 8,
+            "max": 99
+        },
+        "_id": "5dcbd9d46c1482b9fd4ce158",
+        "name": "Uno",
+        "play_time": 120,
+        "setup_time": 5,
+        "pictures": [
+            {
+                "_id": "5dcbd9d46c1482b9fd4ce159",
+                "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG",
+                "name": "masuperphoto",
+                "date": "2019-11-10T23:00:00.000Z"
+            }
+        ],
+        "difficulty": "easy",
+        "category": "hasard",
+        "createdAt": "2019-11-13T10:24:20.004Z",
+        "updatedAt": "2019-11-13T10:24:20.018Z",
+        "__v": 0
+    },
+    {
+        "nb_players": {
+            "min": 2,
+            "max": 3
+        },
+        "age": {
+            "min": 8,
+            "max": 99
+        },
+        "_id": "5dcbd9df6c1482b9fd4ce15a",
+        "name": "Uno",
+        "play_time": 120,
+        "setup_time": 5,
+        "pictures": [
+            {
+                "_id": "5dcbd9df6c1482b9fd4ce15b",
+                "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG",
+                "name": "masuperphoto",
+                "date": "2019-11-10T23:00:00.000Z"
+            }
+        ],
+        "difficulty": "easy",
+        "category": "hasard",
+        "createdAt": "2019-11-13T10:24:31.280Z",
+        "updatedAt": "2019-11-13T10:24:31.291Z",
+        "__v": 0
+    },
+    {
+        "nb_players": {
+            "min": 2,
+            "max": 8
+        },
+        "age": {
+            "min": 8,
+            "max": 99
+        },
+        "_id": "5dc973c11371a342718d2ab0",
+        "name": "Uno 2",
+        "play_time": 120,
+        "setup_time": 5,
+        "pictures": [
+            {
+                "_id": "5dc973c11371a342718d2ab1",
+                "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG",
+                "name": "masuperphoto",
+                "date": "2019-11-10T23:00:00.000Z"
+            }
+        ],
+        "difficulty": "easy",
+        "category": "hasard",
+        "createdAt": "2019-11-11T14:44:17.738Z",
+        "updatedAt": "2019-11-17T14:50:32.724Z",
+        "__v": 0,
+        "created_by": "5dc974f01371a342718d2ab2"
+    },
+    {
+        "nb_players": {
+            "min": 2,
+            "max": 3
+        },
+        "_id": "5dc96b5aa875243c200fca6b",
+        "name": "hjdfjh",
+        "play_time": 120,
+        "createdAt": "2019-11-11T14:08:26.784Z",
+        "updatedAt": "2019-11-11T14:08:26.785Z",
+        "pictures": [],
+        "__v": 0
+    },
+    {
+        "_id": "5dd16d7c7d6ca14f6abf974c",
+        "name": "huiop",
+        "created_by": "testid",
+        "createdAt": "2019-11-17T15:55:40.774Z",
+        "updatedAt": "2019-11-17T15:55:40.793Z",
+        "pictures": [],
+        "__v": 0
+    },
+    {
+        "_id": "5dd16d9df340254fd6f3821a",
+        "name": "jhgfsdk",
+        "created_by": "testid",
+        "createdAt": "2019-11-17T15:56:13.055Z",
+        "updatedAt": "2019-11-17T15:56:13.059Z",
+        "pictures": [],
+        "__v": 0
+    }
+]
  */
 router.get('/games', games_controller.games_list, function(req, res, next) {
     res.send(req.games);
@@ -1006,11 +1110,7 @@ function collectionNotFound(res, collectionId) {
  * @apiSuccess (Response body) {String} name The name of the game
  */
 
-/**
- * @apiDefine GameIncludes
- * @apiParam (URL query parameters) {String} [include] Embed linked resources in the response body:
- * * `"director"` for the game's director
- */
+
 
 /**
  * @apiDefine GameValidationError
