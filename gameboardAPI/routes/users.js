@@ -15,7 +15,66 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 /* GET users listing. */
+/**
+ * @api {get} /users Get list of users
+ * @apiName RetrieveUsers
+ * @apiGroup User
+ * @apiDescription Retrieves list of users.
+ *
+ * @apiUse UserInResponseBody
 
+ *
+ *
+ * @apiSuccessExample 200 OK
+ *     HTTP/1.1 200 OK
+ *     Content-Type: application/json
+ *     Link: https://archioweb-gameboardapi.herokuapp.com/games
+ *
+ *     [
+ *       {
+        "personal_info": {
+            "firstname": "dfsghj1",
+            "lastname": "dfsghj2",
+            "mail": "dfsghj3",
+            "password": "dfsghj4"
+        },
+        "_id": "5dc96e2756de3a3feca9be58",
+        "username": "dfjhjhd",
+        "collections": [
+            {
+                "games": [],
+                "_id": "5dc96e2756de3a3feca9be59",
+                "name": "Collection",
+                "link": "url"
+            }
+        ],
+        "createdAt": "2019-11-11T14:20:23.014Z",
+        "updatedAt": "2019-11-11T14:20:23.326Z",
+        "__v": 0
+    },
+ *       {
+        "personal_info": {
+            "firstname": "dfsghj1",
+            "lastname": "dfsghj2",
+            "mail": "dfsghj3",
+            "password": "dfsghj4"
+        },
+        "_id": "5dc96e39669be23ffb3a4269",
+        "username": "dfjhjhd",
+        "collections": [
+            {
+                "games": [],
+                "_id": "5dc96e39669be23ffb3a426a",
+                "name": "Collection",
+                "link": "url"
+            }
+        ],
+        "createdAt": "2019-11-11T14:20:41.385Z",
+        "updatedAt": "2019-11-11T14:20:41.391Z",
+        "__v": 0
+    }
+ *     ]
+ */
 router.get('/users', users_controller.users_list, function(req, res, next) {
     res.send(req.users);
 });
@@ -55,12 +114,12 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
  * @apiParam (URL query parameters) {Number} [ratedAtMost] Select only movies with a rating lesser than or equal to the specified rating
  *
  * @apiExample Example
- *     GET /games?directorId=58b2926f5e1def0123e97bc0&page=2&pageSize=50 HTTP/1.1
+ *     GET /games?page=2&pageSize=50 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
- *     Link: &lt;https://evening-meadow-25867.herokuapp.com/api/movies?page=1&pageSize=50&gt;; rel="first prev"
+ *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=50&gt;; rel="first prev"
  *
  *     [
  *       {
