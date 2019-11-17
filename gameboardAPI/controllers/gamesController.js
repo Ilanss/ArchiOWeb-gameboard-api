@@ -1,7 +1,8 @@
 var Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-/**
+const ws = require('../app/backend/dispatcher');
+/** 
  * Display games index form on GET.
  */
 exports.games_list = function(req, res, next) {
@@ -60,6 +61,7 @@ exports.game_post_add = function(req, res, next) {
             .status(201)
             //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
             .send(savedGame);
+        ws.notifyNewGames(req.body.name);
     });
 };
 // Edit exsisting game on PATCH
