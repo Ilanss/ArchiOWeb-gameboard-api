@@ -174,11 +174,11 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * @api {post} /register Register a user
  * @apiName Register
  * @apiGroup Login
- * @apiParam (Request body) {name {3-20}} name Name of the new user
+ * @apiParam (Request body) {username {3-20}} username Username of the new user
  * @apiParam (Request body) {email} email Email of the new user
  * @apiParam (Request body) {string} password Password of the new user
  *
- * @apiSuccess {object[]} user  The newly created user
+ * @apiSuccess {object[]} username  The newly created user
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  *
@@ -197,7 +197,7 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
     "errors": {
         "email": {
             "message": "Path `email` is required.",
-            "name": "ValidatorError",
+            "username": "ValidatorError",
             "properties": {
                 "message": "Path `email` is required.",
                 "type": "required",
@@ -208,20 +208,20 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
             "$isValidatorError": true
         },
         "name": {
-            "message": "Path `name` is required.",
-            "name": "ValidatorError",
+            "message": "Path `username` is required.",
+            "username": "ValidatorError",
             "properties": {
-                "message": "Path `name` is required.",
+                "message": "Path `username` is required.",
                 "type": "required",
-                "path": "name"
+                "path": "username"
             },
             "kind": "required",
-            "path": "name",
+            "path": "username",
             "$isValidatorError": true
         },
         "password": {
             "message": "Path `password` is required.",
-            "name": "ValidatorError",
+            "username": "ValidatorError",
             "properties": {
                 "message": "Path `password` is required.",
                 "type": "required",
