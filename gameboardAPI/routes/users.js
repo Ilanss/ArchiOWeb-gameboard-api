@@ -82,13 +82,13 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
 router.get('/games', games_controller.games_list, function(req, res, next) {
     res.send(req.games);
 });
+
 /**
- * @api {get} /games/:id Request a game's information
- * @apiName GetGame
+ * @api {get} /games/difficulty/:level Request games by difficulty
+ * @apiName GetGameByDifficulty
  * @apiGroup Game
- *
- * @apiParam {Number} id Unique identifier of the game
- *
+ * @apiParam (Request body) {string} difficulty Get games by difficulty
+
  * @apiSuccess {String} name name of the game
  * @apiSuccess {Object} nb_players number player of the game
  * @apiSuccess {Number} nb_players.min number min player of the game
@@ -410,24 +410,6 @@ router.post('/users/:idUser/collections', utils.requireJson, function(req, res, 
 
 // PATCH section :
 
-router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
-    // Update properties present in the request body
-    if (req.body.name !== undefined) {
-        req.user.collection.name = req.body.name;
-    }
-
-    req.user.save(function(err, savedUser) {
-        if (err) {
-            return next(err);
-        }
-
-        debug(`Updated person "${savedUser.username}"`);
-        res.send(savedUser);
-    });
-});
-
-/* PATCH users listing. */
-
 /**
             * @api {patch} /users/:idUser Update a user
             * @apiName UpdateUser
@@ -543,7 +525,7 @@ router.patch('/games/:idGame', games_controller.game_patch_edit);
  *     Content-Type: application/json
  *
  *     {
- *       name : "Ma super collection"
+ *       "name" : "Ma super collection"
  *     }
  *
  * @apiSuccessExample 200 OK
@@ -557,6 +539,22 @@ router.patch('/games/:idGame', games_controller.game_patch_edit);
  *     }
  */
 router.patch('/users/:idUser/collections/:idCollection', users_controller.user_patch_Collectionedit);
+
+router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
+    // Update properties present in the request body
+    if (req.body.name !== undefined) {
+        req.user.collection.name = req.body.name;
+    }
+
+    req.user.save(function(err, savedUser) {
+        if (err) {
+            return next(err);
+        }
+
+        debug(`Updated person "${savedUser.username}"`);
+        res.send(savedUser);
+    });
+});
 
 /* DELETE users listing. */
 
