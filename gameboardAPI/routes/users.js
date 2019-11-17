@@ -154,7 +154,7 @@ router.get('/users/:idUser/collections/:idCollection', users_controller.user_get
     res.send(req.collection);
 });
 
-router.get('/users/:idUser/Nrcollections', function(req, res) {});
+router.get('/users/:idUser/nbrGames', function(req, res) {});
 
 router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames, function(
     req,
