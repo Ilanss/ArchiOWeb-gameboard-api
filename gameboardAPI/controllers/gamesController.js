@@ -55,10 +55,7 @@ exports.game_post_add = function(req, res, next) {
             return next(err);
         }
 
-        res
-            .status(201)
-            //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
-            .send(savedGame);
+        res.status(201).set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`).send(savedGame);
         ws.notifyNewGames(req.body.name);
     });
 };

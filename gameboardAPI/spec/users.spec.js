@@ -9,7 +9,7 @@ const User = File.User;
 const { cleanUpDatabase } = require('./utils');
 
 const jwt = require('jsonwebtoken');
-//const secretKey = process.env.SECRET_KEY || 'changname';
+const secretKey = process.env.SECRET_KEY || 'changname';
 
 //clean the database before testing
 beforeEach(cleanUpDatabase);
@@ -118,11 +118,18 @@ describe('PATCH /users/:id', function() {
     });
 
     it('should update a user', async function() {
+        /*
+        const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
+        const claims = { sub: user._id.toString(), exp: exp };
+
+        let token = jwt.sign(claims, secretKey);
+        */
         const res = await supertest(app)
             .patch('/users/' + user._id)
             .send({
                 username: 'John Doe patched'
             })
+            //    .set('Authorization', 'Bearer ' + token)
             .expect(200)
             .expect('Content-Type', /json/);
     });
@@ -140,7 +147,16 @@ describe('DELETE /users/:id', function() {
     });
 
     it('should delete a user', async function() {
-        const res = await supertest(app).del('/users/' + user._id).expect(204);
+        /*
+        const exp = (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000;
+        const claims = { sub: user._id.toString(), exp: exp };
+
+        let token = jwt.sign(claims, secretKey);
+        */
+        const res = await supertest(app)
+            .del('/users/' + user._id)
+            //.set('Authorization', 'Bearer ' + token)
+            .expect(204);
         expect(res.body).to.eql({});
     });
 });
