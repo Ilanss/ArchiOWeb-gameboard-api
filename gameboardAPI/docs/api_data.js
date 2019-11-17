@@ -13,15 +13,15 @@ define({ "api": [
             "group": "Success 200",
             "type": "json",
             "optional": false,
-            "field": "jwt",
+            "field": "json",
             "description": "<p>API reset by Admin</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8",
+          "title": "204 No Content",
+          "content": "HTTP/1.1 204 No Content",
           "type": "json"
         }
       ]
@@ -32,15 +32,15 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "405",
-            "description": "<p>You are not allowed to reset.</p>"
+            "field": "401",
+            "description": "<p>The password of the User is invalid.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "405:",
-          "content": "HTTP/1.1 405 Unauthorized\nContent-Type: application/json; charset=utf-8\n{\n     \"status\": 405,\n     \"message\": \"You need to be a Admin\"\n}",
+          "title": "401:",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: application/json; charset=utf-8\n{\n     \"status\": 401,\n     \"message\": \"invalid password\"\n}",
           "type": "json"
         }
       ]
@@ -232,7 +232,7 @@ define({ "api": [
         },
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n \n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
           "type": "json"
         }
       ]
@@ -275,7 +275,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example",
-        "content": "POST /games HTTP/1.1\nContent-Type: application/json\n { \n            \"name\": \"Uno\",\n            \"nb_players.min\": 2,\n            \"nb_players.max\": 8,\n            \"play_time\": 120,\n            \"setup_time\":5,\n            \"age.min\":8,\n            \"age.max\":99,\n            \"pictures\":[{\n                \"link\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\":\"masuperphoto\",\n                \"date\": \"11.11.2019\"\n            }],\n            \"editor.id\":\"5da47887fe0c041bc418df12\",\n        \"editor.name\":\"Mattel\",\n            \"difficulty\":\"easy\",\n                \"category\":\"hasard\"\n        }",
+        "content": "POST /games HTTP/1.1\nContent-Type: application/json\n {\n            \"name\": \"Uno\",\n            \"nb_players.min\": 2,\n            \"nb_players.max\": 8,\n            \"play_time\": 120,\n            \"setup_time\":5,\n            \"age.min\":8,\n            \"age.max\":99,\n            \"pictures\":[{\n                \"link\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\":\"masuperphoto\",\n                \"date\": \"11.11.2019\"\n            }],\n            \"editor.id\":\"5da47887fe0c041bc418df12\",\n        \"editor.name\":\"Mattel\",\n            \"difficulty\":\"easy\",\n                \"category\":\"hasard\"\n        }",
         "type": "json"
       }
     ],
@@ -419,7 +419,7 @@ define({ "api": [
       "examples": [
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n \n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
           "type": "json"
         }
       ]
@@ -1041,7 +1041,7 @@ define({ "api": [
         },
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n \n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
           "type": "json"
         }
       ]
@@ -1379,7 +1379,7 @@ define({ "api": [
       "examples": [
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n \n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
           "type": "json"
         }
       ]
@@ -1712,7 +1712,7 @@ define({ "api": [
         },
         {
           "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n \n}",
+          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
           "type": "json"
         }
       ]

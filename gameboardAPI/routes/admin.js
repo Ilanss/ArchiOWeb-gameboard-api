@@ -13,20 +13,17 @@ const Game = require('../db/models/Game');
  * @apiGroup Admin
  * @apiDescription Permanently deletes users, games & collections.
  *
- * @apiSuccess {json} jwt  API reset by Admin
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
- *     Content-Type: application/json; charset=utf-8
+ * @apiSuccess {json} json  API reset by Admin
+  * @apiSuccessExample 204 No Content
+ *     HTTP/1.1 204 No Content
  *
-
- *
- * @apiError 405 You are not allowed to reset.
- * @apiErrorExample 405:
- *     HTTP/1.1 405 Unauthorized
+ * @apiError 401 The password of the User is invalid.
+ * @apiErrorExample 401:
+ *     HTTP/1.1 401 Unauthorized
  *     Content-Type: application/json; charset=utf-8
  *     {
- *          "status": 405,
- *          "message": "You need to be a Admin"
+ *          "status": 401,
+ *          "message": "invalid password"
  *     }
  */
 router.post('/reset', utils.authenticate, function(req, res, next) {
