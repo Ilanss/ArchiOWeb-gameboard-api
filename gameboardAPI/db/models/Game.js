@@ -59,7 +59,12 @@ let GameSchema = new Schema({
     category: String,
     editor: { EditorSchema },
     skill: String,
-    description: String
+    description: String,
+    created_by: {
+        type:Object,
+        required: true
+    }
+
 });
 
 GameSchema.pre('save', function(next) {

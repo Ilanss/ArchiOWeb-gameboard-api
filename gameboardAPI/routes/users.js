@@ -29,12 +29,12 @@ router.get('/users', users_controller.users_list, function(req, res, next) {
  * @apiParam {Number} idUser Unique identifier of the user
  *
  * @apiSuccess {String} username  username of the user
- * @apiSuccess {Object} personal_info  personal info of the user 
+ * @apiSuccess {Object} personal_info  personal info of the user
  * @apiSuccess {String} personal_info.firstname  firstname of the user
  * @apiSuccess {String} personal_info.lastname  lastname of the user
  * @apiSuccess {String} personal_info.email  Email of the user
  * @apiSuccess {String} personal_info.password  hash password of the user
- * @apiSuccess {Object[]} collection  Array collection of the user   
+ * @apiSuccess {Object[]} collection  Array collection of the user
  */
 router.get('/users/:idUser', users_controller.user_get_info, function(req, res, next) {
     res.send(req.user);
@@ -324,7 +324,7 @@ router.post('/login', function (req, res, next) {
              * @apiExample Example
              *     POST /users HTTP/1.1
              *     Content-Type: application/json
-             * 
+             *
              * {
                 "username": "Skyggen",
                 "personal_info.firstname": "Adrien",
@@ -377,7 +377,7 @@ router.post('/users', utils.requireJson, function(req, res, next) {
              * @apiExample Example
              *     POST /games HTTP/1.1
              *     Content-Type: application/json
-             *      { 
+             *      {
                 "name": "Uno",
                 "nb_players.min": 2,
                 "nb_players.max": 8,
@@ -446,13 +446,7 @@ router.post('/users/:idUser/collections', utils.requireJson, function(req, res, 
 router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
     // Update properties present in the request body
     if (req.body.name !== undefined) {
-        req.user.collection.name = req.body.username;
-    }
-    if (req.body.personal_info.firstname !== undefined) {
-        req.user.personal_info.firstname = req.body.personal_info.firstname;
-    }
-    if (req.body.personal_info.lastname !== undefined) {
-        req.user.personal_info.lastname = req.body.personal_info.lastname;
+        req.user.collection.name = req.body.name;
     }
 
     req.user.save(function(err, savedUser) {
@@ -515,6 +509,9 @@ router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, 
     }
     if (req.body.personal_info.lastname !== undefined) {
         req.user.personal_info.lastname = req.body.personal_info.lastname;
+    }
+    if (req.body.email !== undefined) {
+        req.user.personal_info.email = req.body.email;
     }
 
     req.user.save(function(err, savedUser) {
@@ -769,7 +766,7 @@ function userNotFound(res, userId) {
  *     Content-Type: application/json
  *
  *     {
- *      
+ *
  *     }
  */
 
@@ -814,7 +811,7 @@ function userNotFound(res, userId) {
  *     Content-Type: application/json
  *
  *     {
- *      
+ *
  *     }
  */
 
@@ -858,7 +855,7 @@ function userNotFound(res, userId) {
  *     Content-Type: application/json
  *
  *     {
- *      
+ *
  *     }
  */
 
