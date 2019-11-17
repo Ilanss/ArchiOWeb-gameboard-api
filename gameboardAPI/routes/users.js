@@ -11,6 +11,8 @@ const Collection = File.Collection;
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 /* GET users listing. */
 
@@ -169,6 +171,145 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
 
 /* POST users listing. */
 
+
+/**
+ * @api {post} /register Register a user
+ * @apiName Register
+ * @apiGroup Login
+ * @apiParam (Request body) {username {3-20}} username Username of the new user
+ * @apiParam (Request body) {email} email Email of the new user
+ * @apiParam (Request body) {string} password Password of the new user
+ *
+ * @apiSuccess {object[]} username  The newly created user
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/1.1 200 OK
+ *
+ * {
+ *   "Username": "Skyggen",
+ *   "email": "skyggen@example.com",
+ *   "registrationDate": "2019-11-29T09:09:28.095Z",
+ *   "id": "5bd6csad05f26128d2edb264"
+ * }
+ *
+ * @apiError 422 Wrong request
+ * @apiErrorExample 422:
+ *     HTTP/1.1 422 Unprocessable Entity
+ *     {
+    "message": "users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.",
+    "errors": {
+        "email": {
+            "message": "Path `email` is required.",
+            "username": "ValidatorError",
+            "properties": {
+                "message": "Path `email` is required.",
+                "type": "required",
+                "path": "email"
+            },
+            "kind": "required",
+            "path": "email",
+            "$isValidatorError": true
+        },
+        "name": {
+            "message": "Path `username` is required.",
+            "username": "ValidatorError",
+            "properties": {
+                "message": "Path `username` is required.",
+                "type": "required",
+                "path": "username"
+            },
+            "kind": "required",
+            "path": "username",
+            "$isValidatorError": true
+        },
+        "password": {
+            "message": "Path `password` is required.",
+            "username": "ValidatorError",
+            "properties": {
+                "message": "Path `password` is required.",
+                "type": "required",
+                "path": "password"
+            },
+            "kind": "required",
+            "path": "password",
+            "$isValidatorError": true
+        }
+    }
+}
+ *
+ *
+ */
+router.post('/register', function (req, res, next) {
+    // Create a new document from the JSON in the request body
+    let newUser = req.body;
+    newUser.registrationDate = Date.now();
+    bcrypt.hash(newUser.personal_info.password, saltRounds, function (err, hash) {
+        newUser.personal_info.password = hash;
+        const newUserDocument = new User(newUser);
+        // Save that document
+        newUserDocument.save(function (err, savedUser) {
+            if (err) {
+                console.log(err)
+                return next(err);
+            }
+            // Send the saved document in the response
+            res.send(savedUser);
+        });
+    });
+});
+
+
+/**
+ * @api {post} /login Login a user
+ * @apiName Log-in
+ * @apiGroup Login
+ * @apiParam (Request body) {email} email Email credentials of the user trying to login
+ * @apiParam (Request body) {string} password Password of the user trying to login
+ *
+ * @apiSuccess {token[]} jwt  A json web token that must be sent with every request to identify the user
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/1.1 200 OK
+ *     Content-Type: application/json; charset=utf-8
+ *
+ * {
+ *   "token": "eyJhbGciOiJIUsadwiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNwqDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I"
+ * }
+ *
+ * @apiError 404 The email of the User was not found.
+ * @apiErrorExample 404:
+ *     HTTP/1.1 404 Not Found
+ *     Content-Type: application/json; charset=utf-8
+ *
+ *     {
+ *          "status": 404,
+ *          "message": "User Not Found"
+ *     }
+ *
+ * @apiError 401 The password of the User is invalid.
+ * @apiErrorExample 401:
+ *     HTTP/1.1 401 Unauthorized
+ *     Content-Type: application/json; charset=utf-8
+ *     {
+ *          "status": 401,
+ *          "message": "invalid password"
+ *     }
+ */
+router.post('/login', function (req, res, next) {
+
+    User.verifyCredentials(req.body.email, req.body.personal_info.password, function (err, user) {
+        if (err) {
+            return next(err)
+
+        }
+        user.generateJwt(function (err, jwt) {
+            if (err) {
+                return next(err)
+            }
+            res.send({ token: jwt, user: user })
+        })
+    })
+});
+
+
 /**
              * @api {post} /users Create a user
              * @apiName CreateUser
@@ -302,7 +443,27 @@ router.post('/users/:idUser/collections', utils.requireJson, function(req, res, 
 
 // PATCH section :
 
-router.patch('/users/:idUser/collections/:idCollection/games', users_controller.user_post_addCollectionGame);
+router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
+    // Update properties present in the request body
+    if (req.body.name !== undefined) {
+        req.user.collection.name = req.body.username;
+    }
+    if (req.body.personal_info.firstname !== undefined) {
+        req.user.personal_info.firstname = req.body.personal_info.firstname;
+    }
+    if (req.body.personal_info.lastname !== undefined) {
+        req.user.personal_info.lastname = req.body.personal_info.lastname;
+    }
+
+    req.user.save(function(err, savedUser) {
+        if (err) {
+            return next(err);
+        }
+
+        debug(`Updated person "${savedUser.username}"`);
+        res.send(savedUser);
+    });
+});
 
 /* PATCH users listing. */
 
@@ -499,6 +660,24 @@ function loadUserFromParamsMiddleware(req, res, next) {
         }
 
         req.user = user;
+        next();
+    });
+}
+
+function loadCollectionFromParamsMiddleware(req, res, next) {
+    const collectionId = req.params._id;
+    if (!ObjectId.isValid(collectionId)) {
+        return collectionNotFound(res, collectionId);
+    }
+
+    Collection.findById(req.params._id, function(err, collection) {
+        if (err) {
+            return next(err);
+        } else if (!collection) {
+            return collectionNotFound(res, collectionId);
+        }
+
+        req.collection = collection;
         next();
     });
 }
