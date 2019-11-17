@@ -62,5 +62,35 @@ function validateEmail(email) {
     return re.test(email)
 };
 
+userSchema.statics.verifyCredentials = function (email, password, callback) {
+    User.findOne({email: email}).exec(function (err, user) {
+        if (err) {
+
+            return callback(err)
+        }
+        if (user === null) {
+            const err = new Error()
+            err.status = 404
+            err.message = 'User Not Found'
+            return callback(err)
+        }
+
+        bcrypt.compare(password, user.password, function (err, valid) {
+            // Handle error and password validity...
+            if (err) {
+                return callback(err);
+            } else if (!valid) {
+                const err = new Error('invalid password')
+                err.status = 401
+                err.message = 'invalid password'
+                return callback(err)
+            }
+
+            callback(undefined, user)
+        })
+    })
+}
+
+
 /** @name db.User */
 module.exports = {User:mongoose.model('User', UserSchema),Collection:mongoose.model('Collection', CollectionSchema)};
