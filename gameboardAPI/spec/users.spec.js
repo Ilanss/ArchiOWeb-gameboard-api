@@ -6,6 +6,9 @@ const { cleanUpDatabase } = require('./utils');
 const File = require('../db/models/User');
 const User = File.User;
 
+const jwt = require('jsonwebtoken');
+//const secretKey = process.env.SECRET_KEY || 'changname';
+
 //clean the database before testing
 beforeEach(cleanUpDatabase);
 
@@ -45,6 +48,26 @@ describe('GET /users', function() {
         expect(res.body[1]._id).to.be.a('string');
         expect(res.body[1].username).to.equal('Jane Doe');
         expect(res.body[1]).to.have.all.keys('_id', 'username', 'collections', 'createdAt', 'updatedAt', '__v');
+    });
+});
+
+describe('GET /users/:id', function() {
+    let user;
+
+    beforeEach(async function() {
+        user = await User.create({ username: 'John Doe', password: '1234' });
+    });
+
+    it('should retrieve a specific user', async function() {
+        const res = await supertest(app).get('/users/' + user._id).expect(200).expect('Content-Type', /json/);
+    });
+
+    it('should not be able to retrieve a specific user with invalid id', async function() {
+        const res = await supertest(app).get('/users/testid').expect(404);
+    });
+
+    it('should not be able to retrieve a specific user with non-existent id', async function() {
+        const res = await supertest(app).get('/users/5dcd2578e706374f0b46b1f3').expect(404);
     });
 });
 
