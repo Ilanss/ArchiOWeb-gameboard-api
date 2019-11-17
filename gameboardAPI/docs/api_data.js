@@ -217,7 +217,7 @@ define({ "api": [
       "examples": [
         {
           "title": "201 Created",
-          "content": "    HTTP/1.1 201 Created\n    Content-Type: application/json\n    Location: https://archioweb-gameboardapi.herokuapp.com/games/58b2926f5e1def0123e97281\n\n     {\n    \"nb_players\": {\n        \"min\": 2,\n        \"max\": 8\n    },\n    \"age\": {\n        \"min\": 8,\n        \"max\": 99\n    },\n    \"_id\": \"5dc973c11371a342718d2ab0\",\n    \"name\": \"Uno\",\n    \"play_time\": 120,\n    \"setup_time\": 5,\n    \"pictures\": [\n        {\n            \"_id\": \"5dc973c11371a342718d2ab1\",\n            \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n            \"name\": \"masuperphoto\",\n            \"date\": \"2019-11-10T23:00:00.000Z\"\n        }\n    ],\n    \"difficulty\": \"easy\",\n    \"category\": \"hasard\",\n    \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n    \"updatedAt\": \"2019-11-11T14:44:17.743Z\",\n    \"__v\": 0\n}",
+          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://archioweb-gameboardapi.herokuapp.com/games/58b2926f5e1def0123e97281\n\n {\n            \"nb_players\": {\n                \"min\": 2,\n                \"max\": 8\n            },\n            \"age\": {\n                \"min\": 8,\n                \"max\": 99\n            },\n            \"_id\": \"5dc973c11371a342718d2ab0\",\n            \"name\": \"Uno\",\n            \"play_time\": 120,\n            \"setup_time\": 5,\n            \"pictures\": [\n                {\n                    \"_id\": \"5dc973c11371a342718d2ab1\",\n                    \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                    \"name\": \"masuperphoto\",\n                    \"date\": \"2019-11-10T23:00:00.000Z\"\n                }\n            ],\n            \"difficulty\": \"easy\",\n            \"category\": \"hasard\",\n            \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n            \"updatedAt\": \"2019-11-11T14:44:17.743Z\",\n            \"__v\": 0\n        }",
           "type": "json"
         }
       ]
@@ -225,7 +225,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example",
-        "content": "    POST /games HTTP/1.1\n    Content-Type: application/json\n     { \n    \"name\": \"Uno\",\n    \"nb_players.min\": 2,\n    \"nb_players.max\": 8,\n    \"play_time\": 120,\n    \"setup_time\":5,\n    \"age.min\":8,\n    \"age.max\":99,\n    \"pictures\":[{\n        \"link\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n        \"name\":\"masuperphoto\",\n        \"date\": \"11.11.2019\"\n    }],\n    \"editor.id\":\"5da47887fe0c041bc418df12\",\n\"editor.name\":\"Mattel\",\n    \"difficulty\":\"easy\",\n        \"category\":\"hasard\"\n}",
+        "content": "POST /games HTTP/1.1\nContent-Type: application/json\n { \n            \"name\": \"Uno\",\n            \"nb_players.min\": 2,\n            \"nb_players.max\": 8,\n            \"play_time\": 120,\n            \"setup_time\":5,\n            \"age.min\":8,\n            \"age.max\":99,\n            \"pictures\":[{\n                \"link\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\":\"masuperphoto\",\n                \"date\": \"11.11.2019\"\n            }],\n            \"editor.id\":\"5da47887fe0c041bc418df12\",\n        \"editor.name\":\"Mattel\",\n            \"difficulty\":\"easy\",\n                \"category\":\"hasard\"\n        }",
         "type": "json"
       }
     ],
@@ -437,140 +437,6 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/games/:id",
-    "title": "Request a game's information",
-    "name": "GetGame",
-    "group": "Game",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Unique identifier of the game</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>name of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "nb_players",
-            "description": "<p>number player of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "nb_players.min",
-            "description": "<p>number min player of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "nb_players.max",
-            "description": "<p>number max player of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "play_time",
-            "description": "<p>Duration party of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "setup_time",
-            "description": "<p>Duration to setup the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "age",
-            "description": "<p>range age to play the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "age.min",
-            "description": "<p>age min to play the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "age.max",
-            "description": "<p>age max to play the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String[]",
-            "optional": false,
-            "field": "picture",
-            "description": "<p>array of pictures</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "difficulty",
-            "description": "<p>level of difficulty of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "category",
-            "description": "<p>category of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "editor",
-            "description": "<p>of the game</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "editor.id",
-            "description": "<p>id of the editor</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "editor.name",
-            "description": "<p>name of the editor</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "Game"
-  },
-  {
-    "type": "get",
     "url": "/games/:idGame",
     "title": "Get a game's information",
     "name": "GetGame",
@@ -687,6 +553,140 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "editor.idEditor",
+            "description": "<p>id of the editor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "editor.name",
+            "description": "<p>name of the editor</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Game"
+  },
+  {
+    "type": "get",
+    "url": "/games/:id",
+    "title": "Request a game's information",
+    "name": "GetGame",
+    "group": "Game",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Unique identifier of the game</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>name of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "nb_players",
+            "description": "<p>number player of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.min",
+            "description": "<p>number min player of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.max",
+            "description": "<p>number max player of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "play_time",
+            "description": "<p>Duration party of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "setup_time",
+            "description": "<p>Duration to setup the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "age",
+            "description": "<p>range age to play the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "age.min",
+            "description": "<p>age min to play the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "age.max",
+            "description": "<p>age max to play the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>array of pictures</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "difficulty",
+            "description": "<p>level of difficulty of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "category",
+            "description": "<p>category of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "editor",
+            "description": "<p>of the game</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "editor.id",
             "description": "<p>id of the editor</p>"
           },
           {
@@ -999,6 +999,83 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/register",
+    "title": "Register a user",
+    "name": "Register",
+    "group": "Login",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "name",
+            "size": "3-20",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the new user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "email",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email of the new user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of the new user</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The newly created user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n\n{\n  \"name\": \"Foo Bar\",\n  \"email\": \"test@example.com\",\n  \"registrationDate\": \"2018-10-29T09:16:28.095Z\",\n  \"id\": \"5bd6cfec05f26128d2edb264\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "422",
+            "description": "<p>Wrong request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "422:",
+          "content": "    HTTP/1.1 422 Unprocessable Entity\n    {\n    \"message\": \"users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.\",\n    \"errors\": {\n        \"email\": {\n            \"message\": \"Path `email` is required.\",\n            \"name\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `email` is required.\",\n                \"type\": \"required\",\n                \"path\": \"email\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"email\",\n            \"$isValidatorError\": true\n        },\n        \"name\": {\n            \"message\": \"Path `name` is required.\",\n            \"name\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `name` is required.\",\n                \"type\": \"required\",\n                \"path\": \"name\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"name\",\n            \"$isValidatorError\": true\n        },\n        \"password\": {\n            \"message\": \"Path `password` is required.\",\n            \"name\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `password` is required.\",\n                \"type\": \"required\",\n                \"path\": \"password\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"password\",\n            \"$isValidatorError\": true\n        }\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Login"
+  },
+  {
+    "type": "post",
     "url": "/users",
     "title": "Create a user",
     "name": "CreateUser",
@@ -1089,7 +1166,7 @@ define({ "api": [
       "examples": [
         {
           "title": "201 Created",
-          "content": "    HTTP/1.1 201 Created\n    Content-Type: application/json\n    Location: https://archioweb-gameboardapi.herokuapp.com/users/58b2926f5e1def0123e97281\n\n    {\n    \"personal_info\": {\n        \"firstname\": \"Adrien\",\n        \"lastname\": \"Chapy\",\n        \"mail\": \"chapy@gmail.com\",\n        \"password\": \"bob12345\"\n    },\n    \"_id\": \"5dc974f01371a342718d2ab2\",\n    \"username\": \"Skyggen\",\n    \"createdAt\": \"2019-11-11T14:49:20.282Z\",\n    \"updatedAt\": \"2019-11-11T14:49:20.284Z\",\n    \"collections\": [],\n    \"__v\": 0\n}",
+          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://archioweb-gameboardapi.herokuapp.com/users/58b2926f5e1def0123e97281\n\n{\n            \"personal_info\": {\n                \"firstname\": \"Adrien\",\n                \"lastname\": \"Chapy\",\n                \"mail\": \"chapy@gmail.com\",\n                \"password\": \"bob12345\"\n            },\n            \"_id\": \"5dc974f01371a342718d2ab2\",\n            \"username\": \"Skyggen\",\n            \"createdAt\": \"2019-11-11T14:49:20.282Z\",\n            \"updatedAt\": \"2019-11-11T14:49:20.284Z\",\n            \"collections\": [],\n            \"__v\": 0\n        }",
           "type": "json"
         }
       ]
@@ -1097,7 +1174,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example",
-        "content": "    POST /users HTTP/1.1\n    Content-Type: application/json\n\n{\n    \"username\": \"Skyggen\",\n    \"personal_info.firstname\": \"Adrien\",\n    \"personal_info.lastname\": \"Chapy\",\n    \"personal_info.mail\": \"chapy@gmail.com\",\n    \"personal_info.password\": \"bob12345\"\n}",
+        "content": "    POST /users HTTP/1.1\n    Content-Type: application/json\n\n{\n                \"username\": \"Skyggen\",\n                \"personal_info.firstname\": \"Adrien\",\n                \"personal_info.lastname\": \"Chapy\",\n                \"personal_info.mail\": \"chapy@gmail.com\",\n                \"personal_info.password\": \"bob12345\"\n            }",
         "type": "json"
       }
     ],
@@ -1334,7 +1411,7 @@ define({ "api": [
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n{\"_id\":{\"$oid\":\"5da47304fe0c041bc418df11\"},\n\"username\":\"Skyggen\",\n\"personal_info\":\n    {\n        \"firstname\":\"Adrien\",\n        \"lastname\":\"Ciampone\",\n        \"mail\":\"adrienciampone@gmail.com\",\n        \"password\":\"bob12345\"\n    },\n\"collections\":[]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n            {\"_id\":{\"$oid\":\"5da47304fe0c041bc418df11\"},\n            \"username\":\"Skyggen\",\n            \"personal_info\":\n                {\n                    \"firstname\":\"Adrien\",\n                    \"lastname\":\"Ciampone\",\n                    \"mail\":\"adrienciampone@gmail.com\",\n                    \"password\":\"bob12345\"\n                },\n            \"collections\":[]",
           "type": "json"
         }
       ],

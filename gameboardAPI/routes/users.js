@@ -169,6 +169,93 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
 
 /* POST users listing. */
 
+
+/**
+ * @api {post} /register Register a user
+ * @apiName Register
+ * @apiGroup Login
+ * @apiParam (Request body) {name {3-20}} name Name of the new user
+ * @apiParam (Request body) {email} email Email of the new user
+ * @apiParam (Request body) {string} password Password of the new user
+ *
+ * @apiSuccess {object[]} user  The newly created user
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/1.1 200 OK
+ *
+ * {
+ *   "name": "Foo Bar",
+ *   "email": "test@example.com",
+ *   "registrationDate": "2018-10-29T09:16:28.095Z",
+ *   "id": "5bd6cfec05f26128d2edb264"
+ * }
+ *
+ * @apiError 422 Wrong request
+ * @apiErrorExample 422:
+ *     HTTP/1.1 422 Unprocessable Entity
+ *     {
+    "message": "users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.",
+    "errors": {
+        "email": {
+            "message": "Path `email` is required.",
+            "name": "ValidatorError",
+            "properties": {
+                "message": "Path `email` is required.",
+                "type": "required",
+                "path": "email"
+            },
+            "kind": "required",
+            "path": "email",
+            "$isValidatorError": true
+        },
+        "name": {
+            "message": "Path `name` is required.",
+            "name": "ValidatorError",
+            "properties": {
+                "message": "Path `name` is required.",
+                "type": "required",
+                "path": "name"
+            },
+            "kind": "required",
+            "path": "name",
+            "$isValidatorError": true
+        },
+        "password": {
+            "message": "Path `password` is required.",
+            "name": "ValidatorError",
+            "properties": {
+                "message": "Path `password` is required.",
+                "type": "required",
+                "path": "password"
+            },
+            "kind": "required",
+            "path": "password",
+            "$isValidatorError": true
+        }
+    }
+}
+ *
+ *
+ */
+router.post('/register', function (req, res, next) {
+    // Create a new document from the JSON in the request body
+    let newUser = req.body;
+    newUser.registrationDate = Date.now();
+    bcrypt.hash(newUser.password, saltRounds, function (err, hash) {
+        newUser.password = hash;
+        const newUserDocument = new User(newUser);
+        // Save that document
+        newUserDocument.save(function (err, savedUser) {
+            if (err) {
+                console.log(err)
+                return next(err);
+            }
+            // Send the saved document in the response
+            res.send(savedUser);
+        });
+    });
+});
+
+
 /**
              * @api {post} /users Create a user
              * @apiName CreateUser
