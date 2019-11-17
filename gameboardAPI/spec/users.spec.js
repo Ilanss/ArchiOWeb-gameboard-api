@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 //clean the database before testing
 beforeEach(cleanUpDatabase);
 
+//MINIMAL TEST - post user route TEST
 describe('POST /users', function() {
     it('should create a user', async function() {
         const res = await supertest(app)
@@ -39,6 +40,7 @@ describe('POST /users', function() {
     });
 });
 
+//MINIMAL TEST -- get user list rout TEST
 describe('GET /users', function() {
     beforeEach(async function() {
         // Create 2 users before retrieving the list.
@@ -80,6 +82,7 @@ describe('GET /users', function() {
     });
 });
 
+//ADAVANCED TEST -- user id route TEST.
 describe('GET /users/:id', function() {
     let user;
 
@@ -103,7 +106,7 @@ describe('GET /users/:id', function() {
     });
 });
 
-//test patch user whitout JWT tokens
+//MINIMAL TEST -- patch user route TEST
 describe('PATCH /users/:id', function() {
     let user;
 
@@ -125,7 +128,7 @@ describe('PATCH /users/:id', function() {
     });
 });
 
-//delate user test whitout JWT tockens
+//MINIMAL TEST -- delate user route TEST
 describe('DELETE /users/:id', function() {
     let user;
 
