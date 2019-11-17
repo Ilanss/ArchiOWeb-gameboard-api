@@ -1038,7 +1038,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8\n\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNiNDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I\"\n}",
+          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8\n\n{\n  \"token\": \"eyJhbGciOiJIUsadwiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNwqDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I\"\n}",
           "type": "json"
         }
       ]
@@ -1126,7 +1126,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n\n{\n  \"name\": \"Foo Bar\",\n  \"email\": \"test@example.com\",\n  \"registrationDate\": \"2018-10-29T09:16:28.095Z\",\n  \"id\": \"5bd6cfec05f26128d2edb264\"\n}",
+          "content": "HTTP/1.1 200 OK\n\n{\n  \"Username\": \"Skyggen\",\n  \"email\": \"skyggen@example.com\",\n  \"registrationDate\": \"2019-11-29T09:09:28.095Z\",\n  \"id\": \"5bd6csad05f26128d2edb264\"\n}",
           "type": "json"
         }
       ]

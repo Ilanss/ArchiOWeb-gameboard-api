@@ -183,10 +183,10 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * HTTP/1.1 200 OK
  *
  * {
- *   "name": "Foo Bar",
- *   "email": "test@example.com",
- *   "registrationDate": "2018-10-29T09:16:28.095Z",
- *   "id": "5bd6cfec05f26128d2edb264"
+ *   "Username": "Skyggen",
+ *   "email": "skyggen@example.com",
+ *   "registrationDate": "2019-11-29T09:09:28.095Z",
+ *   "id": "5bd6csad05f26128d2edb264"
  * }
  *
  * @apiError 422 Wrong request
@@ -269,7 +269,7 @@ router.post('/register', function (req, res, next) {
  *     Content-Type: application/json; charset=utf-8
  *
  * {
- *   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNiNDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I"
+ *   "token": "eyJhbGciOiJIUsadwiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNwqDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I"
  * }
  *
  * @apiError 404 The email of the User was not found.
