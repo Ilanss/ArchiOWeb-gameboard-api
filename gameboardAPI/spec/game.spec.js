@@ -45,12 +45,14 @@ describe('GET /games', function() {
         expect(res.body[0]).to.be.an('object');
         expect(res.body[0]._id).to.be.a('string');
         expect(res.body[0].name).to.equal('uno');
-        expect(res.body[0]).to.have.all.keys('_id', 'name', 'createdAt', 'updatedAt', '__v');
+        expect(res.body.createdBy).to.equal('testid');
+        expect(res.body[0]).to.have.all.keys('_id', 'name', 'createdBy', 'createdAt', 'updatedAt', '__v');
         //test game 2
         expect(res.body[1]).to.be.an('object');
         expect(res.body[1]._id).to.be.a('string');
         expect(res.body[1].name).to.equal('duo');
-        expect(res.body[1]).to.have.all.keys('_id', 'name', 'createdAt', 'updatedAt', '__v');
+        expect(res.body.createdBy).to.equal('testid');
+        expect(res.body[1]).to.have.all.keys('_id', 'name', 'createdBy', 'createdAt', 'updatedAt', '__v');
     });
 });
 
