@@ -74,11 +74,11 @@ Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 | Patch methodes Game(idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|fields to be completed|
 | Patch methodes Collection(idCollecton) |🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️⚪️|check idCollection...|
 | Delete methodes user (idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
-| Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
+| Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|check createdBy|
+| Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️|check createdBy|
 | Websocket Backend |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | APIDoc of the API |🔵🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️||
-| Tests |🔵🔵⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️||
+| Minimal Tests |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️|patch|
 
 
 

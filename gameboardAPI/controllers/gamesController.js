@@ -57,7 +57,7 @@ exports.game_post_add = function(req, res, next) {
 
         res
             .status(201)
-            .set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
+            //.set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`)
             .send(savedGame);
         ws.notifyNewGames(req.body.name);
     });

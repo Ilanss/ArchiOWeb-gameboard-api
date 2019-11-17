@@ -60,7 +60,7 @@ let GameSchema = new Schema({
     editor: { EditorSchema },
     skill: String,
     description: String,
-    created_by: {
+    createdBy: {
         type:Object,
         required: true
     }
