@@ -1,3 +1,4 @@
+
 # COMEM+ Web-Oriented Architecture Course
 ## Gameboard API
 REST API developed with the Express framework and a MongoDB database. The API that allows the creation of personal collections of games
@@ -62,9 +63,9 @@ Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 ### API Progress
 |Task | Progressbar | Todo/Tofix |
 |--|--|--|
-| Get methodes User(Users, UserId,nbrGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| Get methodes Game (Games,GamesId, Difficulty, filter, Pagination) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| Get methodes Collection(idUsers, idCollection,ListGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes User(Users, UserId, nbrGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes Game (Games, GamesId, Difficulty, filter, Pagination) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes Collection(idUsers, idCollection, ListGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Post methodes Game(addGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|checkUserId|
 | Post methodes Collection(addCollection) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|generate Slug|
 | Post methodes Log in to the API | 🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️ |checkemail|
@@ -72,10 +73,11 @@ Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 | Patch methodes User(idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|email obligatory|
 | Patch methodes Game(idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|fields to be completed|
 | Patch methodes Collection(idCollecton) |🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️⚪️|check idCollection...|
-| Delete methodes user (idUser) |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
+| Delete methodes user (idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
 | Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️||
 | Websocket Backend |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| APIDoc of the API |🔵🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️||
 | Tests |🔵🔵⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️||
 
 
@@ -100,7 +102,7 @@ To automatically reload the code and re-generate the API documentation on change
 
 ## Real-time component
 
-Websocket is implemented for the real-time component. An insight message is generated every time a user create a game. The message format is generated , like this :
+Websocket is implemented for the real-time component. An insight message is generated every time a user create a game. The message format is generated, like this :
 
 ```
   A new game called : (Gamename) is avaiable.
