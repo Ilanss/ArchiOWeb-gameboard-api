@@ -63,8 +63,8 @@ Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 ### API Progress
 |Task | Progressbar | Todo/Tofix |
 |--|--|--|
-| Get methodes User(Users, UserId, nbrGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| Get methodes Game (Games, GamesId, Difficulty, filter, Pagination) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes User(Users, UserId, aggregation nbrGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Get methodes Game (Games, GamesId, filter Difficulty, Pagination) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Get methodes Collection(idUsers, idCollection, ListGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Post methodes Game(addGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|checkUserId|
 | Post methodes Collection(addCollection) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|generate Slug|
@@ -75,12 +75,11 @@ Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 | Patch methodes Collection(idCollecton) |🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️⚪️|check idCollection...|
 | Delete methodes user (idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|check createdBy|
-| Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️|check createdBy|
+| Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️|check token|
 | Websocket Backend |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | APIDoc of the API |🔵🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️||
-| Minimal Tests |🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️|patch|
-
-
+| Minimal Tests |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
+| Advanced Tests |🔵🔵⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️||
 
 ## Requirements
 
