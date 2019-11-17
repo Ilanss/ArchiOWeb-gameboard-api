@@ -1048,344 +1048,6 @@ define({ "api": [
     }
   },
   {
-    "type": "post",
-    "url": "/login",
-    "title": "Login a user",
-    "name": "Log_in",
-    "group": "Login",
-    "parameter": {
-      "fields": {
-        "Request body": [
-          {
-            "group": "Request body",
-            "type": "email",
-            "optional": false,
-            "field": "email",
-            "description": "<p>Email credentials of the user trying to login</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "string",
-            "optional": false,
-            "field": "password",
-            "description": "<p>Password of the user trying to login</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "token[]",
-            "optional": false,
-            "field": "jwt",
-            "description": "<p>A json web token that must be sent with every request to identify the user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8\n\n{\n  \"token\": \"eyJhbGciOiJIUsadwiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNwqDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "404",
-            "description": "<p>The email of the User was not found.</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "401",
-            "description": "<p>The password of the User is invalid.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "404:",
-          "content": "HTTP/1.1 404 Not Found\nContent-Type: application/json; charset=utf-8\n\n{\n     \"status\": 404,\n     \"message\": \"User Not Found\"\n}",
-          "type": "json"
-        },
-        {
-          "title": "401:",
-          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: application/json; charset=utf-8\n{\n     \"status\": 401,\n     \"message\": \"invalid password\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "Login"
-  },
-  {
-    "type": "post",
-    "url": "/register",
-    "title": "Register a user",
-    "name": "Register",
-    "group": "Login",
-    "parameter": {
-      "fields": {
-        "Request body": [
-          {
-            "group": "Request body",
-            "type": "username",
-            "size": "3-20",
-            "optional": false,
-            "field": "username",
-            "description": "<p>Username of the new user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "email",
-            "optional": false,
-            "field": "email",
-            "description": "<p>Email of the new user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "string",
-            "optional": false,
-            "field": "password",
-            "description": "<p>Password of the new user</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "object[]",
-            "optional": false,
-            "field": "username",
-            "description": "<p>The newly created user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n\n{\n  \"Username\": \"Skyggen\",\n  \"email\": \"skyggen@example.com\",\n  \"registrationDate\": \"2019-11-29T09:09:28.095Z\",\n  \"id\": \"5bd6csad05f26128d2edb264\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "422",
-            "description": "<p>Wrong request</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "422:",
-          "content": "    HTTP/1.1 422 Unprocessable Entity\n    {\n    \"message\": \"users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.\",\n    \"errors\": {\n        \"email\": {\n            \"message\": \"Path `email` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `email` is required.\",\n                \"type\": \"required\",\n                \"path\": \"email\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"email\",\n            \"$isValidatorError\": true\n        },\n        \"name\": {\n            \"message\": \"Path `username` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `username` is required.\",\n                \"type\": \"required\",\n                \"path\": \"username\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"username\",\n            \"$isValidatorError\": true\n        },\n        \"password\": {\n            \"message\": \"Path `password` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `password` is required.\",\n                \"type\": \"required\",\n                \"path\": \"password\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"password\",\n            \"$isValidatorError\": true\n        }\n    }\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "Login"
-  },
-  {
-    "type": "post",
-    "url": "/users",
-    "title": "Create a user",
-    "name": "CreateUser",
-    "group": "User",
-    "description": "<p>Registers a new user.</p>",
-    "success": {
-      "fields": {
-        "Response body": [
-          {
-            "group": "Response body",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>A unique identifier for the user generated by the server</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "username",
-            "description": "<p>The username of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>The date creation of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>The date update of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Array",
-            "optional": false,
-            "field": "collections",
-            "description": "<p>The collection of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "__v",
-            "description": "<p>The version of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "Object",
-            "optional": false,
-            "field": "personal_info",
-            "description": "<p>Personal informations of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "personal_info.firstname",
-            "description": "<p>The firstname of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "personal_info.lastname",
-            "description": "<p>The lastname of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "personal_info.email",
-            "description": "<p>The email of the user</p>"
-          },
-          {
-            "group": "Response body",
-            "type": "String",
-            "optional": false,
-            "field": "personal_info.password",
-            "description": "<p>The password of the user</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "201 Created",
-          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://archioweb-gameboardapi.herokuapp.com/users/58b2926f5e1def0123e97281\n\n{\n            \"personal_info\": {\n                \"firstname\": \"Adrien\",\n                \"lastname\": \"Chapy\",\n                \"email\": \"chapy@gmail.com\",\n                \"password\": \"bob12345\"\n            },\n            \"_id\": \"5dc974f01371a342718d2ab2\",\n            \"username\": \"Skyggen\",\n            \"createdAt\": \"2019-11-11T14:49:20.282Z\",\n            \"updatedAt\": \"2019-11-11T14:49:20.284Z\",\n            \"collections\": [],\n            \"__v\": 0\n        }",
-          "type": "json"
-        }
-      ]
-    },
-    "examples": [
-      {
-        "title": "Example",
-        "content": "    POST /users HTTP/1.1\n    Content-Type: application/json\n\n{\n                \"username\": \"Skyggen\",\n                \"personal_info.firstname\": \"Adrien\",\n                \"personal_info.lastname\": \"Chapy\",\n                \"personal_info.email\": \"chapy@gmail.com\",\n                \"personal_info.password\": \"bob12345\"\n            }",
-        "type": "json"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "User",
-    "parameter": {
-      "fields": {
-        "Request body": [
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "3..50",
-            "optional": false,
-            "field": "username",
-            "description": "<p>The username of the user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "Object",
-            "optional": false,
-            "field": "personal_info",
-            "description": "<p>Personal informations of the user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "2..50",
-            "optional": false,
-            "field": "personal_info.firstname",
-            "description": "<p>Firstname of the user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "2..50",
-            "optional": false,
-            "field": "personal_info.lastname",
-            "description": "<p>Lastname of the user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "3..50",
-            "optional": false,
-            "field": "personal_info.email",
-            "description": "<p>Link of the user</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "3..50",
-            "optional": false,
-            "field": "personal_info.password",
-            "description": "<p>Link of the user</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "type": "Object",
-            "optional": false,
-            "field": "422/UnprocessableEntity",
-            "description": "<p>Some of the game's properties are invalid</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "delete",
     "url": "/users/:idUser",
     "title": "Delete a user",
@@ -1520,6 +1182,170 @@ define({ "api": [
         ]
       }
     },
+    "filename": "routes/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/login",
+    "title": "Login a user",
+    "name": "Log_in",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "email",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email credentials of the user trying to login</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of the user trying to login</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "token[]",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>A json web token that must be sent with every request to identify the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8\n\n{\n  \"token\": \"eyJhbGciOiJIUsadwiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNwqDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>The email of the User was not found.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The password of the User is invalid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404:",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: application/json; charset=utf-8\n\n{\n     \"status\": 404,\n     \"message\": \"User Not Found\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "401:",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: application/json; charset=utf-8\n{\n     \"status\": 401,\n     \"message\": \"invalid password\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/register",
+    "title": "Register a user",
+    "name": "Register",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "username",
+            "size": "3-20",
+            "optional": false,
+            "field": "username",
+            "description": "<p>Username of the new user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "email",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email of the new user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of the new user</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "object[]",
+            "optional": false,
+            "field": "username",
+            "description": "<p>The newly created user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "201 Created",
+          "content": "    HTTP/1.1 201 Created\n    Content-Type: application/json\n    Location: https://archioweb-gameboardapi.herokuapp.com/users/58b2926f5e1def0123e97281\n{\n    \"_id\": \"5dd1489bc6313335a99f65fb\",\n    \"username\": \"Skyggen\",\n    \"personal_info\": {\n        \"firstname\": \"Adrien\",\n        \"lastname\": \"Chapy\",\n        \"email\": \"chapy@gmail.com\",\n        \"password\": \"$2b$10$aQwmXHdxHpWmFHBye48WiOpHHS9HtkTliNVx/dCH1zAWitIrV8YC6\"\n    },\n    \"createdAt\": \"2019-11-17T13:18:19.959Z\",\n    \"updatedAt\": \"2019-11-17T13:18:19.967Z\",\n    \"collections\": [],\n    \"__v\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example",
+        "content": "    POST /users HTTP/1.1\n    Content-Type: application/json\n\n{\n\"username\": \"Skyggen\",\n\"personal_info\" :{\n\"firstname\": \"Adrien\",\n\"lastname\": \"Chapy\",\n\"email\": \"chapy@gmail.com\",\n\"password\": \"bob12345\"}\n}",
+        "type": "json"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "422",
+            "description": "<p>Wrong request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "422:",
+          "content": "    HTTP/1.1 422 Unprocessable Entity\n    {\n    \"message\": \"users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.\",\n    \"errors\": {\n        \"email\": {\n            \"message\": \"Path `email` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `email` is required.\",\n                \"type\": \"required\",\n                \"path\": \"email\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"email\",\n            \"$isValidatorError\": true\n        },\n        \"name\": {\n            \"message\": \"Path `username` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `username` is required.\",\n                \"type\": \"required\",\n                \"path\": \"username\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"username\",\n            \"$isValidatorError\": true\n        },\n        \"password\": {\n            \"message\": \"Path `password` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `password` is required.\",\n                \"type\": \"required\",\n                \"path\": \"password\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"password\",\n            \"$isValidatorError\": true\n        }\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
     "filename": "routes/users.js",
     "groupTitle": "User"
   },
@@ -1708,11 +1534,6 @@ define({ "api": [
         {
           "title": "404 Not Found",
           "content": "HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\nNo user found with ID 58b2926f5e1def0123e97281",
-          "type": "json"
-        },
-        {
-          "title": "422 Unprocessable Entity",
-          "content": "HTTP/1.1 422 Unprocessable Entity\nContent-Type: application/json\n\n{\n\n}",
           "type": "json"
         }
       ]
