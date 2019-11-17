@@ -999,6 +999,86 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/login",
+    "title": "Login a user",
+    "name": "Log_in",
+    "group": "Login",
+    "parameter": {
+      "fields": {
+        "Request body": [
+          {
+            "group": "Request body",
+            "type": "email",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email credentials of the user trying to login</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of the user trying to login</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "token[]",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>A json web token that must be sent with every request to identify the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8\n\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNiNDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "404",
+            "description": "<p>The email of the User was not found.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "401",
+            "description": "<p>The password of the User is invalid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "404:",
+          "content": "HTTP/1.1 404 Not Found\nContent-Type: application/json; charset=utf-8\n\n{\n     \"status\": 404,\n     \"message\": \"User Not Found\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "401:",
+          "content": "HTTP/1.1 401 Unauthorized\nContent-Type: application/json; charset=utf-8\n{\n     \"status\": 401,\n     \"message\": \"invalid password\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Login"
+  },
+  {
+    "type": "post",
     "url": "/register",
     "title": "Register a user",
     "name": "Register",
@@ -1008,11 +1088,11 @@ define({ "api": [
         "Request body": [
           {
             "group": "Request body",
-            "type": "name",
+            "type": "username",
             "size": "3-20",
             "optional": false,
-            "field": "name",
-            "description": "<p>Name of the new user</p>"
+            "field": "username",
+            "description": "<p>Username of the new user</p>"
           },
           {
             "group": "Request body",
@@ -1038,7 +1118,7 @@ define({ "api": [
             "group": "Success 200",
             "type": "object[]",
             "optional": false,
-            "field": "user",
+            "field": "username",
             "description": "<p>The newly created user</p>"
           }
         ]
@@ -1065,7 +1145,7 @@ define({ "api": [
       "examples": [
         {
           "title": "422:",
-          "content": "    HTTP/1.1 422 Unprocessable Entity\n    {\n    \"message\": \"users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.\",\n    \"errors\": {\n        \"email\": {\n            \"message\": \"Path `email` is required.\",\n            \"name\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `email` is required.\",\n                \"type\": \"required\",\n                \"path\": \"email\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"email\",\n            \"$isValidatorError\": true\n        },\n        \"name\": {\n            \"message\": \"Path `name` is required.\",\n            \"name\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `name` is required.\",\n                \"type\": \"required\",\n                \"path\": \"name\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"name\",\n            \"$isValidatorError\": true\n        },\n        \"password\": {\n            \"message\": \"Path `password` is required.\",\n            \"name\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `password` is required.\",\n                \"type\": \"required\",\n                \"path\": \"password\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"password\",\n            \"$isValidatorError\": true\n        }\n    }\n}",
+          "content": "    HTTP/1.1 422 Unprocessable Entity\n    {\n    \"message\": \"users validation failed: email: Path `email` is required., name: Path `name` is required., password: Path `password` is required.\",\n    \"errors\": {\n        \"email\": {\n            \"message\": \"Path `email` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `email` is required.\",\n                \"type\": \"required\",\n                \"path\": \"email\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"email\",\n            \"$isValidatorError\": true\n        },\n        \"name\": {\n            \"message\": \"Path `username` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `username` is required.\",\n                \"type\": \"required\",\n                \"path\": \"username\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"username\",\n            \"$isValidatorError\": true\n        },\n        \"password\": {\n            \"message\": \"Path `password` is required.\",\n            \"username\": \"ValidatorError\",\n            \"properties\": {\n                \"message\": \"Path `password` is required.\",\n                \"type\": \"required\",\n                \"path\": \"password\"\n            },\n            \"kind\": \"required\",\n            \"path\": \"password\",\n            \"$isValidatorError\": true\n        }\n    }\n}",
           "type": "json"
         }
       ]

@@ -257,6 +257,58 @@ router.post('/register', function (req, res, next) {
 
 
 /**
+ * @api {post} /login Login a user
+ * @apiName Log-in
+ * @apiGroup Login
+ * @apiParam (Request body) {email} email Email credentials of the user trying to login
+ * @apiParam (Request body) {string} password Password of the user trying to login
+ *
+ * @apiSuccess {token[]} jwt  A json web token that must be sent with every request to identify the user
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/1.1 200 OK
+ *     Content-Type: application/json; charset=utf-8
+ *
+ * {
+ *   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmM0NWZiNTE4ODA1YTNiNDcxMTQ4NWYiLCJleHAiOjE1NDE0MDcxMTkuMzQ2LCJpYXQiOjE1NDA4MDIzMTkzNDZ9.-x2WD3X6hVU1g-l_7tXIeYPlLOaDAARJPAGPhZlQo6I"
+ * }
+ *
+ * @apiError 404 The email of the User was not found.
+ * @apiErrorExample 404:
+ *     HTTP/1.1 404 Not Found
+ *     Content-Type: application/json; charset=utf-8
+ *
+ *     {
+ *          "status": 404,
+ *          "message": "User Not Found"
+ *     }
+ *
+ * @apiError 401 The password of the User is invalid.
+ * @apiErrorExample 401:
+ *     HTTP/1.1 401 Unauthorized
+ *     Content-Type: application/json; charset=utf-8
+ *     {
+ *          "status": 401,
+ *          "message": "invalid password"
+ *     }
+ */
+router.post('/login', function (req, res, next) {
+
+    User.verifyCredentials(req.body.email, req.body.password, function (err, user) {
+        if (err) {
+            return next(err)
+
+        }
+        user.generateJwt(function (err, jwt) {
+            if (err) {
+                return next(err)
+            }
+            res.send({ token: jwt, user: user })
+        })
+    })
+});
+
+
+/**
              * @api {post} /users Create a user
              * @apiName CreateUser
              * @apiGroup User
