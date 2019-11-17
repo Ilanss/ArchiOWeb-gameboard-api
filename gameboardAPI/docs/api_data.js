@@ -1,5 +1,55 @@
 define({ "api": [
   {
+    "type": "post",
+    "url": "/reset",
+    "title": "Reset the API",
+    "name": "Reset",
+    "group": "Admin",
+    "description": "<p>Permanently deletes users, games &amp; collections.</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "json",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>API reset by Admin</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n    Content-Type: application/json; charset=utf-8",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "405",
+            "description": "<p>You are not allowed to reset.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "405:",
+          "content": "HTTP/1.1 405 Unauthorized\nContent-Type: application/json; charset=utf-8\n{\n     \"status\": 405,\n     \"message\": \"You need to be a Admin\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/admin.js",
+    "groupTitle": "Admin"
+  },
+  {
     "type": "delete",
     "url": "/users/:idUsers/collections/:idCollection",
     "title": "Delete a collection",
