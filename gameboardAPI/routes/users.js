@@ -302,7 +302,27 @@ router.post('/users/:idUser/collections', utils.requireJson, function(req, res, 
 
 // PATCH section :
 
-router.patch('/users/:idUser/collections/:idCollection/games', users_controller.user_post_addCollectionGame);
+router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
+    // Update properties present in the request body
+    if (req.body.name !== undefined) {
+        req.user.collection.name = req.body.username;
+    }
+    if (req.body.personal_info.firstname !== undefined) {
+        req.user.personal_info.firstname = req.body.personal_info.firstname;
+    }
+    if (req.body.personal_info.lastname !== undefined) {
+        req.user.personal_info.lastname = req.body.personal_info.lastname;
+    }
+
+    req.user.save(function(err, savedUser) {
+        if (err) {
+            return next(err);
+        }
+
+        debug(`Updated person "${savedUser.username}"`);
+        res.send(savedUser);
+    });
+});
 
 /* PATCH users listing. */
 
@@ -499,6 +519,24 @@ function loadUserFromParamsMiddleware(req, res, next) {
         }
 
         req.user = user;
+        next();
+    });
+}
+
+function loadCollectionFromParamsMiddleware(req, res, next) {
+    const collectionId = req.params._id;
+    if (!ObjectId.isValid(collectionId)) {
+        return collectionNotFound(res, collectionId);
+    }
+
+    Collection.findById(req.params._id, function(err, collection) {
+        if (err) {
+            return next(err);
+        } else if (!collection) {
+            return collectionNotFound(res, collectionId);
+        }
+
+        req.collection = collection;
         next();
     });
 }
