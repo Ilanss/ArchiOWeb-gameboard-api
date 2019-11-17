@@ -596,8 +596,8 @@ router.patch('/games/:idGame', utils.requireJson, loadGameFromParamsMiddleware, 
     if (req.body.name !== undefined) {
         req.game.name = req.body.name;
     }
-    if (req.body.created_by !== undefined) {
-        req.game.created_by = req.body.created_by;
+    if (req.body.createdBy !== undefined) {
+        req.game.createdBy = req.body.createdBy;
     }
 
     req.game.save(function(err, savedGame) {
@@ -693,7 +693,7 @@ router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJso
  */
 router.delete('/users/:idUser', loadUserFromParamsMiddleware, function(req, res, next) {
     // Check if a game exists before deleting
-    /*Game.findOne({ created_by: req.user.id }).exec(function(err, game) {
+    /*Game.findOne({ createdBy: req.user.id }).exec(function(err, game) {
         if (err) {
             return next(err);
         } else if (game) {
@@ -754,7 +754,18 @@ router.delete('/games/:idGame', loadGameFromParamsMiddleware, function(req, res,
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
  */
-router.delete('/users/:idUser/collections/:idCollection', users_controller.user_deleteCollection);
+router.delete('/users/:idUser/collections/:idCollection', loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
+
+    req.collection.remove(function(err) {
+        if (err) {
+            return next(err);
+        }
+
+        //debug(`Deleted user "${req.user.name}"`);
+        res.sendStatus(204);
+    });
+    //});
+});
 
 function loadUserFromParamsMiddleware(req, res, next) {
     const userId = req.params.idUser;
