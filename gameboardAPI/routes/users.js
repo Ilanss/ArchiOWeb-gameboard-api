@@ -32,7 +32,7 @@ router.get('/users', users_controller.users_list, function(req, res, next) {
  * @apiSuccess {Object} personal_info  personal info of the user 
  * @apiSuccess {String} personal_info.firstname  firstname of the user
  * @apiSuccess {String} personal_info.lastname  lastname of the user
- * @apiSuccess {String} personal_info.mail  mail of the user
+ * @apiSuccess {String} personal_info.email  Email of the user
  * @apiSuccess {String} personal_info.password  hash password of the user
  * @apiSuccess {Object[]} collection  Array collection of the user   
  */
@@ -329,7 +329,7 @@ router.post('/login', function (req, res, next) {
                 "username": "Skyggen",
                 "personal_info.firstname": "Adrien",
                 "personal_info.lastname": "Chapy",
-                "personal_info.mail": "chapy@gmail.com",
+                "personal_info.email": "chapy@gmail.com",
                 "personal_info.password": "bob12345"
             }
              *
@@ -342,7 +342,7 @@ router.post('/login', function (req, res, next) {
                 "personal_info": {
                     "firstname": "Adrien",
                     "lastname": "Chapy",
-                    "mail": "chapy@gmail.com",
+                    "email": "chapy@gmail.com",
                     "password": "bob12345"
                 },
                 "_id": "5dc974f01371a342718d2ab2",
@@ -499,7 +499,7 @@ router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJso
                     {
                         "firstname":"Adrien",
                         "lastname":"Ciampone",
-                        "mail":"adrienciampone@gmail.com",
+                        "email":"adrienciampone@gmail.com",
                         "password":"bob12345"
                     },
                 "collections":[]
@@ -824,7 +824,7 @@ function userNotFound(res, userId) {
  * @apiParam (Request body) {Object}personal_info Personal informations of the user
  * @apiParam (Request body) {String{2..50}} personal_info.firstname Firstname of the user
  * @apiParam (Request body) {String{2..50}} personal_info.lastname Lastname of the user
- * @apiParam (Request body) {String{3..50}} personal_info.mail Link of the user
+ * @apiParam (Request body) {String{3..50}} personal_info.email Link of the user
  * @apiParam (Request body) {String{3..50}} personal_info.password Link of the user
  */
 
@@ -838,7 +838,7 @@ function userNotFound(res, userId) {
  * @apiSuccess (Response body) {Object} personal_info Personal informations of the user
  * @apiSuccess (Response body) {String} personal_info.firstname The firstname of the user
  * @apiSuccess (Response body) {String} personal_info.lastname The lastname of the user
- * @apiSuccess (Response body) {String} personal_info.mail The mail of the user
+ * @apiSuccess (Response body) {String} personal_info.email The email of the user
  * @apiSuccess (Response body) {String} personal_info.password The password of the user
  */
 
