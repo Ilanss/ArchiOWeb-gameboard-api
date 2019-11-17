@@ -15,7 +15,10 @@ let CollectionSchema = new Schema({
 let UserSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    username: String,
+    username: {
+        type: String,
+        required:true
+    },
     personal_info: {
         firstname: {
             type:String,
@@ -30,9 +33,13 @@ let UserSchema = new Schema({
             validate: {
                 validator: validateEmail,
                 message: 'Email is not valid'
-            }
+            },
+            required: true
         },
-        password: String
+        password: {
+            type:String,
+            required: true
+        }
     },
     collections: [CollectionSchema]
 });
