@@ -120,19 +120,15 @@ exports.user_get_collectionGames = function(req, res, next) {
     });
     //res.send('NOT IMPLEMENTED: Games in selected collection');
 };
-// Add a new User's collection on POST
-exports.user_post_addCollection = function(req, res) {
-    res.send("NOT IMPLEMENTED: Add new User's collection");
-};
 // Add a new  Game in User's collection on POST
 exports.user_post_addCollectionGame = function(req, res) {
     res.send("NOT IMPLEMENTED: Add new Game in User's collection");
 };
-// Edit exsisting user on PATCH
+// Edit existing user on PATCH
 exports.user_patch_edit = function(req, res) {
     res.send('NOT IMPLEMENTED: Edit a exsisting user');
 };
-// Edit exsisting user on PATCH
+// Edit existing user on PATCH
 exports.user_patch_Collectionedit = function(req, res) {
     res.send("NOT IMPLEMENTED: Edit a exsisting  user's collection");
 };

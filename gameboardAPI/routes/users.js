@@ -29,12 +29,12 @@ router.get('/users', users_controller.users_list, function(req, res, next) {
  * @apiParam {Number} idUser Unique identifier of the user
  *
  * @apiSuccess {String} username  username of the user
- * @apiSuccess {Object} personal_info  personal info of the user 
+ * @apiSuccess {Object} personal_info  personal info of the user
  * @apiSuccess {String} personal_info.firstname  firstname of the user
  * @apiSuccess {String} personal_info.lastname  lastname of the user
  * @apiSuccess {String} personal_info.email  Email of the user
  * @apiSuccess {String} personal_info.password  hash password of the user
- * @apiSuccess {Object[]} collection  Array collection of the user   
+ * @apiSuccess {Object[]} collection  Array collection of the user
  */
 router.get('/users/:idUser', users_controller.user_get_info, function(req, res, next) {
     res.send(req.user);
@@ -181,21 +181,42 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
 /**
  * @api {post} /register Register a user
  * @apiName Register
- * @apiGroup Login
+ * @apiGroup User
  * @apiParam (Request body) {username {3-20}} username Username of the new user
  * @apiParam (Request body) {email} email Email of the new user
  * @apiParam (Request body) {string} password Password of the new user
  *
  * @apiSuccess {object[]} username  The newly created user
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
- *
- * {
- *   "Username": "Skyggen",
- *   "email": "skyggen@example.com",
- *   "registrationDate": "2019-11-29T09:09:28.095Z",
- *   "id": "5bd6csad05f26128d2edb264"
- * }
+ * @apiExample Example
+             *     POST /users HTTP/1.1
+             *     Content-Type: application/json
+             *
+             * {
+             * "username": "Skyggen",
+             * "personal_info" :{
+             * "firstname": "Adrien",
+             * "lastname": "Chapy",
+             * "email": "chapy@gmail.com",
+             * "password": "bob12345"}
+             * }
+ * @apiSuccessExample 201 Created
+             *     HTTP/1.1 201 Created
+             *     Content-Type: application/json
+             *     Location: https://archioweb-gameboardapi.herokuapp.com/users/58b2926f5e1def0123e97281
+             *{
+    "_id": "5dd1489bc6313335a99f65fb",
+    "username": "Skyggen",
+    "personal_info": {
+        "firstname": "Adrien",
+        "lastname": "Chapy",
+        "email": "chapy@gmail.com",
+        "password": "$2b$10$aQwmXHdxHpWmFHBye48WiOpHHS9HtkTliNVx/dCH1zAWitIrV8YC6"
+    },
+    "createdAt": "2019-11-17T13:18:19.959Z",
+    "updatedAt": "2019-11-17T13:18:19.967Z",
+    "collections": [],
+    "__v": 0
+}
  *
  * @apiError 422 Wrong request
  * @apiErrorExample 422:
@@ -258,7 +279,7 @@ router.post('/register', function(req, res, next) {
                 return next(err);
             }
             // Send the saved document in the response
-            res.send(savedUser);
+            res.status(201).set('Location', `${config.baseUrl}/api/gameboard/${savedUser._id}`).send(savedUser);
         });
     });
 });
@@ -266,7 +287,7 @@ router.post('/register', function(req, res, next) {
 /**
  * @api {post} /login Login a user
  * @apiName Log-in
- * @apiGroup Login
+ * @apiGroup User
  * @apiParam (Request body) {email} email Email credentials of the user trying to login
  * @apiParam (Request body) {string} password Password of the user trying to login
  *
@@ -379,7 +400,7 @@ router.post('/users', utils.requireJson, function(req, res, next) {
              * @apiExample Example
              *     POST /games HTTP/1.1
              *     Content-Type: application/json
-             *      { 
+             *      {
                 "name": "Uno",
                 "nb_players.min": 2,
                 "nb_players.max": 8,
@@ -523,6 +544,9 @@ router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, 
     }
     if (req.body.personal_info.lastname !== undefined) {
         req.user.personal_info.lastname = req.body.personal_info.lastname;
+    }
+    if (req.body.email !== undefined) {
+        req.user.personal_info.email = req.body.email;
     }
 
     req.user.save(function(err, savedUser) {
@@ -776,7 +800,7 @@ function userNotFound(res, userId) {
  *     Content-Type: application/json
  *
  *     {
- *      
+ *
  *     }
  */
 
@@ -821,7 +845,7 @@ function userNotFound(res, userId) {
  *     Content-Type: application/json
  *
  *     {
- *      
+ *
  *     }
  */
 
@@ -860,13 +884,6 @@ function userNotFound(res, userId) {
  *
  * @apiError {Object} 422/UnprocessableEntity Some of the game's properties are invalid
  *
- * @apiErrorExample {json} 422 Unprocessable Entity
- *     HTTP/1.1 422 Unprocessable Entity
- *     Content-Type: application/json
- *
- *     {
- *      
- *     }
  */
 
 module.exports = router;

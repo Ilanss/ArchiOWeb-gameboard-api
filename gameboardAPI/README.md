@@ -1,6 +1,6 @@
 # COMEM+ Web-Oriented Architecture Course
 ## Gameboard API
-REST API developed with the Express framework and a MongoDB database.
+REST API developed with the Express framework and a MongoDB database. The API that allows the creation of personal collections of games
 
 - The API manages users:
 	- New users must be able to register.
@@ -52,6 +52,10 @@ Using the camera to add images to the game or go looking for the picture in the 
 
 ### bonus
 ...
+### Checklist API
+- Creat a user [=100% "100%"]
+- log in to the API 90%
+- 
 
 ### Delivery
 
