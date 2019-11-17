@@ -44,7 +44,7 @@ describe('GET /users', function() {
         // Create 2 users before retrieving the list.
         await Promise.all([
             User.create({ username: 'John Doe', personal_info: { password: '1234', email: 'test@gmail.com' } }),
-            User.create({ username: 'Jane Doe', personal_info: { password: '1234', email: 'test@gmail.com' } })
+            User.create({ username: 'Jane Doe', personal_info: { password: '1234', email: 'test2@gmail.com' } })
         ]);
     });
     it('should retrieve the list of users', async function() {
@@ -84,7 +84,10 @@ describe('GET /users/:id', function() {
     let user;
 
     beforeEach(async function() {
-        user = await User.create({ username: 'John Doe', password: '1234' });
+        user = await User.create({
+            username: 'John Doe',
+            personal_info: { password: '1234', email: 'test@gmail.com' }
+        });
     });
 
     it('should retrieve a specific user', async function() {
@@ -97,6 +100,28 @@ describe('GET /users/:id', function() {
 
     it('should not be able to retrieve a specific user with non-existent id', async function() {
         const res = await supertest(app).get('/users/5dcd2578e706374f0b46b1f3').expect(404);
+    });
+});
+
+//test patch user whitout JWT tokens
+describe('PATCH /users/:id', function() {
+    let user;
+
+    beforeEach(async function() {
+        user = await User.create({
+            username: 'John Doe',
+            personal_info: { password: '1234', email: 'test@gmail.com' }
+        });
+    });
+
+    it('should update a user', async function() {
+        const res = await supertest(app)
+            .patch('/users/' + user._id)
+            .send({
+                username: 'John Doe patched'
+            })
+            .expect(200)
+            .expect('Content-Type', /json/);
     });
 });
 
