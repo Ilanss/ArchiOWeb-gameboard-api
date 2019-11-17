@@ -38,7 +38,12 @@ let UserSchema = new Schema({
                 validator: validateEmail,
                 message: 'Email is not valid'
             },
-            required: true
+            validate: {
+                validator: validateMailUniqueness,
+                message: 'Email already used'
+            },
+            required: true,
+            unique: true
         },
         password: {
             type:String,
@@ -65,6 +70,14 @@ function validateEmail(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
 };
+
+function validateMailUniqueness(value) {
+    const UserModel = mongoose.model('User', UserSchema);
+    return UserModel.findOne().where('email').equals(value).exec().then((existingEmail) => {
+        return !existingEmail || existingEmail._id.equals(this._id);
+    });
+}
+
 
 UserSchema.statics.verifyCredentials = function (email, password, callback) {
     User.findOne({email: email}).exec(function (err, user) {

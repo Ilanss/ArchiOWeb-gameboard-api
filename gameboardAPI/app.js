@@ -24,6 +24,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// folder redirection change because no frontend for the moment
 app.use(express.static(path.join(__dirname, 'docs')));
 
 app.use('/', usersRouter);

@@ -82,13 +82,13 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
 router.get('/games', games_controller.games_list, function(req, res, next) {
     res.send(req.games);
 });
+
 /**
- * @api {get} /games/:id Request a game's information
- * @apiName GetGame
+ * @api {get} /games/difficulty/:level Request games by difficulty
+ * @apiName GetGameByDifficulty
  * @apiGroup Game
- *
- * @apiParam {Number} id Unique identifier of the game
- *
+ * @apiParam (Request body) {string} difficulty Get games by difficulty
+
  * @apiSuccess {String} name name of the game
  * @apiSuccess {Object} nb_players number player of the game
  * @apiSuccess {Number} nb_players.min number min player of the game
@@ -347,7 +347,7 @@ router.post('/login', function(req, res, next) {
              * @apiExample Example
              *     POST /users HTTP/1.1
              *     Content-Type: application/json
-             * 
+             *
              * {
                 "username": "Skyggen",
                 "personal_info.firstname": "Adrien",
@@ -537,7 +537,7 @@ router.patch(
 router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, function(req, res, next) {
     // Update properties present in the request body
     if (req.body.username !== undefined) {
-        req.user.personal_info.name = req.body.username;
+        req.user.username = req.body.username;
     }
     if (req.body.personal_info.firstname !== undefined) {
         req.user.personal_info.firstname = req.body.personal_info.firstname;
@@ -554,7 +554,7 @@ router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, 
             return next(err);
         }
 
-        debug(`Updated person "${savedUser.username}"`);
+        //debug(`Updated person "${savedUser.username}"`);
         res.send(savedUser);
     });
 });
@@ -591,7 +591,25 @@ router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, 
  *       "nb_player.max": "8"
  *     }
  */
-router.patch('/games/:idGame', games_controller.game_patch_edit);
+router.patch('/games/:idGame', utils.requireJson, loadGameFromParamsMiddleware, function(req, res, next) {
+    // Update properties present in the request body
+    if (req.body.name !== undefined) {
+        req.game.name = req.body.name;
+    }
+    if (req.body.created_by !== undefined) {
+        req.game.created_by = req.body.created_by;
+    }
+
+    req.game.save(function(err, savedGame) {
+        if (err) {
+            return next(err);
+        }
+
+        //debug(`Updated person "${savedUser.username}"`);
+        res.send(savedGame);
+    });
+});
+
 
 /**
  * @api {patch} /users/:idUser/collections/:idCollection/:id Update a collection
@@ -611,7 +629,7 @@ router.patch('/games/:idGame', games_controller.game_patch_edit);
  *     Content-Type: application/json
  *
  *     {
- *       name : "Ma super collection"
+ *       "name" : "Ma super collection"
  *     }
  *
  * @apiSuccessExample 200 OK
@@ -624,7 +642,37 @@ router.patch('/games/:idGame', games_controller.game_patch_edit);
  *       "link": "masupercollection"
  *     }
  */
-router.patch('/users/:idUser/collections/:idCollection', users_controller.user_patch_Collectionedit);
+router.patch('/users/:idUser/collections/:idCollection', utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
+    // Update properties present in the request body
+    if (req.body.name !== undefined) {
+        req.collection.name = req.body.name;
+    }
+
+    req.collection.save(function(err, savedCollection) {
+        if (err) {
+            return next(err);
+        }
+
+        //debug(`Updated person "${savedUser.username}"`);
+        res.send(savedCollection);
+    });
+});
+
+router.patch('/users/:idUser/collections/:idCollection/games',  utils.requireJson, loadUserFromParamsMiddleware, loadCollectionFromParamsMiddleware, function(req, res, next) {
+    // Update properties present in the request body
+    if (req.body.name !== undefined) {
+        req.user.collection.name = req.body.name;
+    }
+
+    req.user.save(function(err, savedUser) {
+        if (err) {
+            return next(err);
+        }
+
+        debug(`Updated person "${savedUser.username}"`);
+        res.send(savedUser);
+    });
+});
 
 /* DELETE users listing. */
 
@@ -643,7 +691,26 @@ router.patch('/users/:idUser/collections/:idCollection', users_controller.user_p
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
  */
-router.delete('/users/:idUser', users_controller.user_delete);
+router.delete('/users/:idUser', loadUserFromParamsMiddleware, function(req, res, next) {
+    // Check if a game exists before deleting
+    /*Game.findOne({ created_by: req.user.id }).exec(function(err, game) {
+        if (err) {
+            return next(err);
+        } else if (game) {
+            // Do not delete if any game is created by this person
+            return res.status(409).type('text').send(`Cannot delete user ${req.person.name} because games are created by them`)
+        }*/
+
+        req.user.remove(function(err) {
+            if (err) {
+                return next(err);
+            }
+
+            //debug(`Deleted user "${req.user.name}"`);
+            res.sendStatus(204);
+        });
+    //});
+});
 
 /**
  * @api {delete} /games/:idGame Delete a game
@@ -660,7 +727,18 @@ router.delete('/users/:idUser', users_controller.user_delete);
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
  */
-router.delete('/games/:idGame', games_controller.game_delete);
+router.delete('/games/:idGame', loadGameFromParamsMiddleware, function(req, res, next) {
+
+    req.game.remove(function(err) {
+        if (err) {
+            return next(err);
+        }
+
+        //debug(`Deleted user "${req.user.name}"`);
+        res.sendStatus(204);
+    });
+    //});
+});
 /**
  * @api {delete} /users/:idUsers/collections/:idCollection Delete a collection
  * @apiName DeleteCollection
@@ -679,30 +757,30 @@ router.delete('/games/:idGame', games_controller.game_delete);
 router.delete('/users/:idUser/collections/:idCollection', users_controller.user_deleteCollection);
 
 function loadUserFromParamsMiddleware(req, res, next) {
-    const userId = req.params._id;
+    const userId = req.params.idUser;
     if (!ObjectId.isValid(userId)) {
         return userNotFound(res, userId);
     }
 
-    User.findById(req.params._id, function(err, user) {
+    let query = User.findById(userId);
+    query.exec(function(err, user) {
         if (err) {
             return next(err);
         } else if (!user) {
             return userNotFound(res, userId);
         }
-
         req.user = user;
         next();
     });
 }
 
 function loadCollectionFromParamsMiddleware(req, res, next) {
-    const collectionId = req.params._id;
+    const collectionId = req.params.idCollection;
     if (!ObjectId.isValid(collectionId)) {
         return collectionNotFound(res, collectionId);
     }
 
-    Collection.findById(req.params._id, function(err, collection) {
+    Collection.findById(req.params.idCollection, function(err, collection) {
         if (err) {
             return next(err);
         } else if (!collection) {
@@ -714,8 +792,34 @@ function loadCollectionFromParamsMiddleware(req, res, next) {
     });
 }
 
+function loadGameFromParamsMiddleware(req, res, next) {
+    const gameId = req.params.idGame;
+    if (!ObjectId.isValid(gameId)) {
+        return gameNotFound(res, gameId);
+    }
+
+    Game.findById(req.params.idGame, function(err, game) {
+        if (err) {
+            return next(err);
+        } else if (!game) {
+            return gameNotFound(res, gameId);
+        }
+
+        req.game = game;
+        next();
+    });
+}
+
 function userNotFound(res, userId) {
     return res.status(404).type('text').send(`No user found with ID ${userId}`);
+}
+
+function gameNotFound(res, gameId) {
+    return res.status(404).type('text').send(`No game found with ID ${gameId}`);
+}
+
+function collectionNotFound(res, collectionId) {
+    return res.status(404).type('text').send(`No collection found with ID ${collectionId}`);
 }
 /**Path for ApiDoc */
 
