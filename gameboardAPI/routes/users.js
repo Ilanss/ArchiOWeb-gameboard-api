@@ -11,6 +11,8 @@ const Collection = File.Collection;
 const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 /* GET users listing. */
 
