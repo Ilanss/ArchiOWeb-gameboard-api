@@ -3,8 +3,7 @@ const supertest = require('supertest');
 const app = require('../app');
 const mongoose = require('mongoose');
 
-const File = require('../db/models/Game');
-const Game = File.Game;
+const Game = require('../db/models/Game');
 
 const { cleanUpDatabase } = require('./utils');
 
@@ -26,7 +25,7 @@ describe('POST /games', function() {
         expect(res.body._id).to.be.a('string');
         expect(res.body.name).to.equal('uno');
         expect(res.body.createdBy).to.equal('testid');
-        expect(res.body).to.have.all.keys('_id', 'name', 'createdBy', 'createdAt', 'updatedAt', '__v');
+        expect(res.body).to.have.all.keys('_id', 'name', 'createdBy', 'pictures', 'createdAt', 'updatedAt', '__v');
     });
 });
 
@@ -35,8 +34,8 @@ describe('GET /games', function() {
     beforeEach(async function() {
         // Create 2 games before retrieving the list.
         await Promise.all([
-            Game.create({ name: 'uno', createdBy: 'testid' }),
-            Game.create({ name: 'duo', createdBy: 'testid' })
+            Game.create({ name: 'uno', createdBy: 'testid1' }),
+            Game.create({ name: 'duo', createdBy: 'testid2' })
         ]);
     });
     it('should retrieve the list of games', async function() {
@@ -47,13 +46,13 @@ describe('GET /games', function() {
         expect(res.body[0]).to.be.an('object');
         expect(res.body[0]._id).to.be.a('string');
         expect(res.body[0].name).to.equal('uno');
-        expect(res.body.createdBy).to.equal('testid');
+        expect(res.body[0].createdBy).to.equal('testid1');
         expect(res.body[0]).to.have.all.keys('_id', 'name', 'createdBy', 'createdAt', 'updatedAt', '__v');
         //test game 2
         expect(res.body[1]).to.be.an('object');
         expect(res.body[1]._id).to.be.a('string');
         expect(res.body[1].name).to.equal('duo');
-        expect(res.body.createdBy).to.equal('testid');
+        expect(res.body[1].createdBy).to.equal('testid2');
         expect(res.body[1]).to.have.all.keys('_id', 'name', 'createdBy', 'createdAt', 'updatedAt', '__v');
     });
 });
