@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+const secretKey = process.env.SECRET_KEY || 'changeme';
+const jwt = require('jsonwebtoken');
+
 if (mongoose.connection.readyState === 0)
     mongoose.connect(require('../connection-config.js')).catch((err) => {
         console.error('mongoose Error', err);
@@ -62,7 +66,7 @@ function validateEmail(email) {
     return re.test(email)
 };
 
-userSchema.statics.verifyCredentials = function (email, password, callback) {
+UserSchema.statics.verifyCredentials = function (email, password, callback) {
     User.findOne({email: email}).exec(function (err, user) {
         if (err) {
 
@@ -75,14 +79,14 @@ userSchema.statics.verifyCredentials = function (email, password, callback) {
             return callback(err)
         }
 
-        bcrypt.compare(password, user.password, function (err, valid) {
+        bcrypt.compare(password, user.personal_info.password, function (err, valid) {
             // Handle error and password validity...
             if (err) {
                 return callback(err);
             } else if (!valid) {
                 const err = new Error('invalid password')
                 err.status = 401
-                err.message = 'invalid password'
+                err.message = 'invalid password '
                 return callback(err)
             }
 
@@ -91,6 +95,22 @@ userSchema.statics.verifyCredentials = function (email, password, callback) {
     })
 }
 
+UserSchema.methods.generateJwt = function (callback) {
+
+    jwt.sign({
+            sub: this._id,
+            exp: (new Date().getTime() + 7 * 24 * 3600 * 1000) / 1000,
+            iat: Date.now(),
+        },
+        secretKey, function (err, token) {
+            if (err) {
+                return callback(err)
+            }
+            return callback(undefined, token)
+        })
+}
+
 
 /** @name db.User */
+let User = mongoose.model('User',UserSchema);
 module.exports = {User:mongoose.model('User', UserSchema),Collection:mongoose.model('Collection', CollectionSchema)};

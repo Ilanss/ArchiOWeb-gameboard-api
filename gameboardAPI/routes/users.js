@@ -12,7 +12,7 @@ const Game = require('../db/models/Game');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const saltRounds = 10;
 
 /* GET users listing. */
 
@@ -242,8 +242,8 @@ router.post('/register', function (req, res, next) {
     // Create a new document from the JSON in the request body
     let newUser = req.body;
     newUser.registrationDate = Date.now();
-    bcrypt.hash(newUser.password, saltRounds, function (err, hash) {
-        newUser.password = hash;
+    bcrypt.hash(newUser.personal_info.password, saltRounds, function (err, hash) {
+        newUser.personal_info.password = hash;
         const newUserDocument = new User(newUser);
         // Save that document
         newUserDocument.save(function (err, savedUser) {
@@ -295,7 +295,7 @@ router.post('/register', function (req, res, next) {
  */
 router.post('/login', function (req, res, next) {
 
-    User.verifyCredentials(req.body.email, req.body.password, function (err, user) {
+    User.verifyCredentials(req.body.email, req.body.personal_info.password, function (err, user) {
         if (err) {
             return next(err)
 
