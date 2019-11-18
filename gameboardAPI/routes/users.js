@@ -272,7 +272,6 @@ router.get('/games/difficulty/:level', utils.requireJson, function(req, res, nex
     let query = Game.find().sort('name');
     query = query.where('difficulty').equals(req.params.level);
     query.exec((err, games) => {
-        console.log(games);
         if (err) {
             return next(err);
         } else if (games.length == 0) {
@@ -323,7 +322,6 @@ router.get('/users/:idUser/nbrGames', async function(req, res, next) {
         $match: { createdBy: userId }
     }]);
     return res.json('The users has created: ' + gamesByUser.length + ' games');
-    console.log(gamesByUser.length);
 });
 
 router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames, function(
@@ -332,7 +330,6 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
     next
 ) {
     let tabGamesId = req.games.map((objectId) => mongoose.Types.ObjectId(objectId.id));
-    console.log(tabGamesId);
     // for each games_id --> find info
     Game.find().where('_id').in(tabGamesId).exec((err, gamesWithInfo) => {
         res.send(gamesWithInfo);
@@ -438,7 +435,6 @@ router.post('/register', function(req, res, next) {
         // Save that document
         newUserDocument.save(function(err, savedUser) {
             if (err) {
-                console.log(err);
                 return next(err);
             }
             // Send the saved document in the response
@@ -483,7 +479,7 @@ router.post('/register', function(req, res, next) {
  *     }
  */
 router.post('/login', function(req, res, next) {
-    User.verifyCredentials(req.body.email, req.body.personal_info.password, function(err, user) {
+    User.verifyCredentials(req.body.email, req.body.password, function(err, user) {
         if (err) {
             return next(err);
         }
@@ -615,7 +611,17 @@ router.post('/users', utils.requireJson, function(req, res, next) {
                 "__v": 0
             }
              */
-router.post('/games', games_controller.game_post_add);
+router.post('/games', utils.authenticate, function(req, res, next) {
+    req.body.createdBy = req.currentUserId;
+    new Game(req.body).save(function(err, savedGame) {
+        if (err) {
+            return next(err);
+        }
+
+        res.status(201).set('Location', `${config.baseUrl}/api/gameboard/${savedGame._id}`).send(savedGame);
+        ws.notifyNewGames(req.body.name);
+    });
+});
 
 router.post('/users/:idUser/collections', utils.requireJson, function(req, res, next) {
     new Collection(req.body).save(function(err, savedCollection) {
@@ -628,34 +634,6 @@ router.post('/users/:idUser/collections', utils.requireJson, function(req, res, 
 });
 
 // PATCH section :
-
-router.patch(
-    '/users/:idUser/collections/:idCollection/games',
-    utils.requireJson,
-    loadUserFromParamsMiddleware,
-    loadCollectionFromParamsMiddleware,
-    function(req, res, next) {
-        // Update properties present in the request body
-        if (req.body.name !== undefined) {
-            req.user.collection.name = req.body.username;
-        }
-        if (req.body.personal_info.firstname !== undefined) {
-            req.user.personal_info.firstname = req.body.personal_info.firstname;
-        }
-        if (req.body.personal_info.lastname !== undefined) {
-            req.user.personal_info.lastname = req.body.personal_info.lastname;
-        }
-
-        req.user.save(function(err, savedUser) {
-            if (err) {
-                return next(err);
-            }
-
-            debug(`Updated person "${savedUser.username}"`);
-            res.send(savedUser);
-        });
-    }
-);
 
 /* PATCH users listing. */
 
@@ -713,6 +691,12 @@ router.patch('/users/:idUser', utils.requireJson, loadUserFromParamsMiddleware, 
         if (req.body.email !== undefined) {
             req.user.personal_info.email = req.body.email;
         }
+        if (req.body.password !== undefined) {
+            bcrypt.hash(req.body.password, saltRounds, function (err, hashed) {
+                req.user.personal_info.password = hashed;
+            });
+        }
+
     //}
 
     req.user.save(function(err, savedUser) {
@@ -893,7 +877,7 @@ router.delete('/users/:idUser', loadUserFromParamsMiddleware, function(req, res,
  * @apiSuccessExample 204 No Content
  *     HTTP/1.1 204 No Content
  */
-router.delete('/games/:idGame', loadGameFromParamsMiddleware, function(req, res, next) {
+router.delete('/games/:idGame', utils.authenticate, loadGameFromParamsMiddleware, function(req, res, next) {
 
     if(req.currentUserId = req.game.createdBy) {
         req.game.remove(function (err) {

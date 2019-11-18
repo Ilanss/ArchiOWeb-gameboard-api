@@ -80,7 +80,7 @@ function validateMailUniqueness(value) {
 
 
 UserSchema.statics.verifyCredentials = function (email, password, callback) {
-    User.findOne({email: email}).exec(function (err, user) {
+    User.findOne({'personal_info.email': email}).exec(function (err, user) {
         if (err) {
 
             return callback(err)
@@ -99,7 +99,7 @@ UserSchema.statics.verifyCredentials = function (email, password, callback) {
             } else if (!valid) {
                 const err = new Error('invalid password')
                 err.status = 401
-                err.message = 'invalid password '
+                err.message = 'invalid password'
                 return callback(err)
             }
 

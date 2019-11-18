@@ -9,7 +9,7 @@ const User = File.User;
 const { cleanUpDatabase } = require('./utils');
 
 const jwt = require('jsonwebtoken');
-const secretKey = process.env.SECRET_KEY || 'changname';
+const secretKey = process.env.SECRET_KEY || 'changeme';
 
 //clean the database before testing
 beforeEach(cleanUpDatabase);
