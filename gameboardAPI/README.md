@@ -2,7 +2,7 @@
 # COMEM+ Web-Oriented Architecture Course
 ## Gameboard API
 REST API developed with the Express framework and a MongoDB database. The API allows the creation of personal collections of games
-## Gameboard API
+## Description
 - The API manages users:
 	- New users must be able to register.
 	- Existing users must be able to authenticate.
@@ -20,11 +20,10 @@ Using the camera to add images to the game or go looking for the picture in the 
 	- Sensitive operations must be protected by requiring valid authentication.
 	- Authentication must be provided as a JWT token.
 - The API must have a pub-sub component in real time:
-	-	One or more of the following must be provided:
+	-	The following must be provided:
 		- An endpoint ws: // or wss: // that an ordinary WebSockets client can connect to receive messages in real time.
-		- A WAMP publication subject that a subscriber can subscribe to receive real-time messages.
-	-	The WebSockets endpoint or WAMP topic must send real-time messages containing data relevant to the application.
-	- The WebSockets endpoint or the WAMP topic may not be protected.
+	-	The WebSockets endpoint must send real-time messages containing data relevant to the application.
+	- The WebSockets endpoint may not be protected.
 
 ### Infrastructure
 
@@ -89,7 +88,7 @@ Node.js 12.x MongoDB 4.x
 
 ```
 git clone git@github.com:Ilanss/ArchiOWeb-gameboard-api.git
-cd archioweb-rest-api
+cd ArchiOWeb-gameboard-api/gameboardAPI
 npm ci
 npm start
 
@@ -97,14 +96,14 @@ npm start
 
 Visit  [http://localhost:3000](http://localhost:3000/).
 
-To automatically reload the code and re-generate the API documentation on changes, use npm run dev instead of npm start.
+To automatically reload the code on changes, use npm run dev instead of npm start.
 
 ## Real-time component
 
 Websocket is implemented for the real-time component. An insight message is generated every time a user create a game. The message format is generated, like this :
 
 ```
-  A new game called : (Gamename) is avaiable.
+  A new game called : (Gamename) is available.
 
 ```
 
