@@ -7,17 +7,6 @@ define({ "api": [
     "group": "Admin",
     "description": "<p>Permanently deletes users, games &amp; collections.</p>",
     "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "json",
-            "optional": false,
-            "field": "json",
-            "description": "<p>API reset by Admin</p>"
-          }
-        ]
-      },
       "examples": [
         {
           "title": "204 No Content",
@@ -117,8 +106,112 @@ define({ "api": [
     }
   },
   {
+    "type": "get",
+    "url": "/users/:idUser/collections",
+    "title": "Get list of collection from a user",
+    "name": "RetrieveCollection",
+    "group": "Collection",
+    "description": "<p>Retrieves  list of collection from a user.</p>",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections HTTP/1.1",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections\n\n[\n    {\n        \"games\": [{\"id\":\"5dcbd9d46c1482b9fd4ce158\"},{\"id\":\"5dcbd9df6c1482b9fd4ce15a\"}],\n        \"_id\": \"5dc96e39669be23ffb3a426a\",\n        \"name\": \"Collection\",\n        \"link\": \"url\"\n    },\n{\n        \"games\": [{\"id\":\"5dcbd9d46c1482b9fd4ce158\"},{\"id\":\"5dcbd9df6c1482b9fd4ce15a\"}],\n        \"_id\": \"5dc96e39669be23ffb3a426a\",\n        \"name\": \"Collection2\",\n        \"link\": \"url\"\n    }\n]",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique identifier of the Collection</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the collection</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "link",
+            "description": "<p>Link of the collection</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Collection"
+  },
+  {
+    "type": "get",
+    "url": "/users/:idUser/collections/:idCollection",
+    "title": "Get a collection from a user",
+    "name": "RetrieveCollection",
+    "group": "Collection",
+    "description": "<p>Retrieves  a collection from a user.</p>",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96e39669be23ffb3a426a HTTP/1.1",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96e39669be23ffb3a426a\n\n[\n    {\n        \"games\": [{\"id\":\"5dcbd9d46c1482b9fd4ce158\"},{\"id\":\"5dcbd9df6c1482b9fd4ce15a\"}],\n        \"_id\": \"5dc96e39669be23ffb3a426a\",\n        \"name\": \"Collection\",\n        \"link\": \"url\"\n    }\n]",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique identifier of the Collection</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the collection</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "link",
+            "description": "<p>Link of the collection</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Collection"
+  },
+  {
     "type": "patch",
-    "url": "/users/:idUser/collections/:idCollection/:id",
+    "url": "/users/:idUser/collections/:idCollection",
     "title": "Update a collection",
     "name": "UpdateCollection",
     "group": "Collection",
@@ -193,14 +286,6 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>The name of the collection</p>"
-          },
-          {
-            "group": "Request body",
-            "type": "String",
-            "size": "3..50",
-            "optional": false,
-            "field": "link",
-            "description": "<p>Link of the collection</p>"
           }
         ]
       }
@@ -239,6 +324,58 @@ define({ "api": [
     }
   },
   {
+    "type": "get",
+    "url": "/users/:idUser/collections/:idCollection/games",
+    "title": "Get game from a user collection",
+    "name": "getGameFromCollection",
+    "group": "Collection",
+    "description": "<p>Get game from a collection.</p>",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96b5aa875243c200fca6b/games HTTP/1.1",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96b5aa875243c200fca6b/games\n\n[{\"id\":\"5dcbd9d46c1482b9fd4ce158\"},{\"id\":\"5dcbd9df6c1482b9fd4ce15a\"}]",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The unique identifier of the Collection</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>The name of the collection</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "link",
+            "description": "<p>Link of the collection</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Collection"
+  },
+  {
     "type": "post",
     "url": "/games",
     "title": "Create a game",
@@ -261,13 +398,118 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>The name of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "nb_players",
+            "description": "<p>Nb player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.min",
+            "description": "<p>min player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.max",
+            "description": "<p>max player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "play_time",
+            "description": "<p>Play time of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "setup_time",
+            "description": "<p>setup time of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "age",
+            "description": "<p>Age proposal for play the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "age.min",
+            "description": "<p>min age of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "age.max",
+            "description": "<p>max age of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "pictures",
+            "description": "<p>Array of pictures of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.link",
+            "description": "<p>Link of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.name",
+            "description": "<p>name of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.date",
+            "description": "<p>date of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "editor",
+            "description": "<p>Editor of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "editor.id",
+            "description": "<p>Id editor of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "editor.name",
+            "description": "<p>Id editor of the game</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "201 Created",
-          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://archioweb-gameboardapi.herokuapp.com/games/58b2926f5e1def0123e97281\n\n {\n            \"nb_players\": {\n                \"min\": 2,\n                \"max\": 8\n            },\n            \"age\": {\n                \"min\": 8,\n                \"max\": 99\n            },\n            \"_id\": \"5dc973c11371a342718d2ab0\",\n            \"name\": \"Uno\",\n            \"play_time\": 120,\n            \"setup_time\": 5,\n            \"pictures\": [\n                {\n                    \"_id\": \"5dc973c11371a342718d2ab1\",\n                    \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                    \"name\": \"masuperphoto\",\n                    \"date\": \"2019-11-10T23:00:00.000Z\"\n                }\n            ],\n            \"difficulty\": \"easy\",\n            \"category\": \"hasard\",\n            \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n            \"updatedAt\": \"2019-11-11T14:44:17.743Z\",\n            \"__v\": 0\n        }",
+          "content": "HTTP/1.1 201 Created\nContent-Type: application/json\nLocation: https://archioweb-gameboardapi.herokuapp.com/games/58b2926f5e1def0123e97281\n\n {\n            \"nb_players\": {\n                \"min\": 2,\n                \"max\": 8\n            },\n            \"age\": {\n                \"min\": 8,\n                \"max\": 99\n            },\n            \"_id\": \"5dc973c11371a342718d2ab0\",\n            \"name\": \"Uno\",\n            \"play_time\": 120,\n            \"setup_time\": 5,\n            \"pictures\": [\n                {\n                    \"_id\": \"5dc973c11371a342718d2ab1\",\n                    \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                    \"name\": \"masuperphoto\",\n                    \"date\": \"2019-11-10T23:00:00.000Z\"\n                }\n            ],\n            \"difficulty\": \"easy\",\n            \"category\": \"hasard\",\n            \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n            \"updatedAt\": \"2019-11-11T14:44:17.743Z\",\n            \"createdBy\":\"5dc973c23371a342718d2ab1\",\n            \"__v\": 0\n        }",
           "type": "json"
         }
       ]
@@ -275,7 +517,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example",
-        "content": "POST /games HTTP/1.1\nContent-Type: application/json\n {\n            \"name\": \"Uno\",\n            \"nb_players.min\": 2,\n            \"nb_players.max\": 8,\n            \"play_time\": 120,\n            \"setup_time\":5,\n            \"age.min\":8,\n            \"age.max\":99,\n            \"pictures\":[{\n                \"link\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\":\"masuperphoto\",\n                \"date\": \"11.11.2019\"\n            }],\n            \"editor.id\":\"5da47887fe0c041bc418df12\",\n        \"editor.name\":\"Mattel\",\n            \"difficulty\":\"easy\",\n                \"category\":\"hasard\"\n        }",
+        "content": "    POST /games HTTP/1.1\n    Content-Type: application/json\n{\n            \"name\": \"Uno\",\n            \"nb_players.min\": 2,\n            \"nb_players.max\": 8,\n            \"play_time\": 120,\n            \"setup_time\":5,\n            \"age.min\":8,\n            \"age.max\":99,\n            \"pictures\":[{\n                \"link\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\":\"masuperphoto\",\n                \"date\": \"11.11.2019\"\n                }],\n               \"editor.id\":\"5da47887fe0c041bc418df12\",\n               \"editor.name\":\"Mattel\",\n               \"difficulty\":\"easy\",\n               \"category\":\"hasard\"\n            }",
         "type": "json"
       }
     ],
@@ -295,19 +537,26 @@ define({ "api": [
           },
           {
             "group": "Request body",
-            "type": "String",
-            "size": "3..50",
+            "type": "Object",
             "optional": false,
-            "field": "nb_players.min",
-            "description": "<p>Link of the game</p>"
+            "field": "nb_players",
+            "description": "<p>Nb player of the game</p>"
           },
           {
             "group": "Request body",
-            "type": "String",
+            "type": "Number",
+            "size": "3..50",
+            "optional": false,
+            "field": "nb_players.min",
+            "description": "<p>min player of the game</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "Number",
             "size": "3..50",
             "optional": false,
             "field": "nb_players.max",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>max player of the game</p>"
           },
           {
             "group": "Request body",
@@ -315,7 +564,7 @@ define({ "api": [
             "size": "3..50",
             "optional": false,
             "field": "play_time",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>Play time of the game</p>"
           },
           {
             "group": "Request body",
@@ -323,7 +572,7 @@ define({ "api": [
             "size": "3..50",
             "optional": false,
             "field": "setup_time",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>setup time of the game</p>"
           },
           {
             "group": "Request body",
@@ -338,7 +587,7 @@ define({ "api": [
             "size": "1..2",
             "optional": false,
             "field": "age.min",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>min age of the game</p>"
           },
           {
             "group": "Request body",
@@ -346,7 +595,7 @@ define({ "api": [
             "size": "1..3",
             "optional": false,
             "field": "age.max",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>max age of the game</p>"
           },
           {
             "group": "Request body",
@@ -396,7 +645,7 @@ define({ "api": [
           {
             "group": "Request body",
             "type": "String",
-            "size": "3..30}",
+            "size": "3..30",
             "optional": false,
             "field": "editor.name",
             "description": "<p>Id editor of the game</p>"
@@ -783,7 +1032,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example",
-        "content": "GET /games?page=1&pageSize=10 HTTP/1.1",
+        "content": "GET https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10 HTTP/1.1",
         "type": "json"
       }
     ],
@@ -791,7 +1040,7 @@ define({ "api": [
       "examples": [
         {
           "title": "200 OK",
-          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10&gt;; rel=\"first prev\"\n\n[\n    {\n        \"_id\": \"5dc96a7ba875243c200fca6a\",\n        \"name\": \"Alfred Dupont\",\n        \"createdAt\": \"2019-11-11T14:04:43.934Z\",\n        \"updatedAt\": \"2019-11-11T14:04:43.935Z\",\n        \"pictures\": [],\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9d46c1482b9fd4ce158\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9d46c1482b9fd4ce159\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:20.004Z\",\n        \"updatedAt\": \"2019-11-13T10:24:20.018Z\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9df6c1482b9fd4ce15a\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9df6c1482b9fd4ce15b\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:31.280Z\",\n        \"updatedAt\": \"2019-11-13T10:24:31.291Z\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 8\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dc973c11371a342718d2ab0\",\n        \"name\": \"Uno 2\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dc973c11371a342718d2ab1\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n        \"updatedAt\": \"2019-11-17T14:50:32.724Z\",\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"_id\": \"5dc96b5aa875243c200fca6b\",\n        \"name\": \"hjdfjh\",\n        \"play_time\": 120,\n        \"createdAt\": \"2019-11-11T14:08:26.784Z\",\n        \"updatedAt\": \"2019-11-11T14:08:26.785Z\",\n        \"pictures\": [],\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5dd16d7c7d6ca14f6abf974c\",\n        \"name\": \"huiop\",\n        \"created_by\": \"testid\",\n        \"createdAt\": \"2019-11-17T15:55:40.774Z\",\n        \"updatedAt\": \"2019-11-17T15:55:40.793Z\",\n        \"pictures\": [],\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"5dd16d9df340254fd6f3821a\",\n        \"name\": \"jhgfsdk\",\n        \"created_by\": \"testid\",\n        \"createdAt\": \"2019-11-17T15:56:13.055Z\",\n        \"updatedAt\": \"2019-11-17T15:56:13.059Z\",\n        \"pictures\": [],\n        \"__v\": 0\n    }\n]",
+          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10&gt;; rel=\"first prev\"\n\n[\n    {\n        \"_id\": \"5dc96a7ba875243c200fca6a\",\n        \"name\": \"Alfred Dupont\",\n        \"createdAt\": \"2019-11-11T14:04:43.934Z\",\n        \"updatedAt\": \"2019-11-11T14:04:43.935Z\",\n        \"pictures\": [],\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9d46c1482b9fd4ce158\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9d46c1482b9fd4ce159\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:20.004Z\",\n        \"updatedAt\": \"2019-11-13T10:24:20.018Z\",\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9df6c1482b9fd4ce15a\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9df6c1482b9fd4ce15b\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:31.280Z\",\n        \"updatedAt\": \"2019-11-13T10:24:31.291Z\",\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 8\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dc973c11371a342718d2ab0\",\n        \"name\": \"Uno 2\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dc973c11371a342718d2ab1\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n        \"updatedAt\": \"2019-11-17T14:50:32.724Z\",\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"_id\": \"5dc96b5aa875243c200fca6b\",\n        \"name\": \"hjdfjh\",\n        \"play_time\": 120,\n        \"createdAt\": \"2019-11-11T14:08:26.784Z\",\n        \"updatedAt\": \"2019-11-11T14:08:26.785Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"_id\": \"5dd16d7c7d6ca14f6abf974c\",\n        \"name\": \"huiop\",\n        \"created_by\": \"testid\",\n        \"createdAt\": \"2019-11-17T15:55:40.774Z\",\n        \"updatedAt\": \"2019-11-17T15:55:40.793Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"_id\": \"5dd16d9df340254fd6f3821a\",\n        \"name\": \"jhgfsdk\",\n        \"created_by\": \"testid\",\n        \"createdAt\": \"2019-11-17T15:56:13.055Z\",\n        \"updatedAt\": \"2019-11-17T15:56:13.059Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    }\n]",
           "type": "json"
         }
       ],
@@ -810,6 +1059,111 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>The name of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "nb_players",
+            "description": "<p>Nb player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.min",
+            "description": "<p>min player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.max",
+            "description": "<p>max player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "play_time",
+            "description": "<p>Play time of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "setup_time",
+            "description": "<p>setup time of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "age",
+            "description": "<p>Age proposal for play the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "age.min",
+            "description": "<p>min age of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "age.max",
+            "description": "<p>max age of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "pictures",
+            "description": "<p>Array of pictures of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.link",
+            "description": "<p>Link of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.name",
+            "description": "<p>name of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.date",
+            "description": "<p>date of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "editor",
+            "description": "<p>Editor of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "editor.id",
+            "description": "<p>Id editor of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "editor.name",
+            "description": "<p>Id editor of the game</p>"
           }
         ]
       }
@@ -855,6 +1209,111 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>The name of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "nb_players",
+            "description": "<p>Nb player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.min",
+            "description": "<p>min player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_players.max",
+            "description": "<p>max player of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "play_time",
+            "description": "<p>Play time of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "setup_time",
+            "description": "<p>setup time of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "age",
+            "description": "<p>Age proposal for play the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "age.min",
+            "description": "<p>min age of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "age.max",
+            "description": "<p>max age of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "pictures",
+            "description": "<p>Array of pictures of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.link",
+            "description": "<p>Link of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.name",
+            "description": "<p>name of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "pictures.date",
+            "description": "<p>date of the picture</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "editor",
+            "description": "<p>Editor of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Number",
+            "optional": false,
+            "field": "editor.id",
+            "description": "<p>Id editor of the game</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "editor.name",
+            "description": "<p>Id editor of the game</p>"
           }
         ]
       }
@@ -884,19 +1343,26 @@ define({ "api": [
           },
           {
             "group": "Request body",
-            "type": "String",
-            "size": "3..50",
+            "type": "Object",
             "optional": false,
-            "field": "nb_players.min",
-            "description": "<p>Link of the game</p>"
+            "field": "nb_players",
+            "description": "<p>Nb player of the game</p>"
           },
           {
             "group": "Request body",
-            "type": "String",
+            "type": "Number",
+            "size": "3..50",
+            "optional": false,
+            "field": "nb_players.min",
+            "description": "<p>min player of the game</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "Number",
             "size": "3..50",
             "optional": false,
             "field": "nb_players.max",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>max player of the game</p>"
           },
           {
             "group": "Request body",
@@ -904,7 +1370,7 @@ define({ "api": [
             "size": "3..50",
             "optional": false,
             "field": "play_time",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>Play time of the game</p>"
           },
           {
             "group": "Request body",
@@ -912,7 +1378,7 @@ define({ "api": [
             "size": "3..50",
             "optional": false,
             "field": "setup_time",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>setup time of the game</p>"
           },
           {
             "group": "Request body",
@@ -927,7 +1393,7 @@ define({ "api": [
             "size": "1..2",
             "optional": false,
             "field": "age.min",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>min age of the game</p>"
           },
           {
             "group": "Request body",
@@ -935,7 +1401,7 @@ define({ "api": [
             "size": "1..3",
             "optional": false,
             "field": "age.max",
-            "description": "<p>Link of the game</p>"
+            "description": "<p>max age of the game</p>"
           },
           {
             "group": "Request body",
@@ -985,7 +1451,7 @@ define({ "api": [
           {
             "group": "Request body",
             "type": "String",
-            "size": "3..30}",
+            "size": "3..30",
             "optional": false,
             "field": "editor.name",
             "description": "<p>Id editor of the game</p>"
@@ -1025,6 +1491,107 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "get",
+    "url": "/users/:idUser/nbrGames",
+    "title": "Get a number of game created from a user",
+    "name": "getNbrGame",
+    "group": "Game",
+    "description": "<p>Get nbr game from a user.</p>",
+    "examples": [
+      {
+        "title": "Example",
+        "content": "GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/nbrGames HTTP/1.1",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "200 OK",
+          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/nbrGames\n\n\"The users has created: 3 games\"",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Response body": [
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>The username of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>The date creation of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>The date update of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Array",
+            "optional": false,
+            "field": "collections",
+            "description": "<p>The collection of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "__v",
+            "description": "<p>The version of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "Object",
+            "optional": false,
+            "field": "personal_info",
+            "description": "<p>Personal informations of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "personal_info.firstname",
+            "description": "<p>The firstname of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "personal_info.lastname",
+            "description": "<p>The lastname of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "personal_info.email",
+            "description": "<p>The email of the user</p>"
+          },
+          {
+            "group": "Response body",
+            "type": "String",
+            "optional": false,
+            "field": "personal_info.password",
+            "description": "<p>The password of the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Game"
   },
   {
     "type": "post",
@@ -1513,7 +2080,7 @@ define({ "api": [
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\nLink: https://archioweb-gameboardapi.herokuapp.com/games\n\n[\n  {\n    \"personal_info\": {\n        \"firstname\": \"Adrien\",\n        \"lastname\": \"Chapy\",\n        \"email\": \"chapy@mail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e2756de3a3feca9be58\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e2756de3a3feca9be59\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:23.014Z\",\n    \"updatedAt\": \"2019-11-11T14:20:23.326Z\",\n    \"__v\": 0\n},\n  {\n    \"personal_info\": {\n        \"firstname\": \"Bob\",\n        \"lastname\": \"Robert\",\n        \"email\": \"Robert@gmail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e39669be23ffb3a4269\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e39669be23ffb3a426a\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:41.385Z\",\n    \"updatedAt\": \"2019-11-11T14:20:41.391Z\",\n    \"__v\": 0\n}\n]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\nLink: https://archioweb-gameboardapi.herokuapp.com/games\n\n[\n  {\n    \"personal_info\": {\n        \"firstname\": \"Adrien\",\n        \"lastname\": \"Chapy\",\n        \"email\": \"chapy@mail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e2756de3a3feca9be58\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e2756de3a3feca9be59\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:23.014Z\",\n    \"updatedAt\": \"2019-11-11T14:20:23.326Z\",\n    \"__v\": 0,\n    \"created_by\": \"5dc974f01371a342718d2ab2\"\n},\n  {\n    \"personal_info\": {\n        \"firstname\": \"Bob\",\n        \"lastname\": \"Robert\",\n        \"email\": \"Robert@gmail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e39669be23ffb3a4269\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e39669be23ffb3a426a\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:41.385Z\",\n    \"updatedAt\": \"2019-11-11T14:20:41.391Z\",\n    \"__v\": 0,\n    \"created_by\": \"5dc974f01371a342718d2ab2\"\n}\n]",
           "type": "json"
         }
       ],

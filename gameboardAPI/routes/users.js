@@ -50,7 +50,8 @@ const saltRounds = 10;
         ],
         "createdAt": "2019-11-11T14:20:23.014Z",
         "updatedAt": "2019-11-11T14:20:23.326Z",
-        "__v": 0
+        "__v": 0,
+        "created_by": "5dc974f01371a342718d2ab2"
     },
  *       {
         "personal_info": {
@@ -71,7 +72,8 @@ const saltRounds = 10;
         ],
         "createdAt": "2019-11-11T14:20:41.385Z",
         "updatedAt": "2019-11-11T14:20:41.391Z",
-        "__v": 0
+        "__v": 0,
+        "created_by": "5dc974f01371a342718d2ab2"
     }
  *     ]
  */
@@ -111,7 +113,7 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
  * @apiParam (URL query parameters) {Number} [pageSize] The number of elements to retrieve in one page (defaults to 100)
  *
  * @apiExample Example
- *     GET /games?page=1&pageSize=10 HTTP/1.1
+ *     GET https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10 HTTP/1.1
  *
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
@@ -125,6 +127,7 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "createdAt": "2019-11-11T14:04:43.934Z",
         "updatedAt": "2019-11-11T14:04:43.935Z",
         "pictures": [],
+        "createdBy":"5dc96a7ba832243c200fca6a",
         "__v": 0
     },
     {
@@ -152,6 +155,7 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "category": "hasard",
         "createdAt": "2019-11-13T10:24:20.004Z",
         "updatedAt": "2019-11-13T10:24:20.018Z",
+        "createdBy":"5dc96a7ba832243c200fca6a",
         "__v": 0
     },
     {
@@ -179,6 +183,7 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "category": "hasard",
         "createdAt": "2019-11-13T10:24:31.280Z",
         "updatedAt": "2019-11-13T10:24:31.291Z",
+        "createdBy":"5dc96a7ba832243c200fca6a",
         "__v": 0
     },
     {
@@ -220,7 +225,8 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "createdAt": "2019-11-11T14:08:26.784Z",
         "updatedAt": "2019-11-11T14:08:26.785Z",
         "pictures": [],
-        "__v": 0
+        "__v": 0,
+        "created_by": "5dc974f01371a342718d2ab2"
     },
     {
         "_id": "5dd16d7c7d6ca14f6abf974c",
@@ -229,7 +235,8 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "createdAt": "2019-11-17T15:55:40.774Z",
         "updatedAt": "2019-11-17T15:55:40.793Z",
         "pictures": [],
-        "__v": 0
+        "__v": 0,
+        "created_by": "5dc974f01371a342718d2ab2"
     },
     {
         "_id": "5dd16d9df340254fd6f3821a",
@@ -238,7 +245,8 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "createdAt": "2019-11-17T15:56:13.055Z",
         "updatedAt": "2019-11-17T15:56:13.059Z",
         "pictures": [],
-        "__v": 0
+        "__v": 0,
+        "created_by": "5dc974f01371a342718d2ab2"
     }
 ]
  */
@@ -307,15 +315,87 @@ router.get('/games/difficulty/:level', utils.requireJson, function(req, res, nex
 router.get('/games/:idGame', games_controller.game_get_info, function(req, res, next) {
     res.send(req.game);
 });
-
+/**
+ * @api {get} /users/:idUser/collections Get list of collection from a user
+ * @apiName RetrieveCollection
+ * @apiGroup Collection
+ * @apiDescription Retrieves  list of collection from a user.
+ *
+ * @apiUse CollectionInResponseBody
+ *
+ * @apiExample Example
+ *     GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections HTTP/1.1
+ *
+ * @apiSuccessExample 200 OK
+ *     HTTP/1.1 200 OK
+ *     Content-Type: application/json
+ *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections
+ *
+[
+    {
+        "games": [{"id":"5dcbd9d46c1482b9fd4ce158"},{"id":"5dcbd9df6c1482b9fd4ce15a"}],
+        "_id": "5dc96e39669be23ffb3a426a",
+        "name": "Collection",
+        "link": "url"
+    },
+{
+        "games": [{"id":"5dcbd9d46c1482b9fd4ce158"},{"id":"5dcbd9df6c1482b9fd4ce15a"}],
+        "_id": "5dc96e39669be23ffb3a426a",
+        "name": "Collection2",
+        "link": "url"
+    }
+]
+ */
 router.get('/users/:idUser/collections', users_controller.user_get_collectionsList, function(req, res, next) {
     res.send(req.collections);
 });
-
+/**
+ * @api {get} /users/:idUser/collections/:idCollection Get a collection from a user
+ * @apiName RetrieveCollection
+ * @apiGroup Collection
+ * @apiDescription Retrieves  a collection from a user.
+ *
+ * @apiUse CollectionInResponseBody
+ *
+ * @apiExample Example
+ *     GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96e39669be23ffb3a426a HTTP/1.1
+ *
+ * @apiSuccessExample 200 OK
+ *     HTTP/1.1 200 OK
+ *     Content-Type: application/json
+ *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96e39669be23ffb3a426a
+ *
+[
+    {
+        "games": [{"id":"5dcbd9d46c1482b9fd4ce158"},{"id":"5dcbd9df6c1482b9fd4ce15a"}],
+        "_id": "5dc96e39669be23ffb3a426a",
+        "name": "Collection",
+        "link": "url"
+    }
+]
+ */
 router.get('/users/:idUser/collections/:idCollection', users_controller.user_get_collection, function(req, res, next) {
     res.send(req.collection);
 });
 
+/**
+ * @api {get} /users/:idUser/nbrGames Get a number of game created from a user
+ * @apiName getNbrGame
+ * @apiGroup Game
+ * @apiDescription Get nbr game from a user.
+ *
+ * @apiUse UserInResponseBody
+ *
+ * @apiExample Example
+ *     GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/nbrGames HTTP/1.1
+ *
+ * @apiSuccessExample 200 OK
+ *     HTTP/1.1 200 OK
+ *     Content-Type: application/json
+ *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/nbrGames
+ *
+"The users has created: 3 games"
+ */
 router.get('/users/:idUser/nbrGames', async function(req, res, next) {
     const userId = req.params.idUser;
     let gamesByUser = await Game.aggregate([{
@@ -323,7 +403,24 @@ router.get('/users/:idUser/nbrGames', async function(req, res, next) {
     }]);
     return res.json('The users has created: ' + gamesByUser.length + ' games');
 });
-
+/**
+ * @api {get} /users/:idUser/collections/:idCollection/games Get game from a user collection
+ * @apiName getGameFromCollection
+ * @apiGroup Collection
+ * @apiDescription Get game from a collection.
+ *
+ * @apiUse CollectionInResponseBody
+ *
+ * @apiExample Example
+ *     GET https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96b5aa875243c200fca6b/games HTTP/1.1
+ *
+ * @apiSuccessExample 200 OK
+ *     HTTP/1.1 200 OK
+ *     Content-Type: application/json
+ *     Link: &lt;https://archioweb-gameboardapi.herokuapp.com/users/5dc96b5aa875243c200fca6b/collections/5dc96b5aa875243c200fca6b/games
+ *
+[{"id":"5dcbd9d46c1482b9fd4ce158"},{"id":"5dcbd9df6c1482b9fd4ce15a"}]
+ */
 router.get('/users/:idUser/collections/:idCollection/games', users_controller.user_get_collectionGames, function(
     req,
     res,
@@ -559,23 +656,23 @@ router.post('/users', utils.requireJson, function(req, res, next) {
              * @apiExample Example
              *     POST /games HTTP/1.1
              *     Content-Type: application/json
-             *      {
-                "name": "Uno",
-                "nb_players.min": 2,
-                "nb_players.max": 8,
-                "play_time": 120,
-                "setup_time":5,
-                "age.min":8,
-                "age.max":99,
-                "pictures":[{
-                    "link":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG",
-                    "name":"masuperphoto",
-                    "date": "11.11.2019"
+             *{
+            "name": "Uno",
+            "nb_players.min": 2,
+            "nb_players.max": 8,
+            "play_time": 120,
+            "setup_time":5,
+            "age.min":8,
+            "age.max":99,
+            "pictures":[{
+                "link":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG",
+                "name":"masuperphoto",
+                "date": "11.11.2019"
                 }],
-                "editor.id":"5da47887fe0c041bc418df12",
-            "editor.name":"Mattel",
-                "difficulty":"easy",
-                    "category":"hasard"
+               "editor.id":"5da47887fe0c041bc418df12",
+               "editor.name":"Mattel",
+               "difficulty":"easy",
+               "category":"hasard"
             }
              *
              * @apiSuccessExample 201 Created
@@ -608,6 +705,7 @@ router.post('/users', utils.requireJson, function(req, res, next) {
                 "category": "hasard",
                 "createdAt": "2019-11-11T14:44:17.738Z",
                 "updatedAt": "2019-11-11T14:44:17.743Z",
+                "createdBy":"5dc973c23371a342718d2ab1",
                 "__v": 0
             }
              */
@@ -762,7 +860,7 @@ router.patch('/games/:idGame', utils.requireJson, loadGameFromParamsMiddleware, 
 
 
 /**
- * @api {patch} /users/:idUser/collections/:idCollection/:id Update a collection
+ * @api {patch} /users/:idUser/collections/:idCollection Update a collection
  * @apiName UpdateCollection
  * @apiGroup Collection
  * @apiDescription Updates a collection's data (only the properties found in the request body will be updated).
@@ -1041,7 +1139,6 @@ function collectionNotFound(res, collectionId) {
 /**
  * @apiDefine CollectionInRequestBody
  * @apiParam (Request body) {String{3..50}} name The name of the collection
- * @apiParam (Request body) {String{3..50}} link Link of the collection
  */
 
 /**
@@ -1074,26 +1171,42 @@ function collectionNotFound(res, collectionId) {
 /**
  * @apiDefine GameInRequestBody
  * @apiParam (Request body) {String{3..50}} name The name of the game
- * @apiParam (Request body) {String{3..50}} nb_players.min Link of the game
- * @apiParam (Request body) {String{3..50}} nb_players.max Link of the game
- * @apiParam (Request body) {String{3..50}} play_time Link of the game
- * @apiParam (Request body) {String{3..50}} setup_time Link of the game
+ * @apiParam (Request body) {Object} nb_players Nb player of the game
+ * @apiParam (Request body) {Number{3..50}} nb_players.min min player of the game
+ * @apiParam (Request body) {Number{3..50}} nb_players.max max player of the game
+ * @apiParam (Request body) {String{3..50}} play_time Play time of the game
+ * @apiParam (Request body) {String{3..50}} setup_time setup time of the game
  * @apiParam (Request body) {Object} age Age proposal for play the game
- * @apiParam (Request body) {Number{1..2}} age.min Link of the game
- * @apiParam (Request body) {Number{1..3}} age.max Link of the game
+ * @apiParam (Request body) {Number{1..2}} age.min min age of the game
+ * @apiParam (Request body) {Number{1..3}} age.max max age of the game
  * @apiParam (Request body) {Array} pictures Array of pictures of the game
  * @apiParam (Request body) {String{3..50}} pictures.link Link of the picture
  * @apiParam (Request body) {String{3..50}} pictures.name name of the picture
  * @apiParam (Request body) {String{3..12}} pictures.date date of the picture
  * @apiParam (Request body) {Array} editor Editor of the game
  * @apiParam (Request body) {Number} editor.id Id editor of the game
- * @apiParam (Request body) {String{3..30}}} editor.name Id editor of the game
+ * @apiParam (Request body) {String{3..30}} editor.name Id editor of the game
  */
 
 /**
  * @apiDefine GameInResponseBody
  * @apiSuccess (Response body) {Number} id The unique identifier of the game
  * @apiSuccess (Response body) {String} name The name of the game
+ * @apiSuccess (Response body) {Object} nb_players Nb player of the game
+ * @apiSuccess (Response body) {Number} nb_players.min min player of the game
+ * @apiSuccess (Response body) {Number} nb_players.max max player of the game
+ * @apiSuccess (Response body) {String} play_time Play time of the game
+ * @apiSuccess (Response body) {String} setup_time setup time of the game
+ * @apiSuccess (Response body) {Object} age Age proposal for play the game
+ * @apiSuccess (Response body) {Number} age.min min age of the game
+ * @apiSuccess (Response body) {Number} age.max max age of the game
+ * @apiSuccess (Response body) {Array} pictures Array of pictures of the game
+ * @apiSuccess (Response body) {String} pictures.link Link of the picture
+ * @apiSuccess (Response body) {String} pictures.name name of the picture
+ * @apiSuccess (Response body) {String} pictures.date date of the picture
+ * @apiSuccess (Response body) {Array} editor Editor of the game
+ * @apiSuccess (Response body) {Number} editor.id Id editor of the game
+ * @apiSuccess (Response body) {String} editor.name Id editor of the game
  */
 
 
