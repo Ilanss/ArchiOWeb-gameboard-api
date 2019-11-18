@@ -66,18 +66,18 @@ Send an e-mail  _no later than  **November 18th 2019**_  to Simon Oulevay with:
 | Get methodes User(Users, UserId, aggregation nbrGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Get methodes Game (Games, GamesId, filter Difficulty, Pagination) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Get methodes Collection(idUsers, idCollection, ListGames) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| Post methodes Game(addGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|checkUserId|
+| Post methodes Game(addGame) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Post methodes Collection(addCollection) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|generate Slug|
-| Post methodes Log in to the API | 🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️ |checkemail|
+| Post methodes Log in to the API | 🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Post methodes Create a user |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|checkemail uniqueness|
 | Patch methodes User(idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️|email obligatory|
 | Patch methodes Game(idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|fields to be completed|
 | Patch methodes Collection(idCollecton) |🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️⚪️|check idCollection...|
 | Delete methodes user (idUser) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵🔵🔵⚪️⚪️|check createdBy|
+| Delete methodes game (idGame) |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Delete methodes collection (idCollection)|🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️⚪️|check token|
 | Websocket Backend |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
-| APIDoc of the API |🔵🔵🔵🔵🔵🔵🔵⚪️⚪️⚪️||
+| APIDoc of the API |🔵🔵🔵🔵🔵🔵🔵🔵🔵⚪️||
 | Minimal Tests |🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵||
 | Advanced Tests |🔵🔵⚪️⚪️⚪️⚪️⚪️⚪️⚪️⚪️||
 
