@@ -1054,7 +1054,7 @@ define({ "api": [
       "examples": [
         {
           "title": "200 OK",
-          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10&gt;; rel=\"first prev\"\n\n[\n    {\n        \"_id\": \"5dc96a7ba875243c200fca6a\",\n        \"name\": \"Shabadabada\",\n        \"createdAt\": \"2019-11-11T14:04:43.934Z\",\n        \"updatedAt\": \"2019-11-11T14:04:43.935Z\",\n        \"pictures\": [],\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9d46c1482b9fd4ce158\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9d46c1482b9fd4ce159\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:20.004Z\",\n        \"updatedAt\": \"2019-11-13T10:24:20.018Z\",\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9df6c1482b9fd4ce15a\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9df6c1482b9fd4ce15b\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:31.280Z\",\n        \"updatedAt\": \"2019-11-13T10:24:31.291Z\",\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 8\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dc973c11371a342718d2ab0\",\n        \"name\": \"Uno 2\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dc973c11371a342718d2ab1\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n        \"updatedAt\": \"2019-11-17T14:50:32.724Z\",\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"_id\": \"5dc96b5aa875243c200fca6b\",\n        \"name\": \"Fantasy\",\n        \"play_time\": 120,\n        \"createdAt\": \"2019-11-11T14:08:26.784Z\",\n        \"updatedAt\": \"2019-11-11T14:08:26.785Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"_id\": \"5dd16d7c7d6ca14f6abf974c\",\n        \"name\": \"Happy hour\",\n        \"created_by\": \"testid\",\n        \"createdAt\": \"2019-11-17T15:55:40.774Z\",\n        \"updatedAt\": \"2019-11-17T15:55:40.793Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"_id\": \"5dd16d9df340254fd6f3821a\",\n        \"name\": \"MotDingo\",\n        \"created_by\": \"testid\",\n        \"createdAt\": \"2019-11-17T15:56:13.055Z\",\n        \"updatedAt\": \"2019-11-17T15:56:13.059Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"created_by\": \"5dc974f01371a342718d2ab2\"\n    }\n]",
+          "content": "    HTTP/1.1 200 OK\n    Content-Type: application/json\n    Link: &lt;https://archioweb-gameboardapi.herokuapp.com/games?page=1&pageSize=10&gt;; rel=\"first prev\"\n\n[\n    {\n        \"_id\": \"5dc96a7ba875243c200fca6a\",\n        \"name\": \"Shabadabada\",\n        \"createdAt\": \"2019-11-11T14:04:43.934Z\",\n        \"updatedAt\": \"2019-11-11T14:04:43.935Z\",\n        \"pictures\": [],\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9d46c1482b9fd4ce158\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9d46c1482b9fd4ce159\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:20.004Z\",\n        \"updatedAt\": \"2019-11-13T10:24:20.018Z\",\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dcbd9df6c1482b9fd4ce15a\",\n        \"name\": \"Uno\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dcbd9df6c1482b9fd4ce15b\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-13T10:24:31.280Z\",\n        \"updatedAt\": \"2019-11-13T10:24:31.291Z\",\n        \"createdBy\":\"5dc96a7ba832243c200fca6a\",\n        \"__v\": 0\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 8\n        },\n        \"age\": {\n            \"min\": 8,\n            \"max\": 99\n        },\n        \"_id\": \"5dc973c11371a342718d2ab0\",\n        \"name\": \"Uno 2\",\n        \"play_time\": 120,\n        \"setup_time\": 5,\n        \"pictures\": [\n            {\n                \"_id\": \"5dc973c11371a342718d2ab1\",\n                \"link\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Baraja_de_UNO.JPG/440px-Baraja_de_UNO.JPG\",\n                \"name\": \"masuperphoto\",\n                \"date\": \"2019-11-10T23:00:00.000Z\"\n            }\n        ],\n        \"difficulty\": \"easy\",\n        \"category\": \"hasard\",\n        \"createdAt\": \"2019-11-11T14:44:17.738Z\",\n        \"updatedAt\": \"2019-11-17T14:50:32.724Z\",\n        \"__v\": 0,\n        \"createdBy\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"nb_players\": {\n            \"min\": 2,\n            \"max\": 3\n        },\n        \"_id\": \"5dc96b5aa875243c200fca6b\",\n        \"name\": \"Fantasy\",\n        \"play_time\": 120,\n        \"createdAt\": \"2019-11-11T14:08:26.784Z\",\n        \"updatedAt\": \"2019-11-11T14:08:26.785Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"createdBy\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"_id\": \"5dd16d7c7d6ca14f6abf974c\",\n        \"name\": \"Happy hour\",\n        \"createdAt\": \"2019-11-17T15:55:40.774Z\",\n        \"updatedAt\": \"2019-11-17T15:55:40.793Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"createdBy\": \"5dc974f01371a342718d2ab2\"\n    },\n    {\n        \"_id\": \"5dd16d9df340254fd6f3821a\",\n        \"name\": \"MotDingo\",\n        \"createdAt\": \"2019-11-17T15:56:13.055Z\",\n        \"updatedAt\": \"2019-11-17T15:56:13.059Z\",\n        \"pictures\": [],\n        \"__v\": 0,\n        \"createdBy\": \"5dc974f01371a342718d2ab2\"\n    }\n]",
           "type": "json"
         }
       ],
@@ -1858,6 +1858,29 @@ define({ "api": [
           },
           {
             "group": "Request body",
+            "type": "Object",
+            "optional": false,
+            "field": "personal_info",
+            "description": "<p>The personal info of the user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "firstname",
+            "size": "3-20",
+            "optional": false,
+            "field": "personal_info.firstname",
+            "description": "<p>The firstname of the user</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "lastname",
+            "size": "3-20",
+            "optional": false,
+            "field": "personal_info.lastname",
+            "description": "<p>The lastname of the user</p>"
+          },
+          {
+            "group": "Request body",
             "type": "email",
             "optional": false,
             "field": "email",
@@ -1878,9 +1901,9 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "object[]",
+            "type": "Object",
             "optional": false,
-            "field": "username",
+            "field": "user",
             "description": "<p>The newly created user</p>"
           }
         ]
@@ -1934,7 +1957,7 @@ define({ "api": [
       "examples": [
         {
           "title": "200 OK",
-          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\nLink: https://archioweb-gameboardapi.herokuapp.com/games\n\n[\n  {\n    \"personal_info\": {\n        \"firstname\": \"Adrien\",\n        \"lastname\": \"Chapy\",\n        \"email\": \"chapy@mail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e2756de3a3feca9be58\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e2756de3a3feca9be59\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:23.014Z\",\n    \"updatedAt\": \"2019-11-11T14:20:23.326Z\",\n    \"__v\": 0,\n    \"created_by\": \"5dc974f01371a342718d2ab2\"\n},\n  {\n    \"personal_info\": {\n        \"firstname\": \"Bob\",\n        \"lastname\": \"Robert\",\n        \"email\": \"Robert@gmail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e39669be23ffb3a4269\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e39669be23ffb3a426a\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:41.385Z\",\n    \"updatedAt\": \"2019-11-11T14:20:41.391Z\",\n    \"__v\": 0,\n    \"created_by\": \"5dc974f01371a342718d2ab2\"\n}\n]",
+          "content": "HTTP/1.1 200 OK\nContent-Type: application/json\nLink: https://archioweb-gameboardapi.herokuapp.com/users\n\n[\n  {\n    \"personal_info\": {\n        \"firstname\": \"Adrien\",\n        \"lastname\": \"Chapy\",\n        \"email\": \"chapy@mail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e2756de3a3feca9be58\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e2756de3a3feca9be59\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:23.014Z\",\n    \"updatedAt\": \"2019-11-11T14:20:23.326Z\",\n    \"__v\": 0\n},\n  {\n    \"personal_info\": {\n        \"firstname\": \"Bob\",\n        \"lastname\": \"Robert\",\n        \"email\": \"Robert@gmail.com\",\n        \"password\": \"dfsghj4\"\n    },\n    \"_id\": \"5dc96e39669be23ffb3a4269\",\n    \"username\": \"dfjhjhd\",\n    \"collections\": [\n        {\n            \"games\": [],\n            \"_id\": \"5dc96e39669be23ffb3a426a\",\n            \"name\": \"Collection\",\n            \"link\": \"url\"\n        }\n    ],\n    \"createdAt\": \"2019-11-11T14:20:41.385Z\",\n    \"updatedAt\": \"2019-11-11T14:20:41.391Z\",\n    \"__v\": 0\n}\n]",
           "type": "json"
         }
       ],
@@ -2166,7 +2189,7 @@ define({ "api": [
             "size": "3..50",
             "optional": false,
             "field": "personal_info.email",
-            "description": "<p>Link of the user</p>"
+            "description": "<p>Email of the user</p>"
           },
           {
             "group": "Request body",
@@ -2174,7 +2197,7 @@ define({ "api": [
             "size": "3..50",
             "optional": false,
             "field": "personal_info.password",
-            "description": "<p>Link of the user</p>"
+            "description": "<p>Password of the user</p>"
           }
         ]
       }

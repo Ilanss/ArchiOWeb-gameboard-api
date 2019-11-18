@@ -28,7 +28,7 @@ const saltRounds = 10;
  * @apiSuccessExample 200 OK
  *     HTTP/1.1 200 OK
  *     Content-Type: application/json
- *     Link: https://archioweb-gameboardapi.herokuapp.com/games
+ *     Link: https://archioweb-gameboardapi.herokuapp.com/users
  *
  *     [
  *       {
@@ -50,8 +50,7 @@ const saltRounds = 10;
         ],
         "createdAt": "2019-11-11T14:20:23.014Z",
         "updatedAt": "2019-11-11T14:20:23.326Z",
-        "__v": 0,
-        "created_by": "5dc974f01371a342718d2ab2"
+        "__v": 0
     },
  *       {
         "personal_info": {
@@ -72,8 +71,7 @@ const saltRounds = 10;
         ],
         "createdAt": "2019-11-11T14:20:41.385Z",
         "updatedAt": "2019-11-11T14:20:41.391Z",
-        "__v": 0,
-        "created_by": "5dc974f01371a342718d2ab2"
+        "__v": 0
     }
  *     ]
  */
@@ -212,7 +210,7 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "createdAt": "2019-11-11T14:44:17.738Z",
         "updatedAt": "2019-11-17T14:50:32.724Z",
         "__v": 0,
-        "created_by": "5dc974f01371a342718d2ab2"
+        "createdBy": "5dc974f01371a342718d2ab2"
     },
     {
         "nb_players": {
@@ -226,27 +224,25 @@ router.get('/users/:idUser', users_controller.user_get_info, function(req, res, 
         "updatedAt": "2019-11-11T14:08:26.785Z",
         "pictures": [],
         "__v": 0,
-        "created_by": "5dc974f01371a342718d2ab2"
+        "createdBy": "5dc974f01371a342718d2ab2"
     },
     {
         "_id": "5dd16d7c7d6ca14f6abf974c",
         "name": "Happy hour",
-        "created_by": "testid",
         "createdAt": "2019-11-17T15:55:40.774Z",
         "updatedAt": "2019-11-17T15:55:40.793Z",
         "pictures": [],
         "__v": 0,
-        "created_by": "5dc974f01371a342718d2ab2"
+        "createdBy": "5dc974f01371a342718d2ab2"
     },
     {
         "_id": "5dd16d9df340254fd6f3821a",
         "name": "MotDingo",
-        "created_by": "testid",
         "createdAt": "2019-11-17T15:56:13.055Z",
         "updatedAt": "2019-11-17T15:56:13.059Z",
         "pictures": [],
         "__v": 0,
-        "created_by": "5dc974f01371a342718d2ab2"
+        "createdBy": "5dc974f01371a342718d2ab2"
     }
 ]
  */
@@ -441,10 +437,13 @@ router.get('/users/:idUser/collections/:idCollection/games', users_controller.us
  * @apiName Register
  * @apiGroup User
  * @apiParam (Request body) {username {3-20}} username Username of the new user
+ * @apiParam (Request body) {Object} personal_info The personal info of the user
+ * @apiParam (Request body) {firstname {3-20}} personal_info.firstname The firstname of the user
+ * @apiParam (Request body) {lastname {3-20}} personal_info.lastname The lastname of the user
  * @apiParam (Request body) {email} email Email of the new user
  * @apiParam (Request body) {string} password Password of the new user
  *
- * @apiSuccess {object[]} username  The newly created user
+ * @apiSuccess {Object} user  The newly created user
  * @apiExample Example
              *     POST /users HTTP/1.1
              *     Content-Type: application/json
@@ -1203,8 +1202,8 @@ function collectionNotFound(res, collectionId) {
  * @apiParam (Request body) {Object}personal_info Personal informations of the user
  * @apiParam (Request body) {String{2..50}} personal_info.firstname Firstname of the user
  * @apiParam (Request body) {String{2..50}} personal_info.lastname Lastname of the user
- * @apiParam (Request body) {String{3..50}} personal_info.email Link of the user
- * @apiParam (Request body) {String{3..50}} personal_info.password Link of the user
+ * @apiParam (Request body) {String{3..50}} personal_info.email Email of the user
+ * @apiParam (Request body) {String{3..50}} personal_info.password Password of the user
  */
 
 /**
