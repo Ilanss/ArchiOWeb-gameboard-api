@@ -53,5 +53,12 @@ exports.authenticate = function(req, res, next) {
         return res.sendStatus(401);
     }
 
-    next();
+    jwt.verify(token, secretKey, function(err, payload) {
+        if (err) {
+            return res.status(401).send('Your token is invalid or has expired');
+        } else {
+            req.currentUserId = payload.sub;
+            next(); // Pass the ID of the authenticated user to the next middleware.
+        }
+    });
 };

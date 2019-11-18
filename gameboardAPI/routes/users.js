@@ -866,15 +866,15 @@ router.delete('/users/:idUser', loadUserFromParamsMiddleware, function(req, res,
             // Do not delete if any game is created by this person
             return res.status(409).type('text').send(`Cannot delete user ${req.person.name} because games are created by them`)
         }*/
+    req.user.remove(function(err) {
+        if (err) {
+            return next(err);
+        }
 
-        req.user.remove(function(err) {
-            if (err) {
-                return next(err);
-            }
+        //debug(`Deleted user "${req.user.name}"`);
+        res.sendStatus(204);
+    });
 
-            //debug(`Deleted user "${req.user.name}"`);
-            res.sendStatus(204);
-        });
     //});
 });
 
@@ -895,14 +895,16 @@ router.delete('/users/:idUser', loadUserFromParamsMiddleware, function(req, res,
  */
 router.delete('/games/:idGame', loadGameFromParamsMiddleware, function(req, res, next) {
 
-    req.game.remove(function(err) {
-        if (err) {
-            return next(err);
-        }
+    if(req.currentUserId = req.game.createdBy) {
+        req.game.remove(function (err) {
+            if (err) {
+                return next(err);
+            }
 
-        //debug(`Deleted user "${req.user.name}"`);
-        res.sendStatus(204);
-    });
+            //debug(`Deleted user "${req.user.name}"`);
+            res.sendStatus(204);
+        });
+    }
     //});
 });
 /**
